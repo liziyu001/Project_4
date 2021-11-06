@@ -34,11 +34,12 @@ addQuizInTerminal(Enter # of questions, enter the prompt, enter options 1-4, ent
 deleteQuiz
 editQuiz
 
+//MIRAS
 Quiz:
 fields:
 -name
 -Arraylist<Question>
-
+//MIRAS
 Question:
 fields:
 -prompt
