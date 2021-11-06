@@ -1,6 +1,8 @@
 account:
-fields
+fields:
 -username
 -password
--email
 -isStudent
+methods:
+getters,setters
+modifyAccount
