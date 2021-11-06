@@ -17,7 +17,8 @@ randomizeQuiz
 
 student extends account:
 methods:
-takeQuiz
+takeQuizInTerminal
+takeQuizViaFileUpload
 viewQuizResults
 
 Course:
@@ -25,7 +26,8 @@ fields:
 -name
 -Arraylist<Quiz>
 methods:
-addQuiz
+addQuizViaFileUpload
+addQuizInTerminal
 deleteQuiz
 editQuiz
 
