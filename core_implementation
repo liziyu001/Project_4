@@ -7,6 +7,19 @@ methods:
 getters,setters
 modifyAccount
 
+teacher extends account:
+methods:
+addCourse
+deleteCourse
+editCourse
+gradeQuiz
+randomizeQuiz
+
+student extends account:
+methods:
+takeQuiz
+viewQuizResults
+
 Course:
 fields:
 -name
