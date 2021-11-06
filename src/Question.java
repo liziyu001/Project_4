@@ -34,4 +34,8 @@ public class Question {
     public void setCorrectAnswer(int correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
+    // dont look at it
+    public  void something(){
+
+    }
 }
