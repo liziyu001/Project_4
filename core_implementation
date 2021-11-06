@@ -6,3 +6,12 @@ fields:
 methods:
 getters,setters
 modifyAccount
+
+Course(quizManager):
+fields:
+name
+Arraylist<Quiz>
+methods:
+addQuiz
+deleteQuiz
+editQuiz
