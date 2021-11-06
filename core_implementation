@@ -21,3 +21,6 @@ fields:
 -Arraylist<Question>
 
 Question:
+fields:
+-prompt
+-Arraylist<String> answers
