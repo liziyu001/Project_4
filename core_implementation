@@ -1,3 +1,4 @@
+// leo
 account:
 fields:
 -username
@@ -7,6 +8,7 @@ methods:
 getters,setters
 modifyAccount
 
+// leo
 teacher extends account:
 methods:
 addCourse
@@ -15,6 +17,7 @@ editCourse
 gradeQuiz
 randomizeQuiz
 
+// leo
 student extends account:
 methods:
 takeQuizInTerminal(display prompt + options 1-4, ask for answer(has to be valid int 1-4))
