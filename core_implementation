@@ -50,6 +50,7 @@ fields:
 //manas
 Manager:
 methods:
+login
 addAccount
 addCourse
 deleteAccount
