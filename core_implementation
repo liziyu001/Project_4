@@ -15,6 +15,7 @@ addCourse
 deleteCourse
 editCourse
 gradeQuiz
+//Ram
 randomizeQuiz
 
 // leo
@@ -34,19 +35,22 @@ addQuizInTerminal(Enter # of questions, enter the prompt, enter options 1-4, ent
 deleteQuiz
 editQuiz
 
+//MIRAS
 Quiz:
 fields:
 -name
 -Arraylist<Question>
-
+//MIRAS
 Question:
 fields:
 -prompt
 -Arraylist<String> answerChoices
 -int correctAnswer
 
-Manger:
+//manas
+Manager:
 methods:
+login
 addAccount
 addCourse
 deleteAccount
