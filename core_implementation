@@ -45,6 +45,7 @@ fields:
 -Arraylist<String> answerChoices
 -int correctAnswer
 
+//manas
 Manger:
 methods:
 addAccount
