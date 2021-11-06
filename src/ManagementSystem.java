@@ -30,10 +30,10 @@ public class ManagementSystem {
                         System.out.println("Your role: 1. Teacher   2. Student");
                         switch (s.nextLine()) {
                             case "1":
-                                //AccountManager.addAccount(Teacher(id, pwd));
+                                //Manager.addAccount(Teacher(id, pwd));
                                 break;
                             case "2":
-                                //AccountManager.addAccount(Student(id, pwd));
+                                //Manager.addAccount(Student(id, pwd));
                                 break;
                             default:
                                 System.out.println("Invalid choice");
@@ -47,7 +47,7 @@ public class ManagementSystem {
                     String id = s.nextLine();
                     System.out.println("Enter your Password:");
                     ans = s.nextLine();
-//                    if (checkAccount(id, ans)){
+//                    if (login(id, ans)){
 //                        System.out.println("Successfully logged in as " + id);
 //                    } else {
 //                        System.out.println("Invalid id or password");
