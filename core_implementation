@@ -38,7 +38,8 @@ fields:
 Question:
 fields:
 -prompt
--Arraylist<String> answers
+-Arraylist<String> answerChoices
+-int correctAnswer
 
 Manger:
 methods:
