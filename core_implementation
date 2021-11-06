@@ -37,3 +37,12 @@ Question:
 fields:
 -prompt
 -Arraylist<String> answers
+
+Manger:
+methods:
+addAccount
+addCourse
+deleteAccount
+editAccount
+readFile
+writeFile
