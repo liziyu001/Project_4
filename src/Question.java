@@ -36,6 +36,6 @@ public class Question {
     }
     // dont look at it
     public  void something(){
-
+      //ded
     }
 }
