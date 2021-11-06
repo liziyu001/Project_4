@@ -1,0 +1,6 @@
+account:
+fields
+-username
+-password
+-email
+-isStudent
