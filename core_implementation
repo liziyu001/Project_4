@@ -26,8 +26,8 @@ fields:
 -name
 -Arraylist<Quiz>
 methods:
-addQuizViaFileUpload
-addQuizInTerminal
+addQuizViaFileUpload(question prompt, options 1-4, correct answer choice(int))
+addQuizInTerminal(Enter # of questions, enter the prompt, enter options 1-4, enter correct answer choice(int))
 deleteQuiz
 editQuiz
 
