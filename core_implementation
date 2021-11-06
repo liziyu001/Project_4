@@ -7,11 +7,17 @@ methods:
 getters,setters
 modifyAccount
 
-Course(quizManager):
+Course:
 fields:
-name
-Arraylist<Quiz>
+-name
+-Arraylist<Quiz>
 methods:
 addQuiz
 deleteQuiz
 editQuiz
+
+Quiz:
+fields:
+-Arraylist<Question>
+
+Question:
