@@ -18,7 +18,7 @@ randomizeQuiz
 student extends account:
 methods:
 takeQuizInTerminal
-takeQuizViaFileUpload
+takeQuizViaFileUpload(1 int per line)
 viewQuizResults
 
 Course:
