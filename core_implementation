@@ -17,7 +17,7 @@ randomizeQuiz
 
 student extends account:
 methods:
-takeQuizInTerminal
+takeQuizInTerminal(display prompt + options 1-4, ask for answer(has to be valid int 1-4))
 takeQuizViaFileUpload(1 int per line)
 viewQuizResults
 
@@ -33,6 +33,7 @@ editQuiz
 
 Quiz:
 fields:
+-name
 -Arraylist<Question>
 
 Question:
