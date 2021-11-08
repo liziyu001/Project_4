@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Question {
-    String prompt;
-    ArrayList<String> answerChoices;
-    int correctAnswer;
+    private String prompt;
+    private ArrayList<String> answerChoices;
+    private int correctAnswer;
 
     public Question(String prompt, ArrayList<String> answerChoices, int correctAnswer) {
         this.prompt = prompt;
