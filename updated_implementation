@@ -1,0 +1,87 @@
+// leo
+account:
+fields:
+-username
+-password
+-isStudent
+methods:
+getters,setters
+modifyAccount
+
+// leo
+teacher extends account:
+methods:
+public Course createCourse (Scanner s);
+//Use scanner to ask for information, create a Course object based on these information and return.
+
+public Submission gradeSubmission (Scanner s, Submission sub);
+//return a graded submission
+
+public Quiz createQuizViaFileUpload(Scanner s);
+//question prompt, options 1-4, correct answer choice(int)
+//ask for the path and return a Quiz object based on the info
+
+public Quiz createQuizInTerminal(Scanner  s);
+
+public Quiz editQuiz(Quiz q, Scanner s);
+//Enter # of questions, enter the prompt, enter options 1-4, enter correct answer choice(int)
+
+//Ram
+randomizeQuiz
+
+// leo
+student extends account:
+methods:
+public Submission takeQuizInTerminal(Scanner s)
+//display prompt + options 1-4, ask for answer(has to be valid int 1-4)
+//ask for student's answers and create a Submission object
+
+public Submission takeQuizViaFileUpload(Scanner s)
+//1 int per line
+//ask for the file path
+
+public Submissions[] viewQuizResults(Student s, Course c); //return graded submissions belongs to course c and did by student s.
+getStudent(){return this;}
+
+Course:
+fields:
+-name
+-Arraylist<Quiz>
+methods:
+
+deleteQuiz
+editQuiz
+
+//MIRAS
+Quiz:
+fields:
+-name
+-Arraylist<Question>
+//MIRAS
+Question:
+fields:
+-prompt
+-Arraylist<String> answerChoices
+-int correctAnswer
+
+//manas
+Manager:
+methods:
+login
+addAccount
+addCourse
+deleteAccount
+editAccount
+readFile
+writeFile
+
+
+Submission:
+field:
+Quiz
+Student        //who take the quiz
+int[] answers
+int[] grades   //initialize with default, edit by teacher
+int totalgrades 
+boolean graded
+
