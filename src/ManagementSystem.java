@@ -6,22 +6,23 @@ public class ManagementSystem {
         Scanner s = new Scanner(System.in);
         System.out.println("Welcome to the System");
         String ans = "";
-        //Manager m = new Manager();     Initialize accounts and courses by reading the files
-        //Account currentAccount;
+        Manager m = new Manager();
+        Account currentAccount;
 
         login:
         while (true) {
             System.out.println("1. Create account");
             System.out.println("2. Login");
+            String id;
             switch (s.nextLine()) {
                 case "1":
                     while (true) {
                         System.out.println("Enter your User ID:");
-                        String id = s.nextLine();
-//                        if (!checkAvailability(id)) {        return true if the new id is unique among the account file
-//                            System.out.println("Invalid Username");
-//                            continue;
-//                        }
+                        id = s.nextLine();
+                        if (!Methods.checkAvailability(id)) {
+                            System.out.println("Invalid Username");
+                            continue;
+                        }
 
                         break;
                     }
@@ -32,12 +33,12 @@ public class ManagementSystem {
                         System.out.println("Your role: 1. Teacher   2. Student");
                         switch (s.nextLine()) {
                             case "1":
-                                //m.addAccount(Teacher(id, pwd));      add a new teacher account in the account file
-                                //currentAccount = Teacher(id, pwd)
+                                currentAccount = new Teacher(id, pwd);
+                                m.addAccount(currentAccount);
                                 break;
                             case "2":
-                                //m.addAccount(Student(id, pwd));      add a new student account in the account file
-                                //currentAccount = Student(id, pwd)
+                                currentAccount = new Student(id, pwd);
+                                m.addAccount(currentAccount);
                                 break;
                             default:
                                 System.out.println("Invalid choice");
@@ -48,16 +49,16 @@ public class ManagementSystem {
                     break;
                 case "2":
                     System.out.println("Enter your User ID:");
-                    String id = s.nextLine();
+                    id = s.nextLine();
                     System.out.println("Enter your Password:");
                     ans = s.nextLine();
-                    //currentAccount = login(id, ans)    return the corresponding account object, return null if no matches.
-//                    if (currentAccount != null){
-//                        System.out.println("Successfully logged in as " + currentAccount.getUsername());
-//                    } else {
-//                        System.out.println("Invalid id or password");
-//                        continue login;
-//                    }
+                    currentAccount = Methods.login(id, ans);
+                    if (currentAccount != null) {
+                        System.out.println("Successfully logged in as " + currentAccount.getUsername());
+                    } else {
+                        System.out.println("Invalid id or password");
+                        continue login;
+                    }
                     break;
                 default:
                     System.out.println("Invalid choice");
@@ -65,20 +66,81 @@ public class ManagementSystem {
             }
             break;
         }
-//        if (!currentAccount.isStudent()) {
-//            Teacher:
-//            while(true){
-//                System.out.println("1. View Courses");
-//                System.out.println("2. Create a Course");
-//                System.out.println("3. Account Setting");
-//            }
-//        } else {
-//            Student:
-//            while(true){
-//                System.out.println("1. View Courses");
-//                System.out.println("2. Account Setting");
-//            }
-//        }
+        if (!currentAccount.isStudent()) {
+            Teacher:
+            while (true) {
+                System.out.println("1. View Courses");
+                System.out.println("2. Create a Course");
+                System.out.println("3. Account Setting");
+                switch (s.nextLine()){
+                    case "2":
+                        System.out.println("Enter the name of the course you want to create:");
+                        m.addCourse(new Course(s.nextLine()));
+                        m.record();
+                        break;
+                    case "3":
+                        System.out.println("1. Edit your username");
+                        System.out.println("2. Edit your password");
+                        System.out.println("3. Delete your account");
+                        switch (s.nextLine()){
+                            case "1":
+                                System.out.println("Enter your new Username:");
+                                currentAccount.editId(s.nextLine());
+                            case "2":
+                                System.out.println("Enter your new Password:");
+                                currentAccount.editPassword(s.nextLine());
+                            case "3":
+                                m.deleteAccount(currentAccount);
+                        }
+                    case "1":
+                        System.out.println("Select the course you want to view, ");
+                        System.out.println(m.listCourses());
+                        Course currentCourse = ((Course)m.getCourses().get(Integer.parseInt(s.nextLine()) - 1));
+                        System.out.println(currentCourse.toString());
+
+                        System.out.println("Select the Quiz you want to proceed.");
+                        Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
+                        System.out.println("1. Edit the Quiz");
+                        System.out.println("2. Grade Submissions");
+                        System.out.println("3. Delete this Quiz");
+                        System.out.println("0. Create a new Quiz");
+                        switch (s.nextLine()){
+                            case "1":
+                                currentCourse.editQuiz(currentQuiz.getName(), s);
+                            case "2" :
+
+                            case "3":
+                                currentCourse.deleteQuiz(currentQuiz.getName());
+                            case "0":
+                                System.out.println("Enter the name of the Quiz");
+                                currentCourse.addQuiz(s.nextLine(), s);
+                        }
+                }
+            }
+        } else {
+            Student:
+            while (true) {
+                System.out.println("1. View Courses");
+                System.out.println("2. Account Setting");
+                switch (s.nextLine()){
+                    case "2":
+                        System.out.println("1. Edit your username");
+                        System.out.println("2. Edit your password");
+                        System.out.println("3. Delete your account");
+                        switch (s.nextLine()){
+                            case "1":
+                                System.out.println("Enter your new Username:");
+                                currentAccount.editId(s.nextLine());
+                            case "2":
+                                System.out.println("Enter your new Password:");
+                                currentAccount.editPassword(s.nextLine());
+                            case "3":
+                                m.deleteAccount(currentAccount);
+                        }
+                    case "1":
+                }
+            }
+        }
 
     }
 }
