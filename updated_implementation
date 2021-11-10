@@ -48,15 +48,17 @@ fields:
 -name
 -Arraylist<Quiz>
 methods:
-
+addQuiz
 deleteQuiz
 editQuiz
-
+toString method
 //MIRAS
 Quiz:
 fields:
 -name
 -Arraylist<Question>
+methods:
+-setQuestions(Scanner scanner) //asks teacher to write questions and directly add these questions to the quiz.
 //MIRAS
 Question:
 fields:

@@ -38,4 +38,12 @@ public class Question {
     public  void something(){
       //ded
     }
+    public String toString(){
+        String output = "Prompt of question: " + getPrompt() + "\n";
+        for (String str : answerChoices){
+            output += str+" ";
+        }
+        output += "\n" + "Correct Answer: " + correctAnswer;
+        return output;
+    }
 }

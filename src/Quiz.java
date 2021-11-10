@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Quiz {
     private String name;
@@ -7,6 +9,10 @@ public class Quiz {
     public Quiz(String name, ArrayList<Question> questions) {
         this.name = name;
         this.questions = questions;
+    }
+    public Quiz(String name){
+        this.name = name;
+        questions = new ArrayList<>();
     }
 
     public String getName() {
@@ -21,10 +27,20 @@ public class Quiz {
         return questions;
     }
 
+    //Directly asks teacher to write list of question via terminal
+
+
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
-//possiblyuu for grading
+    public String toString(){
+        String output = "Name of Quiz: " + name + "\n";
+        for (Question question : questions){
+            output += question.toString();
+        }
+        return output;
+    }
+    //possiblyuu for grading
     public void Feedback(){
 
     }
