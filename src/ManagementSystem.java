@@ -103,6 +103,7 @@ public class ManagementSystem {
                         System.out.println("1. Edit the Quiz");
                         System.out.println("2. Grade Submissions");
                         System.out.println("3. Delete this Quiz");
+                        System.out.println("4. Upload Quiz from file");
                         System.out.println("0. Create a new Quiz");
                         switch (s.nextLine()){
                             case "1":
@@ -111,6 +112,10 @@ public class ManagementSystem {
 
                             case "3":
                                 currentCourse.deleteQuiz(currentQuiz.getName());
+                            case "4":
+                                System.out.println("Enter the filename: ");
+                                String filename = s.nextLine();
+                                currentCourse.AddQuizFromFile(filename);
                             case "0":
                                 System.out.println("Enter the name of the Quiz");
                                 currentCourse.addQuiz(s.nextLine(), s);

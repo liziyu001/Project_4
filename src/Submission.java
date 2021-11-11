@@ -13,6 +13,6 @@ public class Submission {
         graded = false;
         subGrades = new int[answers.length];
         totalGrades = 0;
-        
     }
+
 }

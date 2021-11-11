@@ -7,10 +7,14 @@ import java.util.*;
 public class Course {
     private String name;
     private ArrayList<Quiz> courseQuiz; 
-  
+    private ArrayList<Submission> submissions;
     public Course(String name, ArrayList<Quiz> courseQuiz) {
         this.name = name;
         this.courseQuiz = courseQuiz;
+    }
+    public Course(String name){
+        this.name = name;
+        this.courseQuiz = new ArrayList<>();
     }
     public String getName() {
         return name;
@@ -140,6 +144,17 @@ public class Course {
         }
     }
     public void AddQuizFromFile(String filename){
+        /*
+        text file should look like this:
+        Name of Quiz
+        Promt of question
+        Answer1, Answer2, Answer3, ANswer4
+        CorrectAnswer
+        -
+        Promt of question
+        Answer1, Answer2, Answer3, ANswer4
+        CorrectAnswer
+         */
         try{
             Path filePath = new File(filename).toPath();
             List<String> stringList = Files.readAllLines(filePath);
