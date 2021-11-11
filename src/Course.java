@@ -1,7 +1,8 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 
 public class Course {
     private String name;
@@ -136,6 +137,31 @@ public class Course {
         }
         else{
             System.out.println("There is no quiz with such name: "+ name);
+        }
+    }
+    public void AddQuizFromFile(String filename){
+        try{
+            Path filePath = new File(filename).toPath();
+            List<String> stringList = Files.readAllLines(filePath);
+            String[] stringArray = stringList.toArray(new String[]{});
+            String nameOfQuiz = stringArray[0];
+            ArrayList<Question> questions = new ArrayList<>();
+            for (int i =1; i<stringArray.length; i+=4){
+                String promptOfQuestion = stringArray[i];
+                String answers = stringArray[i+1];
+                int correctAnswer = Integer.parseInt(stringArray[i+2]);
+                String[] str = answers.split(",");
+                List<String> answerChoices = new ArrayList<>();
+                answerChoices = Arrays.asList(str);
+                Question question = new Question(promptOfQuestion, (ArrayList<String>) answerChoices, correctAnswer);
+                questions.add(question);
+            }
+            Quiz quiz = new Quiz(nameOfQuiz, questions);
+            courseQuiz.add(quiz);
+            System.out.println("Quiz has been succesfully added");
+
+        }catch (IOException e) {
+            System.out.println("Cannot read from a file");
         }
     }
     public String toString(){
