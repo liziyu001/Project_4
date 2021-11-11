@@ -43,6 +43,7 @@ public Submission takeQuizViaFileUpload(Scanner s)
 public Submissions[] viewQuizResults(Student s, Course c); //return graded submissions belongs to course c and did by student s.
 getStudent(){return this;}
 
+//Ram and MIRAS
 Course:
 fields:
 -name
@@ -52,14 +53,14 @@ addQuiz
 deleteQuiz
 editQuiz
 toString method
-//MIRAS
+//MIRAS and Ram
 Quiz:
 fields:
 -name
 -Arraylist<Question>
 methods:
 -setQuestions(Scanner scanner) //asks teacher to write questions and directly add these questions to the quiz.
-//MIRAS
+//MIRAS and Ram
 Question:
 fields:
 -prompt
