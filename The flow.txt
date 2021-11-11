@@ -1,0 +1,123 @@
+Welcome
+
+1. create account
+    Enter your User ID:
+    Enter your Password:
+    Your role: 1. Teacher   2. Student
+    <success>
+2. login
+    Enter your User ID:
+    Enter your Password:
+    <success>
+
+Teacher:
+1. View Courses
+    1. Course1
+    2. Course2
+    .
+    .
+    .
+    Select the course you want to view
+        1. Quiz1
+        2. Quiz2
+        3. Quiz3
+        .
+        .
+        .
+        Select the Quiz you want to proceed.
+            1. Edit the Quiz
+                (display quiz)
+                Enter the Question number you want to modify:
+                    Enter the prompt for question *:
+                    Enter the first option for question *:
+                    ...
+                    Enter the forth option for question *:
+                    <Success>
+            2. Grade Submissions
+                1. Submission from <Student 1>
+                2. Submission from <Student 2>
+                ...
+                Select the submission you want to grade:
+                    (display quiz)
+                    (display answers)
+                    What grade do you want to give for question 1
+                    What grade do you want to give for question 2
+                    ...
+                    <Success>
+            3. Delete this Quiz
+                <Success>
+        Or 0. Create a new Quiz
+            Do you want to import quiz from a local file?
+            1. Yes
+                Enter the path of your file
+            2. No
+                (Create)Enter the number of questions you would like to include:
+                Enter the name of the Quiz:
+                Enter the prompt for question 1:
+                Enter the first option for question 1:
+                ...
+                Enter the forth option for question 1:
+                Enter the prompt for question 2:
+                ...
+            Do you want to randomize the order of questions and options. 1. Yes 2. No
+            <Success>
+2. Create a Course
+    Enter the name of the course you want to create:
+    <Success>
+3. Account Setting
+    1. Edit your username
+        Enter your new Username:
+        <Success>
+    2. Edit your password
+        Enter your new Password:
+        <Success>
+    3. Delete your account
+        <Success>
+
+
+
+Students:
+1. View Courses
+    1. Course1
+    2. Course2
+    .
+    .
+    .
+    Select the course you want to view
+        1. Quiz1
+        2. Quiz2
+        3. Quiz3
+        .
+        .
+        .
+        Select the quiz you want to take:
+            (display quiz)
+            Do you want to import your answer?
+            1. Yes
+                Enter the path of your file:
+                <Success>
+            2. No
+                Enter your choice for Question 1
+                Enter your choice for Question 2
+                ...
+                <Success>
+        0. View Gradings
+            Select the grading you want to view:
+            1. Quiz 3
+            2. Quiz 8
+            ...
+                Your grades for question 1 is ...
+                Your grades for question 2 is ...
+                ...
+                Your total grade is ...
+2. Account Setting
+    1. Edit your username
+        Enter your new Username:
+        <Success>
+    2. Edit your password
+        Enter your new Password:
+        <Success>
+    3. Delete your account
+        <Success>
+
+

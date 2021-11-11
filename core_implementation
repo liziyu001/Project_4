@@ -1,0 +1,59 @@
+// leo
+account:
+fields:
+-username
+-password
+-isStudent
+methods:
+getters,setters
+modifyAccount
+
+// leo
+teacher extends account:
+methods:
+addCourse
+deleteCourse
+editCourse
+gradeQuiz
+//Ram
+randomizeQuiz
+
+// leo
+student extends account:
+methods:
+takeQuizInTerminal(display prompt + options 1-4, ask for answer(has to be valid int 1-4))
+takeQuizViaFileUpload(1 int per line)
+viewQuizResults
+
+Course:
+fields:
+-name
+-Arraylist<Quiz>
+methods:
+addQuizViaFileUpload(question prompt, options 1-4, correct answer choice(int))
+addQuizInTerminal(Enter # of questions, enter the prompt, enter options 1-4, enter correct answer choice(int))
+deleteQuiz
+editQuiz
+
+//MIRAS
+Quiz:
+fields:
+-name
+-Arraylist<Question>
+//MIRAS
+Question:
+fields:
+-prompt
+-Arraylist<String> answerChoices
+-int correctAnswer
+
+//manas
+Manager:
+methods:
+login
+addAccount
+addCourse
+deleteAccount
+editAccount
+readFile
+writeFile
