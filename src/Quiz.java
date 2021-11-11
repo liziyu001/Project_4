@@ -33,16 +33,16 @@ public class Quiz {
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
+    //possiblyuu for grading
+    public void Feedback(){
+
+    }
     public String toString(){
         String output = "Name of Quiz: " + name + "\n";
         for (Question question : questions){
             output += question.toString();
         }
         return output;
-    }
-    //possiblyuu for grading
-    public void Feedback(){
-
     }
 }
 
