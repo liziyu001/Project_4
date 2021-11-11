@@ -1,16 +1,11 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 /**
  * A class which represents an account a user uses
  */
 public class Account {
 
-    private final String username;
-    private final String password;
-    private final boolean isStudent;
+    private String username;
+    private String password;
+    private boolean isStudent;
 
     public Account(String username, String password, boolean isStudent){
 
@@ -18,6 +13,22 @@ public class Account {
         this.password = password;
         this.isStudent = isStudent;
 
+    }
+
+    public Account(){
+
+        this.username = null;
+        this.password = null;
+        this.isStudent = false;
+
+    }
+
+    public void editId(String s){
+        this.username = s;
+    }
+
+    public void editPassword(String s){
+        this.password = s;
     }
 
     public String getUsername() {
