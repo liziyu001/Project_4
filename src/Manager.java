@@ -3,6 +3,34 @@ import java.util.*;
 
 public class Manager {
 
+    public void editCourse(Course current, Course updated) {
+        try {
+            ArrayList<String> courses = readFile("courses.txt");
+            int startIndex = -1;
+            int endIndex = -1;
+            boolean found = false;
+            for (int i = 0; i < courses.size(); i++) {
+                String courseName = "CourseName " + current.getName();
+                if (courses.get(i).equals(courseName)) {
+                    startIndex = i;
+                    found = true;
+                }
+                if (courses.get(i).contains("CourseName: ") && found) {
+                    endIndex = i - 1;
+                    break;
+                }
+            }
+            String update = updated.toString();
+            String temp = Arrays.deepToString(courses.toArray());
+            temp = temp.substring(startIndex, endIndex);
+            update += temp;
+            writeChangesToFile(update, "courses.txt", false);
+        } catch (Exception e) {
+            System.out.println("There was a problem editing your course, try again!");
+        }
+
+    }
+
     public boolean checkAvailability(String username) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");

@@ -107,7 +107,9 @@ public class ManagementSystem {
                         System.out.println("0. Create a new Quiz");
                         switch (s.nextLine()){
                             case "1":
+                                Course temp = currentCourse;
                                 currentCourse.editQuiz(currentQuiz.getName(), s);
+                                m.editCourse(temp, currentCourse);
                             case "2" :
 
                             case "3":
