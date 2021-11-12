@@ -3,9 +3,46 @@ import java.util.*;
 
 public class Manager {
 
+    public boolean checkAvailability(String username) {
+        try {
+            ArrayList<String> accounts = readFile("accounts.txt");
+            for (int i = 0; i < accounts.size(); i++) {
+                String[] info = accounts.get(i).split(",");
+                Account temp = new Account(info[0], info[1], Boolean.parseBoolean(info[2]));
+                if (temp.getUsername().equals(username)) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("There was a problem creating your account, try again!");
+            return false;
+        }
+    }
+    public String listCourses() {
+        try {
+            ArrayList<String> courseInfo = readFile("courses.txt");
+            if (courseInfo.size() == 0) {
+                return ("There are currently no courses!");
+            }
+            String courseList = "Courses: ";
+            for (int i = 0; i < courseInfo.size(); i++) {
+                String temp = courseInfo.get(i);
+                if (temp.contains("CourseName: ")) {
+                    temp.replace("CourseName: ", "");
+                    courseList += temp + ", ";
+                }
+            }
+            courseList = courseList.substring(0, courseList.length() - 1);
+            return courseList;
+        } catch (Exception e) {
+            return "There was a problem listing the courses, try again!";
+        }
+    }
+
     public Account login(String username, String password) {
         try {
-            ArrayList<String> accounts = readFile("account.txt");
+            ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
                 String[] info = accounts.get(i).split(",");
                 Account temp = new Account(info[0], info[1], Boolean.parseBoolean(info[2]));
@@ -29,7 +66,7 @@ public class Manager {
 
     public void deleteAccount(Account a) {
         try {
-            ArrayList<String> accounts = readFile("account.txt");
+            ArrayList<String> accounts = readFile("accounts.txt");
             for (String account : accounts) {
                 String[] info = account.split(",");
                 Account temp = new Account(info[0], info[1], Boolean.parseBoolean(info[2]));
@@ -38,7 +75,7 @@ public class Manager {
                     break;
                 }
             }
-            writeChangesToFile(Arrays.deepToString(accounts.toArray()), "account.txt", false);
+            writeChangesToFile(Arrays.deepToString(accounts.toArray()), "accounts.txt", false);
 
         } catch (Exception e) {
             System.out.println("There was a problem deleting this account, try again!");
@@ -48,7 +85,7 @@ public class Manager {
 
     public void editAccount(Account current, Account updated) {
         try {
-            ArrayList<String> accounts = readFile("account.txt");
+            ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
                 String[] info = accounts.get(i).split(",");
                 Account temp = new Account(info[0], info[1], Boolean.parseBoolean(info[2]));
@@ -56,7 +93,7 @@ public class Manager {
                     accounts.set(i, updated.toString());
                 }
             }
-            writeChangesToFile(Arrays.deepToString(accounts.toArray()), "account.txt", false);
+            writeChangesToFile(Arrays.deepToString(accounts.toArray()), "accounts.txt", false);
 
         } catch (Exception e) {
             System.out.println("There was a problem deleting this account, try again!");

@@ -19,7 +19,7 @@ public class ManagementSystem {
                     while (true) {
                         System.out.println("Enter your User ID:");
                         id = s.nextLine();
-                        if (!Methods.checkAvailability(id)) {
+                        if (!m.checkAvailability(id)) {
                             System.out.println("Invalid Username");
                             continue;
                         }
