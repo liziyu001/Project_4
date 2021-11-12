@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Teacher extends Account{
+public class Teacher extends Account {
     public Teacher(String username, String password) {
         super(username, password, false);
     }
