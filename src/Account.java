@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Account {
     private String username;
     private String password;
@@ -44,6 +46,14 @@ public class Account {
     }
     public void editPassword(String password){
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return isStudent == account.isStudent && Objects.equals(username, account.username) && Objects.equals(password, account.password);
     }
 
     @Override

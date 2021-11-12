@@ -52,7 +52,7 @@ public class ManagementSystem {
                     id = s.nextLine();
                     System.out.println("Enter your Password:");
                     ans = s.nextLine();
-                    currentAccount = Methods.login(id, ans);
+                    currentAccount = m.login(id, ans);
                     if (currentAccount != null) {
                         System.out.println("Successfully logged in as " + currentAccount.getUsername());
                     } else {
@@ -135,10 +135,14 @@ public class ManagementSystem {
                         switch (s.nextLine()){
                             case "1":
                                 System.out.println("Enter your new Username:");
+                                Account temp = currentAccount;
                                 currentAccount.editId(s.nextLine());
+                                m.editAccount(temp, currentAccount);
                             case "2":
                                 System.out.println("Enter your new Password:");
+                                temp = currentAccount;
                                 currentAccount.editPassword(s.nextLine());
+                                m.editAccount(temp, currentAccount);
                             case "3":
                                 m.deleteAccount(currentAccount);
                         }
