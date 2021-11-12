@@ -10,4 +10,12 @@ public class Teacher extends Account {
         String nameCourse = scanner.nextLine();
         return new Course(nameCourse);
     }
+    public Submission gradeSubmission (Scanner s, Submission sub) {
+        
+    }
+
+
+    public void randomizeQuiz() {
+        
+    }
 }
