@@ -10,6 +10,12 @@ public class Account {
         this.isStudent = isStudent;
     }
 
+    public Account(Account a) {
+        this.username = a.getUsername();
+        this.password = a.getPassword();
+        this.isStudent = a.isStudent();
+    }
+
     public String getUsername() {
         return username;
     }
@@ -38,5 +44,10 @@ public class Account {
     }
     public void editPassword(String password){
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return  username + ", " + password + ", " + isStudent;
     }
 }
