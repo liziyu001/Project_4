@@ -12,7 +12,7 @@ public class Course {
         this.name = name;
         this.courseQuiz = courseQuiz;
     }
-    public Course(String name){
+    public Course(String name) {
         this.name = name;
         this.courseQuiz = new ArrayList<>();
     }
@@ -29,27 +29,29 @@ public class Course {
         this.courseQuiz = courseQuiz;
     }
     //deleting quiz based on the name (name must be unique)
-    public void deleteQuiz(String name){
+    public void deleteQuiz(String name) {
         Optional<Quiz> quiz  = courseQuiz.stream().parallel().filter(val -> val.getName().equals(name)).findFirst();
-        if (quiz.isPresent()){
+        if (quiz.isPresent()) {
             courseQuiz.remove(quiz);
-            System.out.println("Quiz: "+ name + "has been succesfully removed");
+            System.out.println("Quiz: " + name + "has been successfully removed");
         }
         else {
-            System.out.println("Such name doesn't exits in the list of quizes");
+            System.out.println("Such name doesn't exits in the list of quizzes");
         }
 
     }
-    public void addQuiz(String name, Scanner scanner){
+    public void addQuiz(String name, Scanner scanner) {
         boolean isFound = false;
-        for(Quiz quiz : courseQuiz){
-            if (quiz.getName().equals(name)) isFound = true;
+        for(Quiz quiz : courseQuiz) {
+            if (quiz.getName().equals(name)) {
+                isFound = true;
+            }
         }
-        if (!isFound){
+        if (!isFound) {
             ArrayList<Question> questions = new ArrayList<>();
 
             boolean isEnough;
-            do{
+            do {
                 System.out.println("Initialization of questions");
                 System.out.println("Enter prompt of the question: ");
                 String prompt = scanner.nextLine();
@@ -57,7 +59,7 @@ public class Course {
                 int amountOfChoices = Integer.parseInt(scanner.nextLine());
                 String[] options = new String[amountOfChoices];
                 //Initialize array of options from asking a user to enter list of questions.
-                for (int i =0; i< options.length; i++){
+                for (int i = 0; i < options.length; i++) {
                     System.out.println((i+1) + ": ");
                     String answerChoice = scanner.nextLine();
                     options[i] = answerChoice;
@@ -70,34 +72,38 @@ public class Course {
                 questions.add(question);
                 System.out.println("Do you want to add another question? (Y/N)");
                 String answer = scanner.nextLine().toLowerCase();
-                if (answer.equals("n")){
+                if (answer.equals("n")) {
                     isEnough = true;
                 }
-                else if (answer.equals("y")){
+                else if (answer.equals("y")) {
                     isEnough = false;
                 }
                 else {
                     System.out.println("Invalid option");
                     isEnough = true;
                 }
-            }while (!isEnough);
+            } while (!isEnough);
             Quiz quiz = new Quiz(name, questions);
             courseQuiz.add(quiz);
             System.out.println("Quiz has been successfully added!");
         }
-        else System.out.println("Quiz with such name already exist");
-    }
-    public void editQuiz(String name, Scanner scanner){
-        boolean isFound = false;
-        for(Quiz quiz : courseQuiz){
-            if (quiz.getName().equals(name)) isFound = true;
+        else {
+            System.out.println("Quiz with such name already exist");
         }
-        if (isFound){
+    }
+    public void editQuiz(String name, Scanner scanner) {
+        boolean isFound = false;
+        for(Quiz quiz : courseQuiz) {
+            if (quiz.getName().equals(name)) {
+                isFound = true;
+            }
+        }
+        if (isFound) {
             System.out.println("Enter the new name: ");
             String newName = scanner.nextLine();
             boolean isEnough;
             ArrayList<Question> questions = new ArrayList<>();
-            do{
+            do {
                 System.out.println("Initialization of questions");
                 System.out.println("Enter prompt of the question: ");
                 String prompt = scanner.nextLine();
@@ -105,7 +111,7 @@ public class Course {
                 int amountOfChoices = Integer.parseInt(scanner.nextLine());
                 String[] options = new String[amountOfChoices];
                 //Initialize array of options from asking a user to enter list of questions.
-                for (int i =0; i< options.length; i++){
+                for (int i = 0; i < options.length; i++) {
                     System.out.println((i+1) + ": ");
                     String answerChoice = scanner.nextLine();
                     options[i] = answerChoice;
@@ -118,32 +124,32 @@ public class Course {
                 questions.add(question);
                 System.out.println("Do you want to add another question? (Y/N)");
                 String answer = scanner.nextLine().toLowerCase();
-                if (answer.equals("n")){
+                if (answer.equals("n")) {
                     isEnough = true;
                 }
-                else if (answer.equals("y")){
+                else if (answer.equals("y")) {
                     isEnough = false;
                 }
                 else {
                     System.out.println("Invalid option");
                     isEnough = true;
                 }
-            }while (!isEnough);
+            } while (!isEnough);
             Optional<Quiz> quiz  = courseQuiz.stream().parallel().filter(val -> val.getName().equals(name)).findFirst();
             Quiz quizToAdd = new Quiz(name, questions);
-            if (quiz.isPresent()){
+            if (quiz.isPresent()) {
                 courseQuiz.set(courseQuiz.indexOf(quiz), quizToAdd);
                 System.out.println("Quiz has been successfully edited");
             }
             else {
-                System.out.println("There is no quiz with such name: "+ name);
+                System.out.println("There is no quiz with such name: " + name);
             }
         }
-        else{
-            System.out.println("There is no quiz with such name: "+ name);
+        else {
+            System.out.println("There is no quiz with such name: " + name);
         }
     }
-    public void AddQuizFromFile(String filename){
+    public void AddQuizFromFile(String filename) {
         /*
         text file should look like this:
         Name of Quiz
@@ -155,13 +161,13 @@ public class Course {
         Answer1, Answer2, Answer3, ANswer4
         CorrectAnswer
          */
-        try{
+        try {
             Path filePath = new File(filename).toPath();
             List<String> stringList = Files.readAllLines(filePath);
             String[] stringArray = stringList.toArray(new String[]{});
             String nameOfQuiz = stringArray[0];
             ArrayList<Question> questions = new ArrayList<>();
-            for (int i =1; i<stringArray.length; i+=4){
+            for (int i = 1; i < stringArray.length; i += 4){
                 String promptOfQuestion = stringArray[i];
                 String answers = stringArray[i+1];
                 int correctAnswer = Integer.parseInt(stringArray[i+2]);
@@ -175,13 +181,13 @@ public class Course {
             courseQuiz.add(quiz);
             System.out.println("Quiz has been succesfully added");
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Cannot read from a file");
         }
     }
-    public String toString(){
+    public String toString() {
         String finalToReturn = name;
-        for (Quiz quiz : courseQuiz){
+        for (Quiz quiz : courseQuiz) {
             finalToReturn += quiz.toString();
         }
         return finalToReturn;
