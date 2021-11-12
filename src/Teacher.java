@@ -14,8 +14,18 @@ public class Teacher extends Account {
         
     }
 
-
-    public void randomizeQuiz() {
-        
+    //Randomizes question and option order
+    public void randomizeQuiz(Course course, String filename) {
+        try {
+            Scanner s = new Scanner(new FileReader(filename));
+            while (s.hasNext()) {
+                synchronized (Object.class) {
+                    course.AddQuizFromFile(filename);   
+                }
+            }
+          
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
