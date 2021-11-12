@@ -49,8 +49,8 @@ public class Question {
     public String toStringWthoutAnswer() {
         String output = "Prompt of question: " + getPrompt() + "\n";
         for (String str : answerChoices) {
-            output += str+" ";
+            output += str + "\n";
         }
-        return output;
+        return output + "\n";
     }
 }

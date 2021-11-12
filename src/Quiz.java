@@ -42,7 +42,7 @@ public class Quiz {
         for (Question question : questions){
             output += question.toString();
         }
-        return output;
+        return output + "\n";
     }
 }
 

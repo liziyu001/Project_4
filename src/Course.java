@@ -186,10 +186,10 @@ public class Course {
         }
     }
     public String toString() {
-        String finalToReturn = name;
+        String finalToReturn = "CourseName: " + name + "\n";
         for (Quiz quiz : courseQuiz) {
             finalToReturn += quiz.toString();
         }
-        return finalToReturn;
+        return finalToReturn + "\n";
     }
 }

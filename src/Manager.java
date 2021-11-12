@@ -16,7 +16,7 @@ public class Manager {
         } catch (Exception e) {
             System.out.println("There was a problem logging in, try again!");
         }
-
+        return null;
     }
     public void addAccount(Account a) {
         try {
