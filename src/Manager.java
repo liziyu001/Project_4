@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Manager {
     public static void main(String[] args) {
+        /*
         Account a = new Account("Manas", "password1", true);
         Account b = new Account("asda", "asd", false);
         addAccount(a);
@@ -21,11 +22,20 @@ public class Manager {
         addAccount(acc);
         bool = checkAvailability("anant");
         System.out.println(bool);
+         */
+        //System.out.println(listCourses());
+    }
+    public void addCourse(Course c) {
+        try {
+            writeChangesToFile(c.toString(), "sample_courses.txt", true);
+        } catch (Exception e) {
+            System.out.println("There was a problem creating this course, try again!");
+        }
     }
 
     public void editCourse(Course current, Course updated) {
         try {
-            ArrayList<String> courses = readFile("courses.txt");
+            ArrayList<String> courses = readFile("sample_courses.txt");
             int startIndex = -1;
             int endIndex = -1;
             boolean found = false;
@@ -40,18 +50,46 @@ public class Manager {
                     break;
                 }
             }
-            String update = updated.toString();
-            String temp = Arrays.deepToString(courses.toArray());
-            temp = temp.substring(startIndex, endIndex);
-            update += temp;
-            writeChangesToFile(update, "courses.txt", false);
+            if (found) {
+                String update = updated.toString();
+                String temp = Arrays.deepToString(courses.toArray());
+                temp = temp.substring(startIndex, endIndex);
+                update += temp;
+                writeChangesToFile(update, "sample_courses.txt", false);
+            } else {
+                System.out.println("The course you provided was not found!");
+            }
+
         } catch (Exception e) {
             System.out.println("There was a problem editing your course, try again!");
         }
 
     }
 
-    public static boolean checkAvailability(String username) {
+    public String listCourses() {
+        try {
+            int courseCount = 1;
+            ArrayList<String> courseInfo = readFile("sample_courses.txt");
+            if (courseInfo.size() == 0) {
+                return ("There are currently no courses!");
+            }
+            String courseList = "Courses:" + "\n";
+            for (int i = 0; i < courseInfo.size(); i++) {
+                String temp = courseInfo.get(i);
+                if (temp.contains("CourseName: ")) {
+                    courseList += courseCount + ". " + temp + "\n";
+                    courseCount++;
+                }
+            }
+            courseList = courseList.substring(0, courseList.length() - 1);
+            courseList = courseList.replace("CourseName: ","");
+            return courseList;
+        } catch (Exception e) {
+            return "There was a problem listing the courses, try again!";
+        }
+    }
+
+    public boolean checkAvailability(String username) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
@@ -67,28 +105,8 @@ public class Manager {
             return false;
         }
     }
-    public String listCourses() {
-        try {
-            ArrayList<String> courseInfo = readFile("courses.txt");
-            if (courseInfo.size() == 0) {
-                return ("There are currently no courses!");
-            }
-            String courseList = "Courses: ";
-            for (int i = 0; i < courseInfo.size(); i++) {
-                String temp = courseInfo.get(i);
-                if (temp.contains("CourseName: ")) {
-                    temp.replace("CourseName: ", "");
-                    courseList += temp + ", ";
-                }
-            }
-            courseList = courseList.substring(0, courseList.length() - 1);
-            return courseList;
-        } catch (Exception e) {
-            return "There was a problem listing the courses, try again!";
-        }
-    }
 
-    public static Account login(String username, String password) {
+    public Account login(String username, String password) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
@@ -104,7 +122,7 @@ public class Manager {
         return null;
     }
 
-    public static void addAccount(Account a) {
+    public void addAccount(Account a) {
         try {
             writeChangesToFile(a.toString(), "accounts.txt", true);
         } catch (Exception e) {
@@ -113,7 +131,7 @@ public class Manager {
 
     }
 
-    public static void deleteAccount(Account a) {
+    public void deleteAccount(Account a) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
@@ -145,7 +163,7 @@ public class Manager {
 
     }
 
-    public static void editAccount(Account current, Account updated) {
+    public void editAccount(Account current, Account updated) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
@@ -194,7 +212,8 @@ public class Manager {
             throw new FileNotFoundException();
         }
     }
-    public static void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
+
+    public void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);
