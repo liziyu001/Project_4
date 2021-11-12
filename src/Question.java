@@ -38,17 +38,17 @@ public class Question {
     public  void something(){
       //ded
     }
-    public String toString(){
+    public String toString() {
         String output = "Prompt of question: " + getPrompt() + "\n";
-        for (String str : answerChoices){
+        for (String str : answerChoices) {
             output += str+" ";
         }
         output += "\n" + "Correct Answer: " + correctAnswer;
         return output;
     }
-    public String toStringWthoutAnswer(){
+    public String toStringWthoutAnswer() {
         String output = "Prompt of question: " + getPrompt() + "\n";
-        for (String str : answerChoices){
+        for (String str : answerChoices) {
             output += str+" ";
         }
         return output;
