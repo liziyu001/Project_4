@@ -37,7 +37,7 @@ public class Quiz {
     public void Feedback(){
 
     }
-    public String toString(){
+    public String toString() {
         String output = "Name of Quiz: " + name + "\n";
         for (Question question : questions){
             output += question.toString();
