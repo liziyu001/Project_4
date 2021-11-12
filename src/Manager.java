@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Manager {
     public static void main(String[] args) {
-
+        /*
         Account a = new Account("Manas", "password1", true);
         Account b = new Account("asda", "asd", false);
         addAccount(a);
@@ -23,6 +23,7 @@ public class Manager {
         addAccount(acc);
         bool = checkAvailability("anant");
         System.out.println(bool);
+         */
         //System.out.println(listCourses());
     }
     public void addCourse(Course c) {
@@ -71,7 +72,7 @@ public class Manager {
         }
     }
 
-    public static boolean checkAvailability(String username) {
+    public boolean checkAvailability(String username) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
@@ -88,7 +89,7 @@ public class Manager {
         }
     }
 
-    public static Account login(String username, String password) {
+    public Account login(String username, String password) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
@@ -104,7 +105,7 @@ public class Manager {
         return null;
     }
 
-    public static void addAccount(Account a) {
+    public void addAccount(Account a) {
         try {
             writeChangesToFile(a.toString(), "accounts.txt", true);
         } catch (Exception e) {
@@ -113,7 +114,7 @@ public class Manager {
 
     }
 
-    public static void deleteAccount(Account a) {
+    public void deleteAccount(Account a) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
@@ -146,7 +147,7 @@ public class Manager {
 
     }
 
-    public static void editAccount(Account current, Account updated) {
+    public void editAccount(Account current, Account updated) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
@@ -182,7 +183,7 @@ public class Manager {
 
     }
 
-    public static ArrayList<String> readFile(String fileName) throws FileNotFoundException {
+    public ArrayList<String> readFile(String fileName) throws FileNotFoundException {
         ArrayList<String> tempString = new ArrayList<>();
         File f = new File(fileName);
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
@@ -198,7 +199,7 @@ public class Manager {
         }
     }
 
-    public static void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
+    public void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);

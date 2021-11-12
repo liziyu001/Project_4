@@ -76,7 +76,7 @@ public class ManagementSystem {
                     case "2":
                         System.out.println("Enter the name of the course you want to create:");
                         m.addCourse(new Course(s.nextLine()));
-                        m.record();
+                        //m.record(); - guessing this meant write to a file, addCourse() already does this - Manas
                         break;
                     case "3":
                         System.out.println("1. Edit your username");
@@ -84,13 +84,29 @@ public class ManagementSystem {
                         System.out.println("3. Delete your account");
                         switch (s.nextLine()){
                             case "1":
-                                System.out.println("Enter your new Username:");
-                                currentAccount.setUsername(s.nextLine());
+                                String id;
+                                while (true) {
+                                    System.out.println("Enter your new Username:");
+                                    id = s.nextLine();
+                                    if (!m.checkAvailability(id)) {
+                                        System.out.println("Invalid Username");
+                                        continue;
+                                    }
+                                    //else? not sure-manas
+                                    break;
+                                }
+                                Account temp = currentAccount;
+                                currentAccount.setUsername(id);
+                                m.editAccount(temp, currentAccount);
                             case "2":
                                 System.out.println("Enter your new Password:");
+                                temp = currentAccount;
                                 currentAccount.setPassword(s.nextLine());
+                                m.editAccount(temp, currentAccount);
                             case "3":
                                 m.deleteAccount(currentAccount);
+                                //not sure about this line: -manas
+                                currentAccount = null;
                         }
                     case "1":
                         System.out.println("Select the course you want to view, ");
@@ -143,9 +159,19 @@ public class ManagementSystem {
                         System.out.println("3. Delete your account");
                         switch (s.nextLine()){
                             case "1":
-                                System.out.println("Enter your new Username:");
+                                String id;
+                                while (true) {
+                                    System.out.println("Enter your new Username:");
+                                    id = s.nextLine();
+                                    if (!m.checkAvailability(id)) {
+                                        System.out.println("Invalid Username");
+                                        continue;
+                                    }
+                                    //else? not sure-manas
+                                    break;
+                                }
                                 Account temp = currentAccount;
-                                currentAccount.setUsername(s.nextLine());
+                                currentAccount.setUsername(id);
                                 m.editAccount(temp, currentAccount);
                             case "2":
                                 System.out.println("Enter your new Password:");
@@ -154,6 +180,8 @@ public class ManagementSystem {
                                 m.editAccount(temp, currentAccount);
                             case "3":
                                 m.deleteAccount(currentAccount);
+                                //not sure about this line: -manas
+                                currentAccount = null;
                         }
                     case "1":
                 }
