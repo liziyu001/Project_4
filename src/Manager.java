@@ -3,18 +3,19 @@ import java.util.*;
 
 public class Manager {
     public static void main(String[] args) {
-        /*
+
         Account a = new Account("Manas", "password1", true);
         Account b = new Account("asda", "asd", false);
         addAccount(a);
         addAccount(b);
-        Account c = new Account("Manas", "password1", true);
+        Account c = new Account("Manas1", "password1", true);
+        addAccount(c);
         deleteAccount(a);
         deleteAccount(c);
         editAccount(b, c);
         Account current = login("Manas","password1");
         addAccount(current);
-        boolean bool = checkAvailability("Manas");
+        boolean bool = checkAvailability("Manas1");
         System.out.println(bool);
         bool = checkAvailability("anant");
         System.out.println(bool);
@@ -22,12 +23,11 @@ public class Manager {
         addAccount(acc);
         bool = checkAvailability("anant");
         System.out.println(bool);
-         */
         //System.out.println(listCourses());
     }
     public void addCourse(Course c) {
         try {
-            writeChangesToFile(c.toString(), "sample_courses.txt", true);
+            writeChangesToFile(c.toString(), (c.getName() + ".txt"), false);
         } catch (Exception e) {
             System.out.println("There was a problem creating this course, try again!");
         }
@@ -35,31 +35,13 @@ public class Manager {
 
     public void editCourse(Course current, Course updated) {
         try {
-            ArrayList<String> courses = readFile("sample_courses.txt");
-            int startIndex = -1;
-            int endIndex = -1;
-            boolean found = false;
-            for (int i = 0; i < courses.size(); i++) {
-                String courseName = "CourseName " + current.getName();
-                if (courses.get(i).equals(courseName)) {
-                    startIndex = i;
-                    found = true;
-                }
-                if (courses.get(i).contains("CourseName: ") && found) {
-                    endIndex = i - 1;
-                    break;
-                }
-            }
-            if (found) {
+            File tempFile = new File(current.getName() + ".txt");
+            if (tempFile.exists()) {
                 String update = updated.toString();
-                String temp = Arrays.deepToString(courses.toArray());
-                temp = temp.substring(startIndex, endIndex);
-                update += temp;
-                writeChangesToFile(update, "sample_courses.txt", false);
+                writeChangesToFile(update, (updated.getName() + ".txt"), false);
             } else {
                 System.out.println("The course you provided was not found!");
             }
-
         } catch (Exception e) {
             System.out.println("There was a problem editing your course, try again!");
         }
@@ -89,12 +71,12 @@ public class Manager {
         }
     }
 
-    public boolean checkAvailability(String username) {
+    public static boolean checkAvailability(String username) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
                 String[] info = accounts.get(i).split(",");
-                Account temp = new Account(info[0].strip(), info[1].strip(), Boolean.parseBoolean(info[2].strip()));
+                Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
                 if (temp.getUsername().equals(username)) {
                     return false;
                 }
@@ -106,12 +88,12 @@ public class Manager {
         }
     }
 
-    public Account login(String username, String password) {
+    public static Account login(String username, String password) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
                 String[] info = accounts.get(i).split(",");
-                Account temp = new Account(info[0].strip(), info[1].strip(), Boolean.parseBoolean(info[2].strip()));
+                Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
                 if (temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
                     return temp;
                 }
@@ -122,7 +104,7 @@ public class Manager {
         return null;
     }
 
-    public void addAccount(Account a) {
+    public static void addAccount(Account a) {
         try {
             writeChangesToFile(a.toString(), "accounts.txt", true);
         } catch (Exception e) {
@@ -131,13 +113,14 @@ public class Manager {
 
     }
 
-    public void deleteAccount(Account a) {
+    public static void deleteAccount(Account a) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
             for (String account : accounts) {
                 String[] info = account.split(",");
-                Account temp = new Account(info[0].strip(), info[1].strip(), Boolean.parseBoolean(info[2].strip()));
+                Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
+                temp.setAccountId(a.getAccountId());
                 if (temp.equals(a)) {
                     accounts.remove(account);
                     found = true;
@@ -163,14 +146,16 @@ public class Manager {
 
     }
 
-    public void editAccount(Account current, Account updated) {
+    public static void editAccount(Account current, Account updated) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
                 String[] info = accounts.get(i).split(",");
-                Account temp = new Account(info[0].strip(), info[1].strip(), Boolean.parseBoolean(info[2].strip()));
+                Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
+                temp.setAccountId(current.getAccountId());
                 if (temp.equals(current)) {
+                    updated.setAccountId(current.getAccountId());
                     accounts.set(i, updated.toString());
                     found = true;
                     break;
@@ -213,7 +198,7 @@ public class Manager {
         }
     }
 
-    public void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
+    public static void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);

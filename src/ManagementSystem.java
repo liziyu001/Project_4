@@ -23,7 +23,7 @@ public class ManagementSystem {
                             System.out.println("Invalid Username");
                             continue;
                         }
-
+                        //else? not sure-manas
                         break;
                     }
                     System.out.println("Enter your Password:");
@@ -85,10 +85,10 @@ public class ManagementSystem {
                         switch (s.nextLine()){
                             case "1":
                                 System.out.println("Enter your new Username:");
-                                currentAccount.editId(s.nextLine());
+                                currentAccount.setUsername(s.nextLine());
                             case "2":
                                 System.out.println("Enter your new Password:");
-                                currentAccount.editPassword(s.nextLine());
+                                currentAccount.setPassword(s.nextLine());
                             case "3":
                                 m.deleteAccount(currentAccount);
                         }
@@ -145,12 +145,12 @@ public class ManagementSystem {
                             case "1":
                                 System.out.println("Enter your new Username:");
                                 Account temp = currentAccount;
-                                currentAccount.editId(s.nextLine());
+                                currentAccount.setUsername(s.nextLine());
                                 m.editAccount(temp, currentAccount);
                             case "2":
                                 System.out.println("Enter your new Password:");
                                 temp = currentAccount;
-                                currentAccount.editPassword(s.nextLine());
+                                currentAccount.setPassword(s.nextLine());
                                 m.editAccount(temp, currentAccount);
                             case "3":
                                 m.deleteAccount(currentAccount);
