@@ -115,7 +115,14 @@ public class ManagementSystem {
                             case "4":
                                 System.out.println("Enter the filename: ");
                                 String filename = s.nextLine();
-                                currentCourse.AddQuizFromFile(filename);
+                                System.out.println("Randomize Quiz? (Y/N)");
+                                String randomize = s.nextLine();
+                                if (randomize.equalsIgnoreCase("Y")) {
+                                    randomizeQuiz(currentCourse, filename);
+                                }
+                                else if (randomize.equalsIgnoreCase("N")) {    
+                                    currentCourse.AddQuizFromFile(filename);
+                                }
                             case "0":
                                 System.out.println("Enter the name of the Quiz");
                                 currentCourse.addQuiz(s.nextLine(), s);
