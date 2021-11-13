@@ -49,16 +49,24 @@ public class ManagementSystem {
                     }
                     break;
                 case "2":
-                    System.out.println("Enter your User ID:");
-                    id = s.nextLine();
-                    System.out.println("Enter your Password:");
-                    ans = s.nextLine();
-                    currentAccount = m.login(id, ans);
-                    if (currentAccount != null) {
-                        System.out.println("Successfully logged in as " + currentAccount.getUsername());
-                    } else {
-                        System.out.println("Invalid ID or password");
-                        continue login;
+                    logininput:
+                    while (true) {
+                        System.out.println("Enter your User ID:");
+                        id = s.nextLine();
+                        System.out.println("Enter your Password:");
+                        ans = s.nextLine();
+                        if (id.contains(",") || ans.contains(",")){
+                            System.out.println("Invalid input");
+                            continue logininput;
+                        }
+                        currentAccount = m.login(id, ans);
+                        if (currentAccount != null) {
+                            System.out.println("Successfully logged in as " + currentAccount.getUsername());
+                        } else {
+                            System.out.println("Invalid ID or password");
+                            continue login;
+                        }
+                        break;
                     }
                     break;
                 default:
