@@ -79,6 +79,7 @@ public class ManagementSystem {
                         //m.record(); - guessing this meant write to a file, addCourse() already does this - Manas
                         break;
                     case "3":
+                        //need to handle case if invalid input
                         System.out.println("1. Edit your username");
                         System.out.println("2. Edit your password");
                         System.out.println("3. Delete your account");
@@ -111,7 +112,8 @@ public class ManagementSystem {
                     case "1":
                         System.out.println("Select the course you want to view, ");
                         System.out.println(m.listCourses());
-                        Course currentCourse = ((Course)m.getCourses().get(Integer.parseInt(s.nextLine()) - 1));
+                        // need to handle case if invalid input
+                        Course currentCourse = m.getCourse((Integer.parseInt(s.nextLine()) - 1));
                         System.out.println(currentCourse.toString());
 
                         System.out.println("Select the Quiz you want to proceed.");

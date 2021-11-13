@@ -24,24 +24,66 @@ public class Manager {
         bool = checkAvailability("anant");
         System.out.println(bool);
          */
-        //System.out.println(listCourses());
+        System.out.println(listCourses());
+        Course c = new Course("CS180");
+        addCourse(c);
+        System.out.println(listCourses());
+        Course m = new Course("Manas");
+        addCourse(m);
+        System.out.println(listCourses());
+        Course l = new Course("lol");
+        addCourse(l);
+        System.out.println(listCourses());
+        getCourse(1);
+        editCourse(l, c);
     }
-    public void addCourse(Course c) {
+
+    public static Course getCourse(int index) {
         try {
-            writeChangesToFile(c.toString(), (c.getName() + ".txt"), false);
+            Course temp = new Course("temp");
+            ArrayList<String> courses = readFile("courses.txt");
+            String filename = courses.get(index) + ".txt";
+            System.out.println(Arrays.deepToString(readFile(filename).toArray()));
+            return temp;
+        } catch (Exception e) {
+            System.out.println("There was a problem finding your course!");
+            return null;
+        }
+    }
+    public static void addCourse(Course c) {
+        try {
+            String filename = c.getName() + ".txt";
+            writeChangesToFile(c.toString(), filename, false);
+            writeChangesToFile(c.getName(), "courses.txt", true);
         } catch (Exception e) {
             System.out.println("There was a problem creating this course, try again!");
         }
     }
 
-    public void editCourse(Course current, Course updated) {
+    public static void editCourse(Course current, Course updated) {
         try {
-            File tempFile = new File(current.getName() + ".txt");
-            if (tempFile.exists()) {
+            if (current.getName().equals(updated.getName())) {
                 String update = updated.toString();
-                writeChangesToFile(update, (updated.getName() + ".txt"), false);
+                writeChangesToFile(update, updated.getName() + ".txt", false);
             } else {
-                System.out.println("The course you provided was not found!");
+                File tempFile = new File(current.getName() + ".txt");
+                //checks if the current course has a file
+                if (tempFile.exists()) {
+                    tempFile.delete();
+                    String update = updated.toString();
+                    //creates a file with the updated course
+                    writeChangesToFile(update, (updated.getName() + ".txt"), false);
+                    //updates the courses.txt file since the course name was changed
+                    ArrayList<String> courses = readFile("courses.txt");
+                    courses.set(courses.indexOf(current.getName()), updated.getName());
+                    String updatedCourses = "";
+                    for (int i = 0; i < courses.size(); i++) {
+                        updatedCourses += courses.get(i) + "\n";
+                    }
+                    writeChangesToFile(updatedCourses, "courses.txt", false);
+                } else {
+                    System.out.println("The course you provided was not found!");
+                }
             }
         } catch (Exception e) {
             System.out.println("There was a problem editing your course, try again!");
@@ -49,23 +91,17 @@ public class Manager {
 
     }
 
-    public String listCourses() {
+    public static String listCourses() {
         try {
-            int courseCount = 1;
-            ArrayList<String> courseInfo = readFile("sample_courses.txt");
+            ArrayList<String> courseInfo = readFile("courses.txt");
             if (courseInfo.size() == 0) {
                 return ("There are currently no courses!");
             }
             String courseList = "Courses:" + "\n";
             for (int i = 0; i < courseInfo.size(); i++) {
-                String temp = courseInfo.get(i);
-                if (temp.contains("CourseName: ")) {
-                    courseList += courseCount + ". " + temp + "\n";
-                    courseCount++;
-                }
+                courseList += (i + 1) + ". " + courseInfo.get(i) + "\n";
             }
             courseList = courseList.substring(0, courseList.length() - 1);
-            courseList = courseList.replace("CourseName: ","");
             return courseList;
         } catch (Exception e) {
             return "There was a problem listing the courses, try again!";
@@ -183,7 +219,7 @@ public class Manager {
 
     }
 
-    public ArrayList<String> readFile(String fileName) throws FileNotFoundException {
+    public static ArrayList<String> readFile(String fileName) throws FileNotFoundException {
         ArrayList<String> tempString = new ArrayList<>();
         File f = new File(fileName);
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
@@ -199,7 +235,7 @@ public class Manager {
         }
     }
 
-    public void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
+    public static void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);

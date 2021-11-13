@@ -1,18 +1,3 @@
 CourseName: CS180
-Name of Quiz: Q1
-Prompt of question: What is 1 + 1?
-1. 0
-2. 2
-3. 11
-4. window :)
-Prompt of question: Does CS 191 suck?
-1. Yes
-2. Ofc
-3. All of the above
-4. Nope?
-Name of Quiz: Q2
-Prompt of question: temp
-1. 1
-2. 2
-3. 3
-4. 4
+
+
