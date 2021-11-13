@@ -13,9 +13,24 @@ public class Teacher extends Account {
     public Submission gradeSubmission(Scanner s, Submission sub) {
         
     }
-
+    public void randomizeQuiz(String name, Scanner scanner) {
+        try { 
+            ArrayList<Quiz> courseQuiz = new ArrayList<>();
+            ArrayList<Quiz> rQuiz = new ArrayList<>();
+            addQuiz(name, scanner);
+            Collections.shuffle(questions);
+            for (int i = 0; i < questions.length; i++) {
+                Collections.shuffle(answerChoices.get(i));
+            }
+            Quiz randomQuiz = new Quiz(name, questions);
+            rQuiz.add(randomQuiz);
+            System.out.println("Quiz has been successfully added");
+        } catch (Exception e) {
+            System.out.println("Quiz could not be added");
+        }
+    }
     //Adds the quiz from the file with a randomized question and answer choice order
-    public void randomizeQuiz(String filename) {
+    public void randomizeQuizFromFile(String filename) {
         try {
             Path filePath = new File(filename).toPath();
             List<String> stringList = Files.readAllLines(filePath);
@@ -44,7 +59,7 @@ public class Teacher extends Account {
             System.out.println("Quiz has been successfully added");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Quiz could not be added");
         }
     }
 }
