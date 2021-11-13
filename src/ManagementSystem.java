@@ -145,7 +145,16 @@ public class ManagementSystem {
                                 }
                             case "0":
                                 System.out.println("Enter the name of the Quiz");
-                                currentCourse.addQuiz(s.nextLine(), s);
+                                String quizName = s.nextLine();
+                                System.out.println("Randomize Quiz? (Y/N)");
+                                String rand = s.nextLine();
+                                if (rand.equalsIgnoreCase("Y")) {
+                                    currentCourse.randomizeQuiz(quizName, s);
+                                }
+                                else if (randomize.equalsIgnoreCase("N")) {    
+                                    currentCourse.addQuiz(quizName, s);
+                                }
+                                
                         }
                 }
             }
