@@ -40,10 +40,10 @@ public class Quiz {
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
-    public ArrayList<Submission> getSubmission() {
+    public ArrayList<Submission> getSubmissions() {
         return sub;
     }
-    public void setSubmission(ArrayList<Submission> sub) {
+    public void setSubmissions(ArrayList<Submission> sub) {
         this.sub = sub;
     }
     //possiblyuu for grading
