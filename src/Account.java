@@ -23,11 +23,11 @@ public class Account {
 
     }
 
-    public void editId(String s){
+    public void setUsername(String s){
         this.username = s;
     }
 
-    public void editPassword(String s){
+    public void setPassword(String s){
         this.password = s;
     }
 
