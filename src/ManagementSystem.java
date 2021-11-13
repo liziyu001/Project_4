@@ -72,7 +72,7 @@ public class ManagementSystem {
                 System.out.println("1. View Courses");
                 System.out.println("2. Create a Course");
                 System.out.println("3. Account Setting");
-                switch (s.nextLine()){
+                switch (s.nextLine()) {
                     case "2":
                         System.out.println("Enter the name of the course you want to create:");
                         m.addCourse(new Course(s.nextLine()));
@@ -83,7 +83,7 @@ public class ManagementSystem {
                         System.out.println("1. Edit your username");
                         System.out.println("2. Edit your password");
                         System.out.println("3. Delete your account");
-                        switch (s.nextLine()){
+                        switch (s.nextLine()) {
                             case "1":
                                 String id;
                                 while (true) {
@@ -123,7 +123,7 @@ public class ManagementSystem {
                         System.out.println("3. Delete this Quiz");
                         System.out.println("4. Upload Quiz from file");
                         System.out.println("0. Create a new Quiz");
-                        switch (s.nextLine()){
+                        switch (s.nextLine()) {
                             case "1":
                                 Course temp = currentCourse;
                                 currentCourse.editQuiz(currentQuiz.getName(), s);
@@ -154,12 +154,12 @@ public class ManagementSystem {
             while (true) {
                 System.out.println("1. View Courses");
                 System.out.println("2. Account Setting");
-                switch (s.nextLine()){
+                switch (s.nextLine()) {
                     case "2":
                         System.out.println("1. Edit your username");
                         System.out.println("2. Edit your password");
                         System.out.println("3. Delete your account");
-                        switch (s.nextLine()){
+                        switch (s.nextLine()) {
                             case "1":
                                 String id;
                                 while (true) {
