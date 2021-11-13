@@ -35,6 +35,10 @@ public class Teacher extends Account {
             }
             //Shuffles the question and answer choice order 
             Collections.shuffle(questions);
+            for (int i = 0; i < questions.size(); i++) {
+                Collections.shuffle(answerChoices.get(i));
+            }
+            //Creates and adds the quiz with a randomized order
             Quiz quiz = new Quiz(nameOfQuiz, questions);
             courseQuiz.add(quiz);
             System.out.println("Quiz has been successfully added");
