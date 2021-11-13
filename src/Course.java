@@ -179,7 +179,7 @@ public class Course {
             }
             Quiz quiz = new Quiz(nameOfQuiz, questions);
             courseQuiz.add(quiz);
-            System.out.println("Quiz has been succesfully added");
+            System.out.println("Quiz has been successfully added");
 
         } catch (IOException e) {
             System.out.println("Cannot read from a file");
