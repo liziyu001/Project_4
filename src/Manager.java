@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Manager {
+    private ArrayList<Course> courseList;
     public static void main(String[] args) {
         /*
         Account a = new Account("Manas", "password1", true);
@@ -25,12 +26,13 @@ public class Manager {
          */
         //System.out.println(listCourses());
     }
-    public void addCourse(Course c) {
+    public void addCourse(Course c) throws FileNotFoundException{
         try {
             writeChangesToFile(c.toString(), "sample_courses.txt", true);
         } catch (Exception e) {
             System.out.println("There was a problem creating this course, try again!");
         }
+        updateCourse(readFile("Courses.txt"));
     }
 
     public void editCourse(Course current, Course updated) {
@@ -59,7 +61,7 @@ public class Manager {
             } else {
                 System.out.println("The course you provided was not found!");
             }
-
+            updateCourse(readFile("Courses.txt"));
         } catch (Exception e) {
             System.out.println("There was a problem editing your course, try again!");
         }
@@ -220,5 +222,19 @@ public class Manager {
         } catch (IOException e) {
             throw new FileNotFoundException();
         }
+    }
+
+    public void updateCourse (ArrayList<String> info) {
+        String cname = info.get(0).split(" ")[1];
+        ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+        ArrayList<Course> q = new ArrayList<Course>();
+        for (int i = 0; i < info.size(); i++) {
+
+        }
+        courseList = q;
+    }
+
+    public ArrayList<Course> getCourseList() {
+        return courseList;
     }
 }

@@ -1,3 +1,5 @@
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Teacher extends Account {
@@ -10,7 +12,7 @@ public class Teacher extends Account {
         String nameCourse = scanner.nextLine();
         return new Course(nameCourse);
     }
-    public Submission gradeSubmission(Scanner s, Submission sub) {
+    public ArrayList<Submission> gradeSubmission(Scanner s, ArrayList<Submission> sub) {
         
     }
 

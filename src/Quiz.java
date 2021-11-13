@@ -5,14 +5,16 @@ import java.util.Scanner;
 public class Quiz {
     private String name;
     private ArrayList<Question> questions;
-
+    private ArrayList<Submission> submissions;
     public Quiz(String name, ArrayList<Question> questions) {
         this.name = name;
         this.questions = questions;
+        submissions = new ArrayList<Submission>();
     }
     public Quiz(String name){
         this.name = name;
         questions = new ArrayList<>();
+        submissions = new ArrayList<Submission>();
     }
 
     public String getName() {
@@ -43,6 +45,18 @@ public class Quiz {
             output += question.toString();
         }
         return output + "\n";
+    }
+
+    public void addSubmission (Submission s) {
+        submissions.add(s);
+    }
+
+    public ArrayList<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(ArrayList<Submission> submissions) {
+        this.submissions = submissions;
     }
 }
 

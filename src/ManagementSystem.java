@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManagementSystem {
@@ -56,7 +57,7 @@ public class ManagementSystem {
                     if (currentAccount != null) {
                         System.out.println("Successfully logged in as " + currentAccount.getUsername());
                     } else {
-                        System.out.println("Invalid id or password");
+                        System.out.println("Invalid ID or password");
                         continue login;
                     }
                     break;
@@ -74,30 +75,41 @@ public class ManagementSystem {
                 System.out.println("3. Account Setting");
                 switch (s.nextLine()){
                     case "2":
-                        System.out.println("Enter the name of the course you want to create:");
-                        m.addCourse(new Course(s.nextLine()));
-                        m.record();
+                        try {
+                            m.addCourse(((Teacher) currentAccount).createCourse(s));
+                        } catch (Exception e) {
+                            System.out.println("Error occurs in creating the course");
+                        }
                         break;
                     case "3":
-                        System.out.println("1. Edit your username");
-                        System.out.println("2. Edit your password");
-                        System.out.println("3. Delete your account");
-                        switch (s.nextLine()){
-                            case "1":
-                                System.out.println("Enter your new Username:");
-                                currentAccount.editId(s.nextLine());
-                            case "2":
-                                System.out.println("Enter your new Password:");
-                                currentAccount.editPassword(s.nextLine());
-                            case "3":
-                                m.deleteAccount(currentAccount);
+                        AccountSetting:
+                        while (true) {
+                            System.out.println("1. Edit your username");
+                            System.out.println("2. Edit your password");
+                            System.out.println("3. Delete your account");
+                            switch (s.nextLine()) {
+                                case "1":
+                                    System.out.println("Enter your new Username:");
+                                    currentAccount.editId(s.nextLine());
+                                    break;
+                                case "2":
+                                    System.out.println("Enter your new Password:");
+                                    currentAccount.editPassword(s.nextLine());
+                                    break;
+                                case "3":
+                                    m.deleteAccount(currentAccount);
+                                    break;
+                                default :
+                                    System.out.println("Invalid Choice");
+                                    continue AccountSetting;
+                            }
+                            break;
                         }
                     case "1":
                         System.out.println("Select the course you want to view, ");
                         System.out.println(m.listCourses());
-                        Course currentCourse = ((Course)m.getCourses().get(Integer.parseInt(s.nextLine()) - 1));
+                        Course currentCourse = ((Course)m.getCourseList().get(Integer.parseInt(s.nextLine()) - 1));
                         System.out.println(currentCourse.toString());
-
                         System.out.println("Select the Quiz you want to proceed.");
                         Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
                         System.out.println("1. Edit the Quiz");
@@ -105,13 +117,15 @@ public class ManagementSystem {
                         System.out.println("3. Delete this Quiz");
                         System.out.println("4. Upload Quiz from file");
                         System.out.println("0. Create a new Quiz");
+
                         switch (s.nextLine()){
                             case "1":
                                 Course temp = currentCourse;
                                 currentCourse.editQuiz(currentQuiz.getName(), s);
                                 m.editCourse(temp, currentCourse);
                             case "2" :
-
+                                ArrayList<Submission> graded = ((Teacher)currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
+                                currentQuiz.setSubmissions(graded);
                             case "3":
                                 currentCourse.deleteQuiz(currentQuiz.getName());
                             case "4":
@@ -120,7 +134,7 @@ public class ManagementSystem {
                                 System.out.println("Randomize Quiz? (Y/N)");
                                 String randomize = s.nextLine();
                                 if (randomize.equalsIgnoreCase("Y")) {
-                                    randomizeQuiz(currentCourse, filename);
+                                    ((Teacher)currentAccount).randomizeQuiz(currentCourse, filename);
                                 }
                                 else if (randomize.equalsIgnoreCase("N")) {    
                                     currentCourse.AddQuizFromFile(filename);
@@ -138,27 +152,60 @@ public class ManagementSystem {
                 System.out.println("2. Account Setting");
                 switch (s.nextLine()){
                     case "2":
-                        System.out.println("1. Edit your username");
-                        System.out.println("2. Edit your password");
-                        System.out.println("3. Delete your account");
-                        switch (s.nextLine()){
-                            case "1":
-                                System.out.println("Enter your new Username:");
-                                Account temp = currentAccount;
-                                currentAccount.editId(s.nextLine());
-                                m.editAccount(temp, currentAccount);
-                            case "2":
-                                System.out.println("Enter your new Password:");
-                                temp = currentAccount;
-                                currentAccount.editPassword(s.nextLine());
-                                m.editAccount(temp, currentAccount);
-                            case "3":
-                                m.deleteAccount(currentAccount);
+                        studentAccountChoice:
+                        while (true) {
+                            System.out.println("1. Edit your username");
+                            System.out.println("2. Edit your password");
+                            System.out.println("3. Delete your account");
+                            switch (s.nextLine()) {
+                                case "1":
+                                    System.out.println("Enter your new Username:");
+                                    Account temp = currentAccount;
+                                    currentAccount.editId(s.nextLine());
+                                    m.editAccount(temp, currentAccount);
+                                    break;
+                                case "2":
+                                    System.out.println("Enter your new Password:");
+                                    temp = currentAccount;
+                                    currentAccount.editPassword(s.nextLine());
+                                    m.editAccount(temp, currentAccount);
+                                    break;
+                                case "3":
+                                    m.deleteAccount(currentAccount);
+                                    break;
+                                default :
+                                    System.out.println("Invalid Choice");
+                                    continue studentAccountChoice;
+                            }
+                            break;
                         }
+                        break;
+
                     case "1":
+                        System.out.println("Select the course you want to view, ");
+                        System.out.println(m.listCourses());
+                        Course currentCourse = ((Course)m.getCourseList().get(Integer.parseInt(s.nextLine()) - 1));
+                        System.out.println("Select the Quiz you want to take.");
+                        System.out.println(currentCourse.toString());
+                        System.out.println("0. View Gradings");
+                        if (s.nextLine().equals("0")){
+                            Submission[] results = ((Student)currentAccount).viewQuizResults((Student) currentAccount, currentCourse);
+                            for (int i = 0; i < results.length; i++) {
+                                System.out.println(results[i].toString());
+                            }
+                        } else {
+                            Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
+                            currentQuiz.addSubmission(((Student)currentAccount).takeQuiz(currentQuiz,s));
+                        }
+                        break;
+                    default :
+                        System.out.println("Invalid Choice");
+                        continue Student;
                 }
             }
         }
 
     }
+
+
 }
