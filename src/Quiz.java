@@ -10,16 +10,17 @@ public class Quiz {
     public Quiz(String name, ArrayList<Question> questions) {
         this.name = name;
         this.questions = questions;
-        this.sub = null;
+        this.sub = new ArrayList<>();
     }
      public Quiz(String name, ArrayList<Question> questions, ArrayList<Submission> sub) {
         this.name = name;
         this.questions = questions;
         this.sub = sub;
     }
-    public Quiz(String name){
+    public Quiz(String name) {
         this.name = name;
-        questions = new ArrayList<>();
+        this.questions = new ArrayList<>();
+        this.sub = new ArrayList<>();
     }
 
     public String getName() {
