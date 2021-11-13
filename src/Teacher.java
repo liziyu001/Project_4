@@ -15,7 +15,7 @@ public class Teacher extends Account {
     }
 
     //Adds the quiz from the file with a randomized question and answer choice order
-    public void randomizeQuiz(Course course, String filename) {
+    public void randomizeQuiz(String filename) {
         try {
             Path filePath = new File(filename).toPath();
             List<String> stringList = Files.readAllLines(filePath);
