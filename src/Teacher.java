@@ -13,24 +13,9 @@ public class Teacher extends Account {
     public Submission gradeSubmission(Scanner s, Submission sub) {
         
     }
-    public void randomizeQuiz(String name, Scanner scanner) {
-        try { 
-            ArrayList<Quiz> courseQuiz = new ArrayList<>();
-            ArrayList<Quiz> rQuiz = new ArrayList<>();
-            addQuiz(name, scanner);
-            Collections.shuffle(questions);
-            for (int i = 0; i < questions.length; i++) {
-                Collections.shuffle(answerChoices.get(i));
-            }
-            Quiz randomQuiz = new Quiz(name, questions);
-            rQuiz.add(randomQuiz);
-            System.out.println("Quiz has been successfully added");
-        } catch (Exception e) {
-            System.out.println("Quiz could not be added");
-        }
-    }
+   
     //Adds the quiz from the file with a randomized question and answer choice order
-    public void randomizeQuizFromFile(String filename) {
+    public void randomizeQuiz(String filename) {
         try {
             Path filePath = new File(filename).toPath();
             List<String> stringList = Files.readAllLines(filePath);
@@ -45,18 +30,17 @@ public class Teacher extends Account {
                 String[] str = answers.split(",");
                 List<String> answerChoices = new ArrayList<>();
                 answerChoices = Arrays.asList(str);
+                Collections.shuffle(answerChoices);
                 Question question = new Question(promptOfQuestion, (ArrayList<String>) answerChoices, correctAnswer);
                 questions.add(question);
             }
             //Shuffles the question and answer choice order 
             Collections.shuffle(questions);
-            for (int i = 0; i < questions.size(); i++) {
-                Collections.shuffle(answerChoices.get(i));
-            }
+            
             //Creates and adds the quiz with a randomized order
             Quiz quiz = new Quiz(nameOfQuiz, questions);
             courseQuiz.add(quiz);
-            System.out.println("Quiz has been successfully added");
+            System.out.println("Randomized quiz has been successfully added");
 
         } catch (Exception e) {
             System.out.println("Quiz could not be added");
