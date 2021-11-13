@@ -130,7 +130,7 @@ public class ManagementSystem {
                         System.out.println("4. Upload Quiz from file");
                         System.out.println("0. Create a new Quiz");
 
-                        switch (s.nextLine()){
+                        switch (s.nextLine()) {
                             case "1":
                                 Course temp = currentCourse;
                                 currentCourse.editQuiz(currentQuiz.getName(), s);
@@ -146,7 +146,7 @@ public class ManagementSystem {
                                 System.out.println("Randomize Quiz? (Y/N)");
                                 String randomize = s.nextLine();
                                 if (randomize.equalsIgnoreCase("Y")) {
-                                    ((Teacher)currentAccount).randomizeQuiz(currentCourse, filename);
+                                    ((Teacher)currentAccount).randomizeQuiz(filename);
                                 }
                                 else if (randomize.equalsIgnoreCase("N")) {    
                                     currentCourse.AddQuizFromFile(filename);
@@ -162,7 +162,7 @@ public class ManagementSystem {
             while (true) {
                 System.out.println("1. View Courses");
                 System.out.println("2. Account Setting");
-                switch (s.nextLine()){
+                switch (s.nextLine()) {
                     case "2":
                         studentAccountChoice:
                         while (true) {
