@@ -138,7 +138,7 @@ public class ManagementSystem {
                                 System.out.println("Randomize Quiz? (Y/N)");
                                 String randomize = s.nextLine();
                                 if (randomize.equalsIgnoreCase("Y")) {
-                                    randomizeQuiz(currentCourse, filename);
+                                    currentCourse.randomizeQuiz(filename);
                                 }
                                 else if (randomize.equalsIgnoreCase("N")) {    
                                     currentCourse.AddQuizFromFile(filename);
