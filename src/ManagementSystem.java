@@ -89,9 +89,10 @@ public class ManagementSystem {
                     case "2":
                         try {
                             // need to set s.nextLine() to a variable and input into these 2 functions
-                            //if (m.checkCourseAvailability(s)) {
-                                m.addCourse(((Teacher) currentAccount).createCourse(s));
-                            //}
+                            Course c = ((Teacher) currentAccount).createCourse(s);
+                            if (m.checkCourseAvailability(c)) {
+                                m.addCourse(c);
+                            }
                         } catch (Exception e) {
                             System.out.println("Error occurs in creating the course");
                         }
