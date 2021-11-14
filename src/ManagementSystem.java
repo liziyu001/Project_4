@@ -332,8 +332,9 @@ public class ManagementSystem {
                                 currentQuiz.addSubmission(currentAccount, answers);
                                 break;
                             case "3":
+                                System.out.println("Enter the filename: ");
                                 String filename = s.nextLine();
-
+                                currentQuiz.addSubmissionViaFile(currentAccount, filename);
                             default:
                                 System.out.println("Invalid input");
                                 break;
