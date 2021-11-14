@@ -41,35 +41,51 @@ public class Account {
         this.accountId = id;
         id++;
     }
-
+    /** Returns the username of the person's account
+    * @return the username of the person's account
+    */
     public String getUsername() {
         return username;
     }
-
+    /** Updates the username of the person's account using the specified username
+    * @param username The specified username that is going to be used in the update
+    */
     public void setUsername(String username) {
         this.username = username;
     }
-
+    /** Returns the password of the person's account
+    * @return the password of the person's account
+    */
     public String getPassword() {
         return password;
     }
-
+    /** Updates the password of the person's account using the specified password
+    * @param password The specified password that is going to be used in the update
+    */
     public void setPassword(String password) {
         this.password = password;
     }
-
+    /** Returns whether or not the person who made the account is a student or not
+    * @return whether or not the person who made the account is a student or not
+    */
     public boolean isStudent() {
         return isStudent;
     }
-
+    /** Updates the student status of the person's account using the specified boolean
+    * @param isStudent The specified boolean that is going to be used in the update to determine whether or not the person is a student
+    */
     public void setStudent(boolean student) {
         isStudent = student;
     }
-
+    /** Returns the account ID of the person's account
+    * @return the account ID of the person's account
+    */
     public int getAccountId() {
         return accountId;
     }
-
+    /** Updates the account ID of the person's account using the specified account id
+    * @param accountId The specified account ID that is going to be used in the update
+    */
     public void setAccountId(int accountId) { this.accountId = accountId; }
 
     @Override
