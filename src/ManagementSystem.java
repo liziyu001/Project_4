@@ -21,18 +21,26 @@ public class ManagementSystem {
                         System.out.println("Enter your User ID:");
                         id = s.nextLine();
                         if (id.contains(",")){
-                            System.out.println("Invalid Username");
+                            System.out.println("Invalid Username, no commas allowed!");
                             continue;
                         }
                         if (!m.checkAvailability(id)) {
-                            System.out.println("Invalid Username");
+                            System.out.println("Username already exists!");
                             continue;
                         }
 
                         break;
                     }
-                    System.out.println("Enter your Password:");
-                    String pwd = s.nextLine();
+                    String pwd;
+                    while (true) {
+                        System.out.println("Enter your Password:");
+                        pwd = s.nextLine();
+                        if (pwd.contains(",")) {
+                            System.out.println("Invalid Password, no commas allowed!");
+                            continue;
+                        }
+                        break;
+                    }
                     roleChoice:
                     while (true) {
                         System.out.println("Your role: 1. Teacher   2. Student");
@@ -60,7 +68,7 @@ public class ManagementSystem {
                         System.out.println("Enter your Password:");
                         ans = s.nextLine();
                         if (id.contains(",") || ans.contains(",")){
-                            System.out.println("Invalid input");
+                            System.out.println("Invalid input, no commas allowed!");
                             continue logininput;
                         }
                         currentAccount = m.login(id, ans);
