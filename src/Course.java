@@ -135,9 +135,9 @@ public class Course {
                 }
             } while (!isEnough);
             Optional<Quiz> quiz  = courseQuiz.stream().parallel().filter(val -> val.getName().equals(name)).findFirst();
-            Quiz quizToAdd = new Quiz(name, questions);
+            Quiz quizToAdd = new Quiz(newName, questions);
             if (quiz.isPresent()) {
-                courseQuiz.set(courseQuiz.indexOf(quiz), quizToAdd);
+                courseQuiz.set(courseQuiz.indexOf(quiz) + 1, quizToAdd);
                 System.out.println("Quiz has been successfully edited");
             }
             else {

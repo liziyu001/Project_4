@@ -44,7 +44,35 @@ public class Manager {
         //editCourse(l, c);
 
     }
+    /*
+    public void submitQuiz(String coursename, String quizname, Submission submission) {
+        try {
+            String filename = c.getName() + ".txt";
+            writeChangesToFile(c.toString(), filename, false);
+            ArrayList<String> courses = readFile("courses.txt");
+            for (int i = 0; i < courses.size(); i++) {
+                if (courses.get(i).isBlank()) {
+                    courses.remove(i);
+                }
+            }
+            courses.add(c.getName());
+            String courseString = "";
+            for (int i = 0; i < courses.size(); i++) {
+                if (i == courses.size() - 1) {
+                    courseString += courses.get(i);
+                } else {
+                    courseString += courses.get(i) + "\n";
+                }
 
+            }
+            writeChangesToFile(courseString, coursename + "_" + quizname + ".txt", true);
+        } catch (Exception e) {
+            System.out.println("There was a problem creating this course, try again!");
+        }
+    }
+
+
+     */
     public Course convertCourse(String coursename) {
         try {
             ArrayList<String> lines = readFile(coursename + ".txt");
@@ -105,13 +133,8 @@ public class Manager {
     }
 
     public String getQuizName(int index, String quizzes) {
-        int startIndex = quizzes.indexOf((index + ". "));
-        int endIndex = quizzes.indexOf(((index + 1) + ". "));
-        if (endIndex == - 1) {
-            return quizzes.substring(startIndex, quizzes.length());
-        } else {
-            return quizzes.substring(startIndex + 2 + String.valueOf(index).length(), endIndex - 1);
-        }
+        String[] lines = quizzes.split("\n");
+        return lines[index].substring(16 + String.valueOf(index).length());
 
     }
     public String getCourseName(int index) {
