@@ -218,7 +218,8 @@ public class Manager {
     public String listQuizzes(String coursename) {
         try {
             ArrayList<String> courseInfo = readFile(coursename + ".txt");
-            if (courseInfo.size() == 1) {
+            //System.out.println(courseInfo.size());
+            if (courseInfo.size() == 2) {
                 return ("There are currently no quizzes!");
             }
             String quizList = "Quizzes:" + "\n";

@@ -175,7 +175,7 @@ public class Account {
      * @param quizName The specified quiz name
      * @return An ArrayList which contains each assigned point value corresponding to an answer
      */
-    public ArrayList<Integer> gradeSubmissionViaFile(Scanner s, Student student, String courseName, String quizName){
+    public ArrayList<Integer> gradeSubmissionViaFile(Scanner s, Account student, String courseName, String quizName){
 
         Scanner reader = null;
         try {
