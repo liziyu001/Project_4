@@ -1,4 +1,5 @@
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 // need to check ALL scanners to ensure no commas are inputted, will mess with file reading/writing otherwise
@@ -9,6 +10,14 @@ public class ManagementSystem {
         String ans = "";
         Manager m = new Manager();
         Account currentAccount;
+        try {
+            File a = new File("accounts.txt");
+            File c = new File("courses.txt");
+            c.createNewFile();
+            a.createNewFile();
+        } catch (Exception e) {
+            System.out.println("There was a problem on startup");
+        }
 
         login:
         while (true) {
@@ -155,49 +164,63 @@ public class ManagementSystem {
                             break;
                         }
                     case "1":
-                        System.out.println("Select the course you want to view, ");
-                        System.out.println(m.listCourses());
-                        Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
-                        System.out.println("Select the Quiz you want to proceed.");
-                        System.out.println(m.listQuizzes(currentCourse.getName()));
-                        //System.out.println(currentCourse.toString());
-                        String quizzes = m.listQuizzes(currentCourse.getName());
-                        Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
-                        System.out.println("1. Edit the Quiz");
-                        System.out.println("2. Grade Submissions");
-                        System.out.println("3. Delete this Quiz");
-                        System.out.println("4. Upload Quiz from file");
-                        System.out.println("0. Create a new Quiz");
+                        if (!m.listCourses().equals("There are currently no courses!")) {
+                            System.out.println("Select the course you want to view");
+                            System.out.println(m.listCourses());
+                            Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
+                            if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
+                                System.out.println("Select the Quiz you want to proceed.");
+                                System.out.println(m.listQuizzes(currentCourse.getName()));
+                                //System.out.println(currentCourse.toString());
+                                String quizzes = m.listQuizzes(currentCourse.getName());
+                                Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
+                                        m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
+                                System.out.println("1. Edit the Quiz");
+                                System.out.println("2. Grade Submissions");
+                                System.out.println("3. Delete this Quiz");
+                                System.out.println("4. Upload Quiz from file");
+                                System.out.println("0. Create a new Quiz");
 
-                        switch (s.nextLine()) {
-                            case "1":
-                                Course temp = currentCourse;
-                                currentCourse.editQuiz(currentQuiz.getName(), s);
-                                m.editCourse(temp, currentCourse);
-                            case "2" :
+                                switch (s.nextLine()) {
+                                    case "1":
+                                        Course temp = currentCourse;
+                                        currentCourse.editQuiz(currentQuiz.getName(), s);
+                                        m.editCourse(temp, currentCourse);
+                                    case "2" :
+                                /*
                                 ArrayList<Submission> graded = (currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
                                 currentQuiz.setSubmissions(graded);
-                            case "3":
-                                temp = currentCourse;
-                                currentCourse.deleteQuiz(currentQuiz.getName());
-                                m.editCourse(temp, currentCourse);
-                            case "4":
-                                System.out.println("Enter the filename: ");
-                                String filename = s.nextLine();
-                                System.out.println("Randomize Quiz? (Y/N)");
-                                String randomize = s.nextLine();
-                                if (randomize.equalsIgnoreCase("Y")) {
-                                    (currentAccount).randomizeQuiz(filename);
+
+                                 */
+                                        System.out.println("Not implemented yet");
+                                    case "3":
+                                        temp = currentCourse;
+                                        currentCourse.deleteQuiz(currentQuiz.getName());
+                                        m.editCourse(temp, currentCourse);
+                                    case "4":
+                                        System.out.println("Enter the filename: ");
+                                        String filename = s.nextLine();
+                                        System.out.println("Randomize Quiz? (Y/N)");
+                                        String randomize = s.nextLine();
+                                        if (randomize.equalsIgnoreCase("Y")) {
+                                            (currentAccount).randomizeQuiz(filename);
+                                        }
+                                        else if (randomize.equalsIgnoreCase("N")) {
+                                            currentCourse.AddQuizFromFile(filename);
+                                        }
+                                    case "0":
+                                        System.out.println("Enter the name of the Quiz");
+                                        temp = currentCourse;
+                                        currentCourse.addQuiz(s.nextLine(), s);
+                                        m.editCourse(temp, currentCourse);
                                 }
-                                else if (randomize.equalsIgnoreCase("N")) {    
-                                    currentCourse.AddQuizFromFile(filename);
-                                }
-                            case "0":
-                                System.out.println("Enter the name of the Quiz");
-                                temp = currentCourse;
-                                currentCourse.addQuiz(s.nextLine(), s);
-                                m.editCourse(temp, currentCourse);
+                            } else {
+                                System.out.println("There are currently no quizzes!");
+                                continue Teacher;
+                            }
+                        } else {
+                            System.out.println("There are currently no courses!");
+                            continue Teacher;
                         }
                 }
             }
@@ -264,13 +287,21 @@ public class ManagementSystem {
                                 m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
                         System.out.println("0. View Gradings");
                         if (s.nextLine().equals("0")){
+                            /*
                             Submission[] results = (currentAccount).viewQuizResults( currentAccount, currentCourse);
                             for (int i = 0; i < results.length; i++) {
                                 System.out.println(results[i].toString());
                             }
+
+                             */
+                            System.out.println("not implemented yet");
                         } else {
+                            /*
                             Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
                             currentQuiz.addSubmission((currentAccount).takeQuiz(currentQuiz,s));
+
+                             */
+                            System.out.println("not implemented");
                         }
                         break;
                     default :

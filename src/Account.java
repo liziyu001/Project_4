@@ -175,7 +175,7 @@ public class Account {
      * @param quizName The specified quiz name
      * @return An ArrayList which contains each assigned point value corresponding to an answer
      */
-    public ArrayList<Integer> gradeSubmissionViaFile(Scanner s, Student student, String courseName, String quizName){
+    public ArrayList<Integer> gradeSubmissionViaFile(Scanner s, Account student, String courseName, String quizName){
 
         Scanner reader = null;
         try {
@@ -212,16 +212,23 @@ public class Account {
 
     }
 
-    //Adds the quiz from the file with a randomized question and answer choice order
+    /** Adds the quiz from the file based on the file name with a randomized question and answer choice order.
+    *  If the file name does not exist, or if there is an error while parsing through the file, then an error message will be printed.
+    * @param filename The name of the file that the method parses through.
+    */
     public void randomizeQuiz(String filename) {
         try {
+            //Parses through the file
             Path filePath = new File(filename).toPath();
             List<String> stringList = Files.readAllLines(filePath);
             String[] stringArray = stringList.toArray(new String[]{});
             String nameOfQuiz = stringArray[0];
             ArrayList<Question> questions = new ArrayList<>();
             ArrayList<Quiz> courseQuiz = new ArrayList<>();
-            for (int i = 1; i < stringArray.length; i += 4){
+            /*Creates the question prompt and answer choices, and adds each question object to the questions ArrayList with a randomized
+            answer choice 
+            */
+            for (int i = 1; i < stringArray.length; i += 4) {
                 String promptOfQuestion = stringArray[i];
                 String answers = stringArray[i+1];
                 int correctAnswer = Integer.parseInt(stringArray[i+2]);
@@ -232,7 +239,7 @@ public class Account {
                 Question question = new Question(promptOfQuestion, (ArrayList<String>) answerChoices, correctAnswer);
                 questions.add(question);
             }
-            //Shuffles the question and answer choice order
+            //Shuffles the question with a randomized answer choice order
             Collections.shuffle(questions);
 
             //Creates and adds the quiz with a randomized order
