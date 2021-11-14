@@ -1,4 +1,4 @@
-import java.io.File;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -61,5 +61,92 @@ public class Teacher extends Account {
         } catch (Exception e) {
             System.out.println("Quiz could not be added");
         }
+    }
+
+    /**
+     * A picky method which will look through a file, add its contents to an ArrayList, then iterate through the ArrayList and append each component to a specified location.
+     * @param fileName The file that the method parses through. File must be formatted in the Quiz format or else the method will return an error.
+     * @param targetCourse The name of the course the method will append the data to. Do not include a ".txt" as the method automatically adds one.
+     */
+    public void uploadQuizFromFile(String fileName, String targetCourse){
+
+        // Reading and writing
+        Scanner scan = null;
+        BufferedWriter bw = null;
+
+        // Sees if the file exists
+        try {
+            scan = new Scanner(new FileReader(fileName));
+        } catch (FileNotFoundException e) {
+            System.out.println("File name was invalid");
+            return;
+        }
+
+        // Sees if the target location to write to exists
+        try {
+            bw = new BufferedWriter(new FileWriter(targetCourse + ".txt", true));
+        } catch (IOException e) {
+            System.out.println("Target course was invalid");
+            return;
+        }
+
+        // This arraylist will contain valid data to be appended at the end.
+        ArrayList<String> contents = new ArrayList<String>();
+
+        // The name of the quiz.
+        String name = scan.nextLine();
+
+        // Check if the name is formatted correctly before adding it to the ArrayList.
+        if(!name.contains("Name of Quiz:")){
+            System.out.println("File was not formatted correctly");
+            return;
+        }
+        contents.add(name);
+
+        // Iterate through the file
+        while(scan.hasNext()){
+
+            // Checks and adds the question.
+            String questionPrompt = scan.nextLine();
+            if(!questionPrompt.contains("Prompt of Question:")){
+                System.out.println("File was not formatted correctly");
+                return;
+            }
+            contents.add(questionPrompt);
+
+            // Iterates through the remaining answers.
+            String answer = scan.nextLine();
+            while(answer!=null && !answer.contains("Correct Answer:")){
+                contents.add(answer);
+                answer = scan.nextLine();
+            }
+
+            // Makes sure that a correct answer prompt was provided
+            if(answer==null){
+                System.out.println("File is missing a correct answer prompt");
+                return;
+            }
+
+            contents.add(answer);
+        }
+
+        // Appends the contents of the ArrayList to the specified location
+        for(String s : contents){
+            try {
+                bw.newLine();
+                bw.append(s);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Closes the BufferedWriter for safety
+        try {
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
