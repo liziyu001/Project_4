@@ -105,6 +105,16 @@ public class Manager {
 
     }
 
+    public String getQuizName(int index, String quizzes) {
+        int startIndex = quizzes.indexOf((index + ". "));
+        int endIndex = quizzes.indexOf(((index + 1) + ". "));
+        if (endIndex == - 1) {
+            return quizzes.substring(startIndex, quizzes.length());
+        } else {
+            return quizzes.substring(startIndex + 2 + String.valueOf(index).length(), endIndex - 1);
+        }
+
+    }
     public static String getCourseName(int index) {
         try {
             ArrayList<String> courses = readFile("courses.txt");
@@ -202,6 +212,24 @@ public class Manager {
             return courseList;
         } catch (Exception e) {
             return "There was a problem listing the courses, try again!";
+        }
+    }
+
+    public String listQuizzes(String coursename) {
+        try {
+            ArrayList<String> courseInfo = readFile(coursename + ".txt");
+            if (courseInfo.size() == 1) {
+                return ("There are currently no quizzes!");
+            }
+            String quizList = "Quizzes:" + "\n";
+            for (int i = 0; i < courseInfo.size(); i++) {
+                if (courseInfo.get(i).contains("Prompt of Question: "))
+                quizList += (i + 1) + ". " + courseInfo.get(i) + "\n";
+            }
+            quizList = quizList.substring(0, quizList.length() - 1);
+            return quizList;
+        } catch (Exception e) {
+            return "There was a problem listing the quizzes, try again!";
         }
     }
 
