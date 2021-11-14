@@ -190,7 +190,7 @@ public class Course {
         for (Quiz quiz : courseQuiz) {
             finalToReturn += quiz.toString();
         }
-        return finalToReturn + "\n";
+        return finalToReturn;
     }
 
 }

@@ -88,7 +88,10 @@ public class ManagementSystem {
                 switch (s.nextLine()){
                     case "2":
                         try {
-                            m.addCourse(((Teacher) currentAccount).createCourse(s));
+                            // need to set s.nextLine() to a variable and input into these 2 functions
+                            //if (m.checkCourseAvailability(s)) {
+                                m.addCourse(((Teacher) currentAccount).createCourse(s));
+                            //}
                         } catch (Exception e) {
                             System.out.println("Error occurs in creating the course");
                         }
@@ -102,14 +105,21 @@ public class ManagementSystem {
                             switch (s.nextLine()) {
                                 case "1":
                                     System.out.println("Enter your new Username:");
-                                    currentAccount.editId(s.nextLine());
+                                    Account temp = currentAccount;
+                                    //has to not contain commas
+                                    currentAccount.setUsername(s.nextLine());
+                                    m.editAccount(temp, currentAccount);
                                     break;
                                 case "2":
                                     System.out.println("Enter your new Password:");
-                                    currentAccount.editPassword(s.nextLine());
+                                    temp = currentAccount;
+                                    //has to not contain commas
+                                    currentAccount.setPassword(s.nextLine());
+                                    m.editAccount(temp, currentAccount);
                                     break;
                                 case "3":
                                     m.deleteAccount(currentAccount);
+                                    System.out.println("Your account has been deleted!");
                                     break;
                                 default :
                                     System.out.println("Invalid Choice");
@@ -120,7 +130,7 @@ public class ManagementSystem {
                     case "1":
                         System.out.println("Select the course you want to view, ");
                         System.out.println(m.listCourses());
-                        Course currentCourse = ((Course)m.getCourseList().get(Integer.parseInt(s.nextLine()) - 1));
+                        Course currentCourse = ((Course)m.getCourse((Integer.parseInt(s.nextLine()) - 1)));
                         System.out.println(currentCourse.toString());
                         System.out.println("Select the Quiz you want to proceed.");
                         Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
@@ -134,7 +144,8 @@ public class ManagementSystem {
                             case "1":
                                 Course temp = currentCourse;
                                 currentCourse.editQuiz(currentQuiz.getName(), s);
-                                m.editCourse(temp, currentCourse);
+                                //need to write editQuiz method to replace editCourse
+                                //m.editCourse(temp, currentCourse);
                             case "2" :
                                 ArrayList<Submission> graded = ((Teacher)currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
                                 currentQuiz.setSubmissions(graded);
@@ -173,13 +184,15 @@ public class ManagementSystem {
                                 case "1":
                                     System.out.println("Enter your new Username:");
                                     Account temp = currentAccount;
-                                    currentAccount.editId(s.nextLine());
+                                    //has to not contain commas
+                                    currentAccount.setUsername(s.nextLine());
                                     m.editAccount(temp, currentAccount);
                                     break;
                                 case "2":
                                     System.out.println("Enter your new Password:");
                                     temp = currentAccount;
-                                    currentAccount.editPassword(s.nextLine());
+                                    //has to not contain commas
+                                    currentAccount.setPassword(s.nextLine());
                                     m.editAccount(temp, currentAccount);
                                     break;
                                 case "3":

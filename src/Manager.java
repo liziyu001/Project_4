@@ -23,7 +23,7 @@ public class Manager {
         addAccount(acc);
         bool = checkAvailability("anant");
         System.out.println(bool);
-         */
+
         System.out.println(listCourses());
         Course c = new Course("CS180");
         addCourse(c);
@@ -35,31 +35,73 @@ public class Manager {
         addCourse(l);
         System.out.println(listCourses());
         getCourse(1);
-        editCourse(l, c);
+         */
+        // might not need
+        //editCourse(l, c);
+
     }
 
-    public static Course getCourse(int index) {
+    public Course getCourse(int index) {
         try {
             Course temp = new Course("temp");
             ArrayList<String> courses = readFile("courses.txt");
             String filename = courses.get(index) + ".txt";
-            System.out.println(Arrays.deepToString(readFile(filename).toArray()));
+            ArrayList<String> current = readFile(filename);
+            /*
+            for (int i = 0; i < current.size(); i++) {
+                System.out.println(current.get(i));
+            }
+             */
             return temp;
         } catch (Exception e) {
             System.out.println("There was a problem finding your course!");
             return null;
         }
     }
-    public static void addCourse(Course c) {
+
+    public void addCourse(Course c) {
         try {
             String filename = c.getName() + ".txt";
             writeChangesToFile(c.toString(), filename, false);
-            writeChangesToFile(c.getName(), "courses.txt", true);
+            ArrayList<String> courses = readFile("courses.txt");
+            for (int i = 0; i < courses.size(); i++) {
+                if (courses.get(i).isBlank()) {
+                    courses.remove(i);
+                }
+            }
+            courses.add(c.getName());
+            String courseString = "";
+            for (int i = 0; i < courses.size(); i++) {
+                if (i == courses.size() - 1) {
+                    courseString += courses.get(i);
+                } else {
+                    courseString += courses.get(i) + "\n";
+                }
+
+            }
+            writeChangesToFile(courseString, "courses.txt", false);
         } catch (Exception e) {
             System.out.println("There was a problem creating this course, try again!");
         }
     }
 
+    public boolean checkCourseAvailability(String coursename) {
+        try {
+            ArrayList<String> courses = readFile("courses.txt");
+            for (int i = 0; i < courses.size(); i++) {
+                if (courses.get(i).equals(coursename)) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("There was a problem checking the course availability, try again!");
+            return false;
+        }
+    }
+
+    // might not need
+    /*
     public static void editCourse(Course current, Course updated) {
         try {
             if (current.getName().equals(updated.getName())) {
@@ -90,8 +132,9 @@ public class Manager {
         }
 
     }
+     */
 
-    public static String listCourses() {
+    public String listCourses() {
         try {
             ArrayList<String> courseInfo = readFile("courses.txt");
             if (courseInfo.size() == 0) {
@@ -219,7 +262,7 @@ public class Manager {
 
     }
 
-    public static ArrayList<String> readFile(String fileName) throws FileNotFoundException {
+    public ArrayList<String> readFile(String fileName) throws FileNotFoundException {
         ArrayList<String> tempString = new ArrayList<>();
         File f = new File(fileName);
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
@@ -235,7 +278,7 @@ public class Manager {
         }
     }
 
-    public static void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
+    public void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);
