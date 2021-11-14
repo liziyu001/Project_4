@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Submission {
     private Student student;
     private boolean graded;
@@ -14,7 +16,6 @@ public class Submission {
     @Override
     public String toString() {
         return "Submission{" +
-                "quiz=" + quiz +
                 ", student=" + student +
                 ", graded=" + graded +
                 ", answers=" + Arrays.toString(answers) +
