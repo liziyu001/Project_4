@@ -1,3 +1,6 @@
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class Teacher extends Account {
@@ -10,8 +13,21 @@ public class Teacher extends Account {
         String nameCourse = scanner.nextLine();
         return new Course(nameCourse);
     }
-    public Submission gradeSubmission(Scanner s, Submission sub) {
-        
+   //when teacher grades submission invoke method in Quiz to editTheSubmission so the student would see it
+    public ArrayList<Integer> gradeSubmission(Scanner s, Submission sub) {
+       int[] subGrades = new int[sub.getSubGrades().length];
+       int totalGrade = 0;
+       ArrayList<Integer> toReturn = new ArrayList<>();
+        for (int i = 0; i<sub.getAnswers().length; i++){
+            System.out.println("Answer for the " + i+1 + "question is: " + sub.getAnswers()[i]);
+            System.out.println("How many points would you give for this answer? ");
+            int subGrade = Integer.parseInt(s.nextLine());
+            totalGrade+=subGrade;
+            subGrades[i] = subGrade;
+            toReturn.add(subGrade);
+        }
+        return toReturn;
+
     }
    
     //Adds the quiz from the file with a randomized question and answer choice order

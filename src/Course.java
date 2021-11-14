@@ -6,8 +6,7 @@ import java.util.*;
 
 public class Course {
     private String name;
-    private ArrayList<Quiz> courseQuiz; 
-    private ArrayList<Submission> submissions;
+    private ArrayList<Quiz> courseQuiz;
     public Course(String name, ArrayList<Quiz> courseQuiz) {
         this.name = name;
         this.courseQuiz = courseQuiz;
@@ -185,6 +184,7 @@ public class Course {
             System.out.println("Cannot read from a file");
         }
     }
+
     public String toString() {
         String finalToReturn = "CourseName: " + name + "\n";
         for (Quiz quiz : courseQuiz) {
@@ -192,4 +192,5 @@ public class Course {
         }
         return finalToReturn + "\n";
     }
+
 }
