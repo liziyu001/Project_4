@@ -23,7 +23,7 @@ public class Manager {
         addAccount(acc);
         bool = checkAvailability("anant");
         System.out.println(bool);
-*/
+
         System.out.println(listCourses());
         Course c = new Course("CS180");
         addCourse(c);
@@ -38,6 +38,8 @@ public class Manager {
         Course a = new Course("CS193");
         addCourse(a);
 
+
+         */
         // might not need
         //editCourse(l, c);
 
@@ -112,7 +114,7 @@ public class Manager {
         }
 
     }
-    public static String getCourseName(int index) {
+    public String getCourseName(int index) {
         try {
             ArrayList<String> courses = readFile("courses.txt");
             return courses.get(index);
@@ -122,7 +124,7 @@ public class Manager {
         }
     }
 
-    public static void addCourse(Course c) {
+    public void addCourse(Course c) {
         try {
             String filename = c.getName() + ".txt";
             writeChangesToFile(c.toString(), filename, false);
@@ -195,7 +197,7 @@ public class Manager {
 
     }
 
-    public static String listCourses() {
+    public String listCourses() {
         try {
             ArrayList<String> courseInfo = readFile("courses.txt");
             if (courseInfo.size() == 0) {
@@ -215,14 +217,16 @@ public class Manager {
     public String listQuizzes(String coursename) {
         try {
             ArrayList<String> courseInfo = readFile(coursename + ".txt");
+            int quizNumber = 0;
             //System.out.println(courseInfo.size());
             if (courseInfo.size() == 2) {
                 return ("There are currently no quizzes!");
             }
             String quizList = "Quizzes:" + "\n";
             for (int i = 0; i < courseInfo.size(); i++) {
-                if (courseInfo.get(i).startsWith("Prompt of Question: "))
-                quizList += (i + 1) + ". " + courseInfo.get(i) + "\n";
+                if (courseInfo.get(i).startsWith("Name of Quiz: "))
+                quizList += (quizNumber + ". ") + courseInfo.get(i) + "\n";
+                quizNumber++;
             }
             quizList = quizList.substring(0, quizList.length() - 1);
             return quizList;
@@ -342,7 +346,7 @@ public class Manager {
 
     }
 
-    public static ArrayList<String> readFile(String fileName) throws FileNotFoundException {
+    public ArrayList<String> readFile(String fileName) throws FileNotFoundException {
         ArrayList<String> tempString = new ArrayList<>();
         File f = new File(fileName);
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
@@ -358,7 +362,7 @@ public class Manager {
         }
     }
 
-    public static void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
+    public void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);

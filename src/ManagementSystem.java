@@ -188,16 +188,19 @@ public class ManagementSystem {
                                 System.out.println("0. Back");
                                 //System.out.println(currentCourse.toString());
                                 String quizzes = m.listQuizzes(currentCourse.getName());
+                                choice = s.nextLine();
                                 if (choice.equals("0")) {
                                     continue Teacher;
                                 }
                                 Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                        m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
+                                        m.getQuizName(Integer.parseInt(choice) - 1, quizzes));
                                 System.out.println("1. Edit the Quiz");
                                 System.out.println("2. Grade Submissions");
                                 System.out.println("3. Delete this Quiz");
                                 System.out.println("4. Upload Quiz from file");
                                 System.out.println("0. Back");
+
+
 
                                 switch (s.nextLine()) {
                                     case "1":
