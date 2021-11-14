@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Quiz {
@@ -97,6 +100,31 @@ public class Quiz {
         Submission submission = new Submission(Account, ans);
         submissions.add(submission);
         System.out.println("Quiz has been taken");
+    }
+    public void addSubmissionViaFile(Account account, String filename)  {
+           /*
+           txt should have format like this:
+           1, 2, 4, 1
+           each number is an answer for the each question if number of answer is bigger than amount of question throw error.
+            */
+        try{
+            String data = new String(Files.readAllBytes(Paths.get(filename)));
+            String[] answers = data.split(",");
+            int[] ans = new int[answers.length];
+            for (int i =0; i<ans.length; i++){
+                ans[i] = Integer.parseInt(answers[i]);
+            }
+            if(questions.size() < ans.length){
+                System.out.println("Amount of answers is bigger than amount of questions(");
+            }
+            else{
+                Submission submission = new Submission(account, ans);
+                submissions.add(submission);
+                System.out.println("Quiz has been successfully added via File");
+            }
+        }catch (Exception e){
+            System.out.println("Wrong format...");
+        }
     }
     public void EditSubmission(ArrayList<Integer> values, Account Account){
         int[] subGrades = new int[values.size()-1];

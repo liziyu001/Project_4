@@ -241,7 +241,7 @@ public class ManagementSystem {
                             } else {
                                 System.out.println("There are currently no quizzes!");
                                 System.out.println("0. Create a new Quiz");
-                                if (!s.nextLine().equalsIgnoreCase("y")) {
+                                if (!s.nextLine().equals("0")) {
                                     continue Teacher;
                                 }
                                 System.out.println("Enter the name of the Quiz");
@@ -332,8 +332,9 @@ public class ManagementSystem {
                                 currentQuiz.addSubmission(currentAccount, answers);
                                 break;
                             case "3":
+                                System.out.println("Enter the filename: ");
                                 String filename = s.nextLine();
-
+                                currentQuiz.addSubmissionViaFile(currentAccount, filename);
                             default:
                                 System.out.println("Invalid input");
                                 break;
