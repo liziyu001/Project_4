@@ -193,7 +193,7 @@ public class ManagementSystem {
                                     continue Teacher;
                                 }
                                 Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                        m.getQuizName(Integer.parseInt(choice) - 1, quizzes));
+                                        m.getQuizName(Integer.parseInt(choice), quizzes));
                                 System.out.println("1. Edit the Quiz");
                                 System.out.println("2. Grade Submissions");
                                 System.out.println("3. Delete this Quiz");
@@ -205,6 +205,9 @@ public class ManagementSystem {
                                 switch (s.nextLine()) {
                                     case "1":
                                         Course temp = currentCourse;
+                                        System.out.println("Current course :" + currentCourse);
+                                        System.out.println("Current Quiz: " + currentQuiz);
+                                        System.out.println("Quiz name: " + currentQuiz.getName());
                                         currentCourse.editQuiz(currentQuiz.getName(), s);
                                         m.editCourse(temp, currentCourse);
                                         break;
