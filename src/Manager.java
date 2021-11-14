@@ -40,6 +40,68 @@ public class Manager {
         //editCourse(l, c);
 
     }
+
+    public Course convertCourse(String coursename) {
+        try {
+            ArrayList<String> lines = readFile(coursename + ".txt");
+            ArrayList<String> quizNames = new ArrayList<>();
+            ArrayList<Quiz> quizzes = new ArrayList<>();
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).contains("Name of Quiz: ")) {
+                    quizNames.add(lines.get(i).replace("Name of Quiz: ", ""));
+                }
+            }
+            for (int i = 0; i < quizNames.size(); i++) {
+                quizzes.add(convertQuiz(coursename, quizNames.get(i)));
+            }
+            Course c = new Course(coursename, quizzes);
+            return c;
+        } catch (Exception e) {
+            System.out.println("There was a problem converting this string into a course!");
+            return null;
+        }
+    }
+    // if the questions/answers have name of quiz then what?
+    // if prompt has prompt of question then what?
+    public Quiz convertQuiz(String coursename, String quizname) {
+        try {
+            boolean quizFound = false;
+            boolean questionFound = false;
+            String prompt = "";
+            int correctAnswer;
+            ArrayList<String> choices = new ArrayList<>();
+            ArrayList<String> lines = readFile(coursename + ".txt");
+            ArrayList<Question> questions = new ArrayList<>();
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).contains("Name of Quiz: " + quizname)) {
+                    quizFound = true;
+                }
+                if (quizFound) {
+                    if (lines.get(i).contains("Correct Answer: ")) {
+                        correctAnswer = Integer.parseInt
+                                (lines.get(i).replace("Correct Answer: ", " "));
+                        Question temp = new Question(prompt, choices, correctAnswer);
+                        questions.add(temp);
+                        questionFound = false;
+                        prompt = "";
+                        choices = null;
+                    } else if (lines.get(i).contains("Prompt of Question: ")){
+                        questionFound = true;
+                        prompt = lines.get(i).replace("Prompt of Question: ", "");
+                    } else {
+                        choices.add(lines.get(i));
+                    }
+                }
+            }
+            Quiz q = new Quiz(quizname, questions);
+            return q;
+        } catch (Exception e) {
+            System.out.println("There was a problem converting this string to a quiz!");
+            return null;
+        }
+
+    }
+
     public Course getCourse(int index) {
         try {
             Course temp = new Course("temp");
@@ -260,7 +322,7 @@ public class Manager {
 
     }
 
-    public ArrayList<String> readFile(String fileName) throws FileNotFoundException {
+    public static ArrayList<String> readFile(String fileName) throws FileNotFoundException {
         ArrayList<String> tempString = new ArrayList<>();
         File f = new File(fileName);
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {

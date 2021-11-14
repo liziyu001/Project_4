@@ -1,2 +1,15 @@
 CourseName: CS180
-
+Name of Quiz: Q1
+Prompt of Question: 1+1?
+1. 2
+2. 3
+3. 0
+4. 1
+Correct Answer: 1
+Name of Quiz: Q2
+Prompt of Question: 2*2?
+1. 4
+2. 2
+3. 1
+4. 0
+Correct Answer: 1
