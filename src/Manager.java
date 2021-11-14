@@ -83,7 +83,7 @@ public class Manager {
                         questions.add(temp);
                         questionFound = false;
                         prompt = "";
-                        choices = null;
+                        choices = new ArrayList<>();
                     } else if (lines.get(i).startsWith("Prompt of Question: ")){
                         questionFound = true;
                         prompt = lines.get(i).substring(20);
@@ -95,6 +95,7 @@ public class Manager {
             Quiz q = new Quiz(quizname, questions);
             return q;
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("There was a problem converting this string to a quiz!");
             return null;
         }

@@ -39,18 +39,20 @@ public class Question {
       //ded
     }
     public String toString() {
-        String output = "Prompt of question: " + getPrompt() + "\n";
+        String output = "Prompt of Question: " + getPrompt() + "\n";
         for (int i = 0; i < answerChoices.size(); i++) {
             output += (i + 1) + ". " + answerChoices.get(i) + "\n";
         }
         output += "Correct Answer: " + correctAnswer;
-        return output;
+        return output + "\n";
     }
+    /*
     public String toStringWthoutAnswer() {
-        String output = "Prompt of question: " + getPrompt() + "\n";
+        String output = "Prompt of Question: " + getPrompt() + "\n";
         for (String str : answerChoices) {
             output += str + "\n";
         }
         return output + "\n";
     }
+     */
 }
