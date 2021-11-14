@@ -4,13 +4,22 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class Account {
+    //The username of the person's account
     private String username;
+    //The password of the person's account
     private String password;
+    //Determines if the person is a student or not
     private boolean isStudent;
+    //Represents the account id number of the person 
     private static int id = 1;
     private int accountId;
 
-
+    /** Constructs a newly allocated Account object with the specified username, password, and boolean isStudent
+    * The account id increments by 1 each time a person's account is created
+    * @ param username The specified username of the person to be used in construction
+    * @ param password The specified password of the person to be used in construction
+    * @ param isStudent The specified boolean to be used in construction that determines whether the person is a student or not
+    */ 
     public Account(String username, String password, boolean isStudent) {
         this.username = username;
         this.password = password;
