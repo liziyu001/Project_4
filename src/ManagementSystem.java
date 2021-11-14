@@ -78,7 +78,7 @@ public class ManagementSystem {
                         ans = s.nextLine();
                         if (id.contains(",") || ans.contains(",")){
                             System.out.println("Invalid input, no commas allowed!");
-                            continue logininput;
+                            continue login;
                         }
                         currentAccount = m.login(id, ans);
                         if (currentAccount != null) {
@@ -109,11 +109,14 @@ public class ManagementSystem {
                             Course c = ( currentAccount).createCourse(s);
                             if (m.checkCourseAvailability(c)) {
                                 m.addCourse(c);
+                                System.out.println("Course " + c.getName() + " successfully created");
+                                continue Teacher;
                             } else {
-                                System.out.println("Course with the same name already exists!");
+                                System.out.println(" Failed! Course with the same name already exists!");
                                 continue Teacher;
                             }
                         } catch (Exception e) {
+                            e.printStackTrace();
                             System.out.println("Error occurs in creating the course");
                         }
                         break;
@@ -123,6 +126,7 @@ public class ManagementSystem {
                             System.out.println("1. Edit your username");
                             System.out.println("2. Edit your password");
                             System.out.println("3. Delete your account");
+                            System.out.println("0. Back");
                             switch (s.nextLine()) {
                                 case "1":
                                     Account temp = currentAccount;
@@ -138,6 +142,7 @@ public class ManagementSystem {
                                             break;
                                         }
                                     }
+                                    break;
                                 case "2":
                                     temp = currentAccount;
                                     while (true) {
@@ -152,11 +157,14 @@ public class ManagementSystem {
                                             break;
                                         }
                                     }
+                                    break;
                                 case "3":
                                     // need to deal with files associated with the account? gonna be hard
                                     m.deleteAccount(currentAccount);
                                     System.out.println("Your account has been deleted!");
                                     break;
+                                case "0":
+                                    continue Teacher;
                                 default :
                                     System.out.println("Invalid Choice");
                                     continue AccountSetting;
@@ -164,28 +172,39 @@ public class ManagementSystem {
                             break;
                         }
                     case "1":
+
                         if (!m.listCourses().equals("There are currently no courses!")) {
                             System.out.println("Select the course you want to view");
                             System.out.println(m.listCourses());
-                            Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
+                            System.out.println("0. Back");
+                            String choice = s.nextLine();
+                            if (choice.equals("0")) {
+                                continue Teacher;
+                            }
+                            Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(choice) - 1)));
                             if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
                                 System.out.println("Select the Quiz you want to proceed.");
                                 System.out.println(m.listQuizzes(currentCourse.getName()));
+                                System.out.println("0. Back");
                                 //System.out.println(currentCourse.toString());
                                 String quizzes = m.listQuizzes(currentCourse.getName());
+                                if (choice.equals("0")) {
+                                    continue Teacher;
+                                }
                                 Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
                                         m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
                                 System.out.println("1. Edit the Quiz");
                                 System.out.println("2. Grade Submissions");
                                 System.out.println("3. Delete this Quiz");
                                 System.out.println("4. Upload Quiz from file");
-                                System.out.println("0. Create a new Quiz");
+                                System.out.println("0. Back");
 
                                 switch (s.nextLine()) {
                                     case "1":
                                         Course temp = currentCourse;
                                         currentCourse.editQuiz(currentQuiz.getName(), s);
                                         m.editCourse(temp, currentCourse);
+                                        break;
                                     case "2" :
                                 /*
                                 ArrayList<Submission> graded = (currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
@@ -197,6 +216,7 @@ public class ManagementSystem {
                                         temp = currentCourse;
                                         currentCourse.deleteQuiz(currentQuiz.getName());
                                         m.editCourse(temp, currentCourse);
+                                        break;
                                     case "4":
                                         System.out.println("Enter the filename: ");
                                         String filename = s.nextLine();
@@ -208,14 +228,21 @@ public class ManagementSystem {
                                         else if (randomize.equalsIgnoreCase("N")) {
                                             currentCourse.AddQuizFromFile(filename);
                                         }
+                                        break;
                                     case "0":
-                                        System.out.println("Enter the name of the Quiz");
-                                        temp = currentCourse;
-                                        currentCourse.addQuiz(s.nextLine(), s);
-                                        m.editCourse(temp, currentCourse);
+                                        continue Teacher;
                                 }
                             } else {
                                 System.out.println("There are currently no quizzes!");
+                                System.out.println("0. Create a new Quiz");
+                                if (!s.nextLine().equalsIgnoreCase("y")) {
+                                    continue Teacher;
+                                }
+                                System.out.println("Enter the name of the Quiz");
+                                Course temp = currentCourse;
+                                currentCourse.addQuiz(s.nextLine(), s);
+                                m.editCourse(temp, currentCourse);
+                                System.out.println("Quiz created");
                                 continue Teacher;
                             }
                         } else {
