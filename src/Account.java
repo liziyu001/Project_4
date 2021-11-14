@@ -95,7 +95,14 @@ public class Account {
      * @param accountId The specified account ID that is going to be used in the update
      */
     public void setAccountId(int accountId) { this.accountId = accountId; }
-
+    
+    /** 
+     * Determines whether or not the specified object is equal to this account
+     * Returns false if the object is null, if the objects have a different class type, or if their account ID and type of person is not the same
+     * Otherwise it returns true
+     * @param o The specified object that is going to be used for comparison
+     * @return false if the object is null, if the objects have a different class type, or if their account ID and type of person is not the same; otherwise it returns true
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,7 +111,16 @@ public class Account {
         return isStudent == account.isStudent && accountId == account.accountId
                 && Objects.equals(username, account.username) && Objects.equals(password, account.password);
     }
-
+    /** 
+     * Returns the String representation of the account
+     * Example: 
+     * accountId = 1
+     * username = "user"
+     * password = "hi"
+     * isStudent = true
+     * toString() = "1, user, hi, true"
+     * @return the String representation of the account
+     */ 
     @Override
     public String toString() {
         return  accountId + ", " + username + ", " + password + ", " + isStudent;
@@ -182,13 +198,24 @@ public class Account {
         }
 
     }
-
+    /** 
+     * Creates the course based on the user input of the teacher and returns the Course object implemented in the Course class
+     * @param scanner A scanner object which allows the teacher to enter the name of the course they want to create
+     * @return the Course object implemented in the Course class
+     */
     public Course createCourse(Scanner scanner) {
         System.out.println("Enter the name of the course: ");
         String nameCourse = scanner.nextLine();
         return new Course(nameCourse);
     }
-    //when teacher grades submission invoke method in Quiz to editTheSubmission so the student would see it
+    /** 
+     * When teacher grades submission invoke method in Quiz to editTheSubmission so the student would see it
+     * Adds each grade of each question into an array list and returns that array list
+     * It also adds the grade of each question to determine the total amount of points the student earned
+     * @param s A Scanner object which allows the teacher to input the amount of points the student gets for their answer
+     * @param sub A Submission object which shows the teacher the student's submission
+     * @return the grade the teacher gave the student for each question in an array list
+     */
     public ArrayList<Integer> gradeSubmission(Scanner s, Submission sub) {
         int[] subGrades = new int[sub.getSubGrades().length];
         int totalGrade = 0;
@@ -250,7 +277,10 @@ public class Account {
 
     }
 
-    //Adds the quiz from the file with a randomized question and answer choice order
+    /**
+     * Adds the quiz from the file with a randomized question and answer choice order
+     * @param filename The name of the file that is being parsed
+     */
     public void randomizeQuiz(String filename) {
         try {
             Path filePath = new File(filename).toPath();
