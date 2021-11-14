@@ -1,3 +1,4 @@
+import java.security.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -16,7 +17,7 @@ public class Submission {
         graded = false;
         subGrades = new int[answers.length];
         totalGrades = 0;
-        setTimestamp();
+        this.timestamp = new SimpleDateFormat("yyyy.MM.dd HH-mm-ss").format(new java.util.Date());
     }
     @Override
     public String toString() {
@@ -37,6 +38,9 @@ public class Submission {
         this.totalGrades = totalGrades;
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
 
     public Account getAccount() {
         return Account;
@@ -81,11 +85,12 @@ public class Submission {
     public void setTimestamp() {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date;
+        Date date = new Date();
         try {
             date = simpleDateFormat.parse(String.valueOf(System.currentTimeMillis()));
             long ts = date.getTime();
             res = String.valueOf(ts);
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
             this.timestamp = timestamp;
         } catch (ParseException e){
             e.printStackTrace();

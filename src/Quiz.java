@@ -80,7 +80,7 @@ public class Quiz {
         int i =1;
         for(Submission sub: submissions){
             if(!sub.isGraded()){
-                System.out.println(i+"View submission of "+sub.getAccount().getUsername());
+                System.out.println(i+"View submission of "+sub.getAccount().getUsername() + " " +sub.getTimestamp());
             }
             i++;
         }
