@@ -49,8 +49,8 @@ public class Manager {
             ArrayList<String> quizNames = new ArrayList<>();
             ArrayList<Quiz> quizzes = new ArrayList<>();
             for (int i = 0; i < lines.size(); i++) {
-                if (lines.get(i).contains("Name of Quiz: ")) {
-                    quizNames.add(lines.get(i).replace("Name of Quiz: ", ""));
+                if (lines.get(i).startsWith("Name of Quiz: ")) {
+                    quizNames.add(lines.get(i).substring(14));
                 }
             }
             for (int i = 0; i < quizNames.size(); i++) {
@@ -63,9 +63,6 @@ public class Manager {
             return null;
         }
     }
-    // if the questions/answers have name of quiz then what?
-    // if prompt has prompt of question then what?
-    // use substring and .equals instead of contains()
     public Quiz convertQuiz(String coursename, String quizname) {
         try {
             boolean quizFound = false;
@@ -76,21 +73,20 @@ public class Manager {
             ArrayList<String> lines = readFile(coursename + ".txt");
             ArrayList<Question> questions = new ArrayList<>();
             for (int i = 0; i < lines.size(); i++) {
-                if (lines.get(i).contains("Name of Quiz: " + quizname)) {
+                if (lines.get(i).equals("Name of Quiz: " + quizname)) {
                     quizFound = true;
                 }
                 if (quizFound) {
-                    if (lines.get(i).contains("Correct Answer: ")) {
-                        correctAnswer = Integer.parseInt
-                                (lines.get(i).replace("Correct Answer: ", " "));
+                    if (lines.get(i).startsWith("Correct Answer: ")) {
+                        correctAnswer = Integer.parseInt(lines.get(i).substring(16));
                         Question temp = new Question(prompt, choices, correctAnswer);
                         questions.add(temp);
                         questionFound = false;
                         prompt = "";
                         choices = null;
-                    } else if (lines.get(i).contains("Prompt of Question: ")){
+                    } else if (lines.get(i).startsWith("Prompt of Question: ")){
                         questionFound = true;
-                        prompt = lines.get(i).replace("Prompt of Question: ", "");
+                        prompt = lines.get(i).substring(20);
                     } else {
                         choices.add(lines.get(i));
                     }
@@ -224,7 +220,7 @@ public class Manager {
             }
             String quizList = "Quizzes:" + "\n";
             for (int i = 0; i < courseInfo.size(); i++) {
-                if (courseInfo.get(i).contains("Prompt of Question: "))
+                if (courseInfo.get(i).startsWith("Prompt of Question: "))
                 quizList += (i + 1) + ". " + courseInfo.get(i) + "\n";
             }
             quizList = quizList.substring(0, quizList.length() - 1);
