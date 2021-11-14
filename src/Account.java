@@ -28,7 +28,12 @@ public class Account {
         this.accountId = id;
         id++;
     }
-
+     /** Constucts a newly allocated Account object with a specified account
+     * The account id increments by 1 each time a person's account is created
+     * 
+     * @param a The specified account to be used in construction
+     */
+     
     public Account(Account a) {
         this.username = a.getUsername();
         this.password = a.getPassword();
@@ -88,7 +93,7 @@ public class Account {
      * @param quiz The quiz object which information is pulled from.
      * @return Returns an ArrayList containing the user's responses. Example: {1, 2, 3, 4}
      */
-    public ArrayList<String> takeQuiz(Scanner scan, Quiz quiz){
+    public ArrayList<String> takeQuiz(Scanner scan, Quiz quiz) {
         System.out.println("You are now taking Quiz: " + quiz.getName() + ".");
 
         // The arraylist which contains the quizzes questions
@@ -307,13 +312,13 @@ public class Account {
 
             // Iterates through the remaining answers.
             String answer = scan.nextLine();
-            while(answer!=null && !answer.contains("Correct Answer:")){
+            while(answer != null && !answer.contains("Correct Answer:")){
                 contents.add(answer);
                 answer = scan.nextLine();
             }
 
             // Makes sure that a correct answer prompt was provided
-            if(answer==null){
+            if(answer == null) {
                 System.out.println("File is missing a correct answer prompt");
                 return;
             }
