@@ -29,6 +29,52 @@ public class Teacher extends Account {
         return toReturn;
 
     }
+
+    /**
+     * A helper method which first confirms the target submission exists, then prompts the user to grade it.
+     *
+     * @param s The scanner object using System.in which grabs the user's input when grading
+     * @param student The student to check for submissions
+     * @param courseName The course which the quiz should belong to
+     * @param quizName The specified quiz name
+     * @return An ArrayList which contains each assigned point value corresponding to an answer
+     */
+    public ArrayList<Integer> gradeSubmissionViaFile(Scanner s, Student student, String courseName, String quizName){
+
+        Scanner reader = null;
+        try {
+            reader = new Scanner(new FileReader(student.getUsername() + ".txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String submission = reader.nextLine();
+        boolean found = false;
+        String[] line = null;
+        while(submission!=null){
+            line = submission.split(",");
+            if(line[0].equals(courseName) && line[1].equals(quizName)){
+                found = true;
+                break;
+            }
+            submission = reader.nextLine();
+        }
+        if(!found){
+            System.out.println("The specified submission was not found!");
+            return null;
+        }
+
+        ArrayList<Integer> grades = new ArrayList<Integer>();
+        for(int i=2; i<line.length; i++){
+            System.out.println("Answer for the " + (i-1) + " question is: " + line[i]);
+            System.out.println("How many points would you give for this answer?");
+
+            grades.add(Integer.parseInt(s.nextLine()));
+        }
+
+        return grades;
+
+    }
    
     //Adds the quiz from the file with a randomized question and answer choice order
     public void randomizeQuiz(String filename) {
