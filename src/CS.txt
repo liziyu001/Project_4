@@ -1,0 +1,16 @@
+CourseName: CS
+Name of Quiz: Name of Quiz: 
+Prompt of Question: Prompt of Question: 
+1. Name of Quiz: Name of Quiz: 
+2. 1. Name of Quiz: Name of Quiz: 
+3. 2. 1. Name of Quiz: Name of Quiz: 
+4. 3. 2. 1. 1
+5. 4. 3. 2. 2
+6. 5. 4. 3. 3
+Correct Answer: 1
+Prompt of Question: Q2
+1. 1. 1. 1. 1
+2. 2. 2. 2. 2
+Correct Answer: 1
+
+
