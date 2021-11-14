@@ -73,6 +73,18 @@ public class Quiz {
             }
         }
     }
+    public void showAllSubmission(){
+        int i =1;
+        for(Submission sub: submissions){
+            if(!sub.isGraded()){
+                System.out.println(i+"View submission of "+sub.getAccount().getUsername());
+            }
+            i++;
+        }
+    }
+    public Submission getSubmissionById(int index){
+        return submissions.get(index);
+    }
     public void addSubmission(Account Account, ArrayList<String> responses){
         ArrayList<Integer> answers = new ArrayList<>();
         for (String s : responses){
@@ -84,6 +96,7 @@ public class Quiz {
         }
         Submission submission = new Submission(Account, ans);
         submissions.add(submission);
+        System.out.println("Quiz has been taken");
     }
     public void EditSubmission(ArrayList<Integer> values, Account Account){
         int[] subGrades = new int[values.size()-1];
@@ -98,6 +111,7 @@ public class Quiz {
         else {
             Submission submissionToAdd = new Submission(submission.getAccount(), true, submission.getAnswers(), subGrades, totalGrade);
             submissions.set(submissions.indexOf(submission), submissionToAdd);
+            System.out.println("Quiz has been successfully graded");
         }
     }
 

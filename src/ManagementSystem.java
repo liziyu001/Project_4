@@ -211,6 +211,12 @@ public class ManagementSystem {
                                 currentQuiz.setSubmissions(graded);
 
                                  */
+                                        System.out.println("Choose submission you want to grade(number): ");
+                                        currentQuiz.showAllSubmission();
+                                        int sub = Integer.parseInt(s.nextLine());
+                                        Submission tempSub = currentQuiz.getSubmissionById(sub-1);
+                                        ArrayList<Integer>answers = currentAccount.gradeSubmission(s, tempSub);
+                                        currentQuiz.EditSubmission(answers, tempSub.getAccount());
                                         System.out.println("Not implemented yet");
                                     case "3":
                                         temp = currentCourse;
@@ -309,29 +315,31 @@ public class ManagementSystem {
                         Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
                         System.out.println("Select the Quiz you want to take.");
                         //System.out.println(currentCourse.toString());
+                        System.out.println(m.listQuizzes(currentCourse.getName()));
+                        //System.out.println(currentCourse.toString());
                         String quizzes = m.listQuizzes(currentCourse.getName());
                         Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
                                 m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
-                        System.out.println("0. View Gradings");
-                        if (s.nextLine().equals("0")){
-                            /*
-                            Submission[] results = (currentAccount).viewQuizResults( currentAccount, currentCourse);
-                            for (int i = 0; i < results.length; i++) {
-                                System.out.println(results[i].toString());
-                            }
+                        System.out.println("1. View Gradings");
+                        System.out.println("2. Take a quiz");
+                        System.out.println("3. Take a quiz using a File:");
+                        switch (s.nextLine()){
+                            case "1":
+                                currentQuiz.showResultsOfQuiz(currentAccount);
+                                break;
+                            case "2":
+                                ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
+                                currentQuiz.addSubmission(currentAccount, answers);
+                                break;
+                            case "3":
+                                String filename = s.nextLine();
 
-                             */
-                            System.out.println("not implemented yet");
-                        } else {
-                            /*
-                            Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
-                            currentQuiz.addSubmission((currentAccount).takeQuiz(currentQuiz,s));
-
-                             */
-                            System.out.println("not implemented");
+                            default:
+                                System.out.println("Invalid input");
+                                break;
                         }
                         break;
-                    default :
+                    default:
                         System.out.println("Invalid Choice");
                         continue Student;
                 }
