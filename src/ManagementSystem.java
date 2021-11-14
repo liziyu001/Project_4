@@ -131,7 +131,7 @@ public class ManagementSystem {
                     case "1":
                         System.out.println("Select the course you want to view, ");
                         System.out.println(m.listCourses());
-                        Course currentCourse = ((Course)m.getCourse((Integer.parseInt(s.nextLine()) - 1)));
+                        Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
                         System.out.println("Select the Quiz you want to proceed.");
                         System.out.println(currentCourse.toString());
                         Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
@@ -213,7 +213,7 @@ public class ManagementSystem {
                     case "1":
                         System.out.println("Select the course you want to view, ");
                         System.out.println(m.listCourses());
-                        Course currentCourse = ((Course)m.getCourse((Integer.parseInt(s.nextLine()) - 1)));
+                        Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
                         System.out.println("Select the Quiz you want to take.");
                         System.out.println(currentCourse.toString());
                         Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));

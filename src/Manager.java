@@ -23,7 +23,7 @@ public class Manager {
         addAccount(acc);
         bool = checkAvailability("anant");
         System.out.println(bool);
-
+*/
         System.out.println(listCourses());
         Course c = new Course("CS180");
         addCourse(c);
@@ -34,8 +34,10 @@ public class Manager {
         Course l = new Course("lol");
         addCourse(l);
         System.out.println(listCourses());
-        getCourse(1);
-         */
+        getCourseName(1);
+        Course a = new Course("CS193");
+        addCourse(a);
+
         // might not need
         //editCourse(l, c);
 
@@ -63,6 +65,7 @@ public class Manager {
     }
     // if the questions/answers have name of quiz then what?
     // if prompt has prompt of question then what?
+    // use substring and .equals instead of contains()
     public Quiz convertQuiz(String coursename, String quizname) {
         try {
             boolean quizFound = false;
@@ -102,25 +105,17 @@ public class Manager {
 
     }
 
-    public Course getCourse(int index) {
+    public static String getCourseName(int index) {
         try {
-            Course temp = new Course("temp");
             ArrayList<String> courses = readFile("courses.txt");
-            String filename = courses.get(index) + ".txt";
-            ArrayList<String> current = readFile(filename);
-            /*
-            for (int i = 0; i < current.size(); i++) {
-                System.out.println(current.get(i));
-            }
-             */
-            return temp;
+            return courses.get(index);
         } catch (Exception e) {
             System.out.println("There was a problem finding your course!");
             return null;
         }
     }
 
-    public void addCourse(Course c) {
+    public static void addCourse(Course c) {
         try {
             String filename = c.getName() + ".txt";
             writeChangesToFile(c.toString(), filename, false);
@@ -146,11 +141,11 @@ public class Manager {
         }
     }
 
-    public boolean checkCourseAvailability(String coursename) {
+    public boolean checkCourseAvailability(Course c) {
         try {
             ArrayList<String> courses = readFile("courses.txt");
             for (int i = 0; i < courses.size(); i++) {
-                if (courses.get(i).equals(coursename)) {
+                if (courses.get(i).equals(c.getName())) {
                     return false;
                 }
             }
@@ -161,7 +156,6 @@ public class Manager {
         }
     }
 
-    // might not need
 
     public void editCourse(Course current, Course updated) {
         try {
@@ -194,7 +188,7 @@ public class Manager {
 
     }
 
-    public String listCourses() {
+    public static String listCourses() {
         try {
             ArrayList<String> courseInfo = readFile("courses.txt");
             if (courseInfo.size() == 0) {
@@ -338,7 +332,7 @@ public class Manager {
         }
     }
 
-    public void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
+    public static void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);
