@@ -40,7 +40,6 @@ public class Manager {
         //editCourse(l, c);
 
     }
-
     public Course getCourse(int index) {
         try {
             Course temp = new Course("temp");
@@ -101,8 +100,8 @@ public class Manager {
     }
 
     // might not need
-    /*
-    public static void editCourse(Course current, Course updated) {
+
+    public void editCourse(Course current, Course updated) {
         try {
             if (current.getName().equals(updated.getName())) {
                 String update = updated.toString();
@@ -132,7 +131,6 @@ public class Manager {
         }
 
     }
-     */
 
     public String listCourses() {
         try {

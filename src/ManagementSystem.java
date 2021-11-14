@@ -1,7 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+// need to check ALL scanners to ensure no commas are inputted, will mess with file reading/writing otherwise
 public class ManagementSystem {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
@@ -118,6 +118,7 @@ public class ManagementSystem {
                                     m.editAccount(temp, currentAccount);
                                     break;
                                 case "3":
+                                    // need to deal with files associated with the account? gonna be hard
                                     m.deleteAccount(currentAccount);
                                     System.out.println("Your account has been deleted!");
                                     break;
@@ -131,8 +132,8 @@ public class ManagementSystem {
                         System.out.println("Select the course you want to view, ");
                         System.out.println(m.listCourses());
                         Course currentCourse = ((Course)m.getCourse((Integer.parseInt(s.nextLine()) - 1)));
-                        System.out.println(currentCourse.toString());
                         System.out.println("Select the Quiz you want to proceed.");
+                        System.out.println(currentCourse.toString());
                         Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
                         System.out.println("1. Edit the Quiz");
                         System.out.println("2. Grade Submissions");
@@ -144,13 +145,14 @@ public class ManagementSystem {
                             case "1":
                                 Course temp = currentCourse;
                                 currentCourse.editQuiz(currentQuiz.getName(), s);
-                                //need to write editQuiz method to replace editCourse
-                                //m.editCourse(temp, currentCourse);
+                                m.editCourse(temp, currentCourse);
                             case "2" :
                                 ArrayList<Submission> graded = ((Teacher)currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
                                 currentQuiz.setSubmissions(graded);
                             case "3":
+                                temp = currentCourse;
                                 currentCourse.deleteQuiz(currentQuiz.getName());
+                                m.editCourse(temp, currentCourse);
                             case "4":
                                 System.out.println("Enter the filename: ");
                                 String filename = s.nextLine();
@@ -164,7 +166,9 @@ public class ManagementSystem {
                                 }
                             case "0":
                                 System.out.println("Enter the name of the Quiz");
+                                temp = currentCourse;
                                 currentCourse.addQuiz(s.nextLine(), s);
+                                m.editCourse(temp, currentCourse);
                         }
                 }
             }
@@ -209,9 +213,10 @@ public class ManagementSystem {
                     case "1":
                         System.out.println("Select the course you want to view, ");
                         System.out.println(m.listCourses());
-                        Course currentCourse = ((Course)m.getCourseList().get(Integer.parseInt(s.nextLine()) - 1));
+                        Course currentCourse = ((Course)m.getCourse((Integer.parseInt(s.nextLine()) - 1)));
                         System.out.println("Select the Quiz you want to take.");
                         System.out.println(currentCourse.toString());
+                        Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
                         System.out.println("0. View Gradings");
                         if (s.nextLine().equals("0")){
                             Submission[] results = ((Student)currentAccount).viewQuizResults((Student) currentAccount, currentCourse);
