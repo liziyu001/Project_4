@@ -46,17 +46,17 @@ public class Quiz {
         return output + "\n";
     }
 
-    public Submission getSubmissionOfStudent(Student student){
+    public Submission getSubmissionOfAccount(Account Account){
         Submission submission = null;
         for(Submission sub : submissions){
-            if (sub.getStudent().equals(student)){
+            if (sub.getAccount().equals(Account)){
                 submission = sub;
             }
         }
         return submission;
     }
-    public void showResultsOfQuiz(Student student){
-        Submission submission = getSubmissionOfStudent(student);
+    public void showResultsOfQuiz(Account Account){
+        Submission submission = getSubmissionOfAccount(Account);
         if (submission == null){
             System.out.println("You didn't submit your response to that quiz");
         }
@@ -73,7 +73,7 @@ public class Quiz {
             }
         }
     }
-    public void addSubmission(Student student, ArrayList<String> responses){
+    public void addSubmission(Account Account, ArrayList<String> responses){
         ArrayList<Integer> answers = new ArrayList<>();
         for (String s : responses){
             answers.add(Integer.parseInt(s));
@@ -82,21 +82,21 @@ public class Quiz {
         for (int i =0; i<ans.length; i++){
             ans[i] = answers.get(i);
         }
-        Submission submission = new Submission(student, ans);
+        Submission submission = new Submission(Account, ans);
         submissions.add(submission);
     }
-    public void EditSubmission(ArrayList<Integer> values, Student student){
+    public void EditSubmission(ArrayList<Integer> values, Account Account){
         int[] subGrades = new int[values.size()-1];
         for (int i =0; i<subGrades.length; i++){
             subGrades[i] = values.get(i);
         }
         int totalGrade = values.get(subGrades.length);
-        Submission submission = getSubmissionOfStudent(student);
+        Submission submission = getSubmissionOfAccount(Account);
         if(submission == null){
             System.out.println("Something went wrong");
         }
         else {
-            Submission submissionToAdd = new Submission(submission.getStudent(), true, submission.getAnswers(), subGrades, totalGrade);
+            Submission submissionToAdd = new Submission(submission.getAccount(), true, submission.getAnswers(), subGrades, totalGrade);
             submissions.set(submissions.indexOf(submission), submissionToAdd);
         }
     }

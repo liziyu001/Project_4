@@ -1,13 +1,13 @@
 import java.util.Arrays;
 
 public class Submission {
-    private Student student;
+    private Account Account;
     private boolean graded;
     private int[] answers;
     private int[] subGrades;
     private int totalGrades;
-    public Submission(Student student, int[] answers) {
-        this.student = student;
+    public Submission(Account Account, int[] answers) {
+        this.Account = Account;
         this.answers = answers;
         graded = false;
         subGrades = new int[answers.length];
@@ -16,7 +16,7 @@ public class Submission {
     @Override
     public String toString() {
         return "Submission{" +
-                ", student=" + student +
+                ", Account=" + Account +
                 ", graded=" + graded +
                 ", answers=" + Arrays.toString(answers) +
                 ", subGrades=" + Arrays.toString(subGrades) +
@@ -24,8 +24,8 @@ public class Submission {
                 '}';
     }
 
-    public Submission(Student student, boolean graded, int[] answers, int[] subGrades, int totalGrades) {
-        this.student = student;
+    public Submission(Account Account, boolean graded, int[] answers, int[] subGrades, int totalGrades) {
+        this.Account = Account;
         this.graded = graded;
         this.answers = answers;
         this.subGrades = subGrades;
@@ -33,12 +33,12 @@ public class Submission {
     }
 
 
-    public Student getStudent() {
-        return student;
+    public Account getAccount() {
+        return Account;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setAccount(Account Account) {
+        this.Account = Account;
     }
 
     public int[] getAnswers() {
