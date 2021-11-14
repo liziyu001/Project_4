@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,6 +46,39 @@ public class Student extends Account {
         }
 
         return responses;
+
+    }
+
+    /**
+     * A helper method which will write a given ArrayList of responses to a file titled with this student's username.
+     * Format Example:
+     *
+     * username.txt:
+     * CS180, QuizName1, Answer1, Answer2, Answer3, Answer4
+     * CS193, QuizName1, Answer1, Answer2, Answer3, Answer4
+     *
+     * @param courseName The courseName which will be written to the file
+     * @param responses An ArrayList containing a student's responses
+     */
+    public void writeQuizSubmissionToFile(String courseName, ArrayList<String> responses){
+
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(this.getUsername(), true));
+        } catch (IOException e) {
+            System.out.println("This person's username is a directory!");
+            return;
+        }
+        try {
+            bw.write(courseName);
+            for(String s : responses){
+                bw.write(", " + s);
+
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
