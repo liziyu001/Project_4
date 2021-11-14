@@ -11,6 +11,17 @@ public class Submission {
         subGrades = new int[answers.length];
         totalGrades = 0;
     }
+    @Override
+    public String toString() {
+        return "Submission{" +
+                "quiz=" + quiz +
+                ", student=" + student +
+                ", graded=" + graded +
+                ", answers=" + Arrays.toString(answers) +
+                ", subGrades=" + Arrays.toString(subGrades) +
+                ", totalGrades=" + totalGrades +
+                '}';
+    }
 
     public Submission(Student student, boolean graded, int[] answers, int[] subGrades, int totalGrades) {
         this.student = student;
