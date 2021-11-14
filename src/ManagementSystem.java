@@ -46,11 +46,11 @@ public class ManagementSystem {
                         System.out.println("Your role: 1. Teacher   2. Student");
                         switch (s.nextLine()) {
                             case "1":
-                                currentAccount = new Teacher(id, pwd);
+                                currentAccount = new Account(id, pwd, false);
                                 m.addAccount(currentAccount);
                                 break;
                             case "2":
-                                currentAccount = new Student(id, pwd);
+                                currentAccount = new Account(id, pwd, true);
                                 m.addAccount(currentAccount);
                                 break;
                             default:
@@ -97,7 +97,7 @@ public class ManagementSystem {
                     case "2":
                         try {
                             // need to set s.nextLine() to a variable and input into these 2 functions
-                            Course c = ((Teacher) currentAccount).createCourse(s);
+                            Course c = ( currentAccount).createCourse(s);
                             if (m.checkCourseAvailability(c)) {
                                 m.addCourse(c);
                             } else {
@@ -176,7 +176,7 @@ public class ManagementSystem {
                                 currentCourse.editQuiz(currentQuiz.getName(), s);
                                 m.editCourse(temp, currentCourse);
                             case "2" :
-                                ArrayList<Submission> graded = ((Teacher)currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
+                                ArrayList<Submission> graded = (currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
                                 currentQuiz.setSubmissions(graded);
                             case "3":
                                 temp = currentCourse;
@@ -188,7 +188,7 @@ public class ManagementSystem {
                                 System.out.println("Randomize Quiz? (Y/N)");
                                 String randomize = s.nextLine();
                                 if (randomize.equalsIgnoreCase("Y")) {
-                                    ((Teacher)currentAccount).randomizeQuiz(filename);
+                                    (currentAccount).randomizeQuiz(filename);
                                 }
                                 else if (randomize.equalsIgnoreCase("N")) {    
                                     currentCourse.AddQuizFromFile(filename);
@@ -264,13 +264,13 @@ public class ManagementSystem {
                                 m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
                         System.out.println("0. View Gradings");
                         if (s.nextLine().equals("0")){
-                            Submission[] results = ((Student)currentAccount).viewQuizResults((Student) currentAccount, currentCourse);
+                            Submission[] results = (currentAccount).viewQuizResults( currentAccount, currentCourse);
                             for (int i = 0; i < results.length; i++) {
                                 System.out.println(results[i].toString());
                             }
                         } else {
                             Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
-                            currentQuiz.addSubmission(((Student)currentAccount).takeQuiz(currentQuiz,s));
+                            currentQuiz.addSubmission((currentAccount).takeQuiz(currentQuiz,s));
                         }
                         break;
                     default :
