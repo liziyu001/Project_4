@@ -40,10 +40,10 @@ public class Question {
     }
     public String toString() {
         String output = "Prompt of question: " + getPrompt() + "\n";
-        for (String str : answerChoices) {
-            output += str+" ";
+        for (int i = 0; i < answerChoices.size(); i++) {
+            output += (i + 1) + ". " + answerChoices.get(i) + "\n";
         }
-        output += "\n" + "Correct Answer: " + correctAnswer;
+        output += "Correct Answer: " + correctAnswer;
         return output;
     }
     public String toStringWthoutAnswer() {
