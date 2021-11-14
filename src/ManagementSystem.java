@@ -176,8 +176,12 @@ public class ManagementSystem {
                                 currentCourse.editQuiz(currentQuiz.getName(), s);
                                 m.editCourse(temp, currentCourse);
                             case "2" :
-                                ArrayList<Submission> graded = ((Teacher)currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
-                                currentQuiz.setSubmissions(graded);
+                                System.out.println("Choose submission you want to grade(number): ");
+                                currentQuiz.showAllSubmission();
+                                int sub = Integer.parseInt(s.nextLine());
+                                Submission tempSub = currentQuiz.getSubmissionById(sub-1);
+                                ArrayList<Integer>answers = ((Teacher)currentAccount).gradeSubmission(s, tempSub);
+                                currentQuiz.EditSubmission(answers, tempSub.getStudent());
                             case "3":
                                 temp = currentCourse;
                                 currentCourse.deleteQuiz(currentQuiz.getName());
@@ -259,18 +263,28 @@ public class ManagementSystem {
                         Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
                         System.out.println("Select the Quiz you want to take.");
                         //System.out.println(currentCourse.toString());
+                        System.out.println(m.listQuizzes(currentCourse.getName()));
+                        //System.out.println(currentCourse.toString());
                         String quizzes = m.listQuizzes(currentCourse.getName());
                         Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
                                 m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
-                        System.out.println("0. View Gradings");
-                        if (s.nextLine().equals("0")){
-                            Submission[] results = ((Student)currentAccount).viewQuizResults((Student) currentAccount, currentCourse);
-                            for (int i = 0; i < results.length; i++) {
-                                System.out.println(results[i].toString());
-                            }
-                        } else {
-                            Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
-                            currentQuiz.addSubmission(((Student)currentAccount).takeQuiz(currentQuiz,s));
+                        System.out.println("1. View Gradings");
+                        System.out.println("2. Take a quiz");
+                        System.out.println("3. Take a quiz using a File:");
+                        switch (s.nextLine()){
+                            case "1":
+                                currentQuiz.showResultsOfQuiz(((Student)currentAccount));
+                                break;
+                            case "2":
+                                ArrayList<String> answers = ((Student)currentAccount).takeQuiz(s, currentQuiz);
+                                currentQuiz.addSubmission(((Student)currentAccount), answers);
+                                break;
+                            case "3":
+                                String filename = s.nextLine();
+
+                            default:
+                                System.out.println("Invalid input");
+                                break;
                         }
                         break;
                     default :

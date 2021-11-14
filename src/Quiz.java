@@ -84,6 +84,19 @@ public class Quiz {
         }
         Submission submission = new Submission(student, ans);
         submissions.add(submission);
+        System.out.println("Quiz has been taken");
+    }
+    public void showAllSubmission(){
+        int i =1;
+        for(Submission sub: submissions){
+            if(!sub.isGraded()){
+                System.out.println(i+"View submission of "+sub.getStudent().getUsername());
+            }
+            i++;
+        }
+    }
+    public Submission getSubmissionById(int index){
+        return submissions.get(index);
     }
     public void EditSubmission(ArrayList<Integer> values, Student student){
         int[] subGrades = new int[values.size()-1];
@@ -98,6 +111,7 @@ public class Quiz {
         else {
             Submission submissionToAdd = new Submission(submission.getStudent(), true, submission.getAnswers(), subGrades, totalGrade);
             submissions.set(submissions.indexOf(submission), submissionToAdd);
+            System.out.println("Quiz has been successfully graded");
         }
     }
 
