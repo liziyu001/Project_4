@@ -100,6 +100,9 @@ public class ManagementSystem {
                             Course c = ((Teacher) currentAccount).createCourse(s);
                             if (m.checkCourseAvailability(c)) {
                                 m.addCourse(c);
+                            } else {
+                                System.out.println("Course with the same name already exists!");
+                                continue Teacher;
                             }
                         } catch (Exception e) {
                             System.out.println("Error occurs in creating the course");
@@ -113,19 +116,33 @@ public class ManagementSystem {
                             System.out.println("3. Delete your account");
                             switch (s.nextLine()) {
                                 case "1":
-                                    System.out.println("Enter your new Username:");
                                     Account temp = currentAccount;
-                                    //has to not contain commas
-                                    currentAccount.setUsername(s.nextLine());
-                                    m.editAccount(temp, currentAccount);
-                                    break;
+                                    while (true) {
+                                        System.out.println("Enter your new Username:");
+                                        String tempUser = s.nextLine();
+                                        if (tempUser.contains(",")) {
+                                            System.out.println("Invalid Username, no commas allowed!");
+                                            continue;
+                                        } else {
+                                            currentAccount.setUsername(tempUser);
+                                            m.editAccount(temp, currentAccount);
+                                            break;
+                                        }
+                                    }
                                 case "2":
-                                    System.out.println("Enter your new Password:");
                                     temp = currentAccount;
-                                    //has to not contain commas
-                                    currentAccount.setPassword(s.nextLine());
-                                    m.editAccount(temp, currentAccount);
-                                    break;
+                                    while (true) {
+                                        System.out.println("Enter your new Password:");
+                                        String tempPass = s.nextLine();
+                                        if (tempPass.contains(",")) {
+                                            System.out.println("Invalid Password, no commas allowed!");
+                                            continue;
+                                        } else {
+                                            currentAccount.setPassword(tempPass);
+                                            m.editAccount(temp, currentAccount);
+                                            break;
+                                        }
+                                    }
                                 case "3":
                                     // need to deal with files associated with the account? gonna be hard
                                     m.deleteAccount(currentAccount);
@@ -142,8 +159,11 @@ public class ManagementSystem {
                         System.out.println(m.listCourses());
                         Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
                         System.out.println("Select the Quiz you want to proceed.");
-                        System.out.println(currentCourse.toString());
-                        Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
+                        System.out.println(m.listQuizzes(currentCourse.getName()));
+                        //System.out.println(currentCourse.toString());
+                        String quizzes = m.listQuizzes(currentCourse.getName());
+                        Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
+                                m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
                         System.out.println("1. Edit the Quiz");
                         System.out.println("2. Grade Submissions");
                         System.out.println("3. Delete this Quiz");
@@ -195,19 +215,33 @@ public class ManagementSystem {
                             System.out.println("3. Delete your account");
                             switch (s.nextLine()) {
                                 case "1":
-                                    System.out.println("Enter your new Username:");
                                     Account temp = currentAccount;
-                                    //has to not contain commas
-                                    currentAccount.setUsername(s.nextLine());
-                                    m.editAccount(temp, currentAccount);
-                                    break;
+                                    while (true) {
+                                        System.out.println("Enter your new Username:");
+                                        String tempUser = s.nextLine();
+                                        if (tempUser.contains(",")) {
+                                            System.out.println("Invalid Username, no commas allowed!");
+                                            continue;
+                                        } else {
+                                            currentAccount.setUsername(tempUser);
+                                            m.editAccount(temp, currentAccount);
+                                            break;
+                                        }
+                                    }
                                 case "2":
-                                    System.out.println("Enter your new Password:");
                                     temp = currentAccount;
-                                    //has to not contain commas
-                                    currentAccount.setPassword(s.nextLine());
-                                    m.editAccount(temp, currentAccount);
-                                    break;
+                                    while (true) {
+                                        System.out.println("Enter your new Password:");
+                                        String tempPass = s.nextLine();
+                                        if (tempPass.contains(",")) {
+                                            System.out.println("Invalid Password, no commas allowed!");
+                                            continue;
+                                        } else {
+                                            currentAccount.setPassword(tempPass);
+                                            m.editAccount(temp, currentAccount);
+                                            break;
+                                        }
+                                    }
                                 case "3":
                                     m.deleteAccount(currentAccount);
                                     break;
@@ -224,8 +258,10 @@ public class ManagementSystem {
                         System.out.println(m.listCourses());
                         Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
                         System.out.println("Select the Quiz you want to take.");
-                        System.out.println(currentCourse.toString());
-                        Quiz currentQuiz = ((Quiz)currentCourse.getCourseQuiz().get(Integer.parseInt(s.nextLine()) - 1));
+                        //System.out.println(currentCourse.toString());
+                        String quizzes = m.listQuizzes(currentCourse.getName());
+                        Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
+                                m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
                         System.out.println("0. View Gradings");
                         if (s.nextLine().equals("0")){
                             Submission[] results = ((Student)currentAccount).viewQuizResults((Student) currentAccount, currentCourse);
