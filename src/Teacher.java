@@ -29,7 +29,7 @@ public class Teacher extends Account {
         return toReturn;
 
     }
-
+    
     /**
      * A helper method which first confirms the target submission exists, then prompts the user to grade it.
      *
