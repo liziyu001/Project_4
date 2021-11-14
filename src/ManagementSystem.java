@@ -241,7 +241,7 @@ public class ManagementSystem {
                             } else {
                                 System.out.println("There are currently no quizzes!");
                                 System.out.println("0. Create a new Quiz");
-                                if (!s.nextLine().equalsIgnoreCase("y")) {
+                                if (!s.nextLine().equals("0")) {
                                     continue Teacher;
                                 }
                                 System.out.println("Enter the name of the Quiz");

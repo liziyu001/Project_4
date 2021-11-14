@@ -56,15 +56,15 @@ public class Course {
                 String prompt = scanner.nextLine();
                 System.out.println("How many choices will question include?");
                 int amountOfChoices = Integer.parseInt(scanner.nextLine());
-                String[] options = new String[amountOfChoices];
+                ArrayList<String> options = new ArrayList<>();
                 //Initialize array of options from asking a user to enter list of questions.
-                for (int i = 0; i < options.length; i++) {
+                for (int i = 0; i < amountOfChoices; i++) {
                     System.out.println((i+1) + ": ");
                     String answerChoice = scanner.nextLine();
-                    options[i] = answerChoice;
+                    options.add(answerChoice);
                 }
-                ArrayList<String> answerChoice = (ArrayList<String>) Arrays.asList(options);
-                System.out.println("What is a correct answer?");
+                ArrayList<String> answerChoice = options;
+                System.out.println("What is a correct answer?(Enter a value from 1- # of questions)");
                 // -1 because user will see list of questions start from 1, but actually it starts from 0
                 int correctAnswer = Integer.parseInt(scanner.nextLine()) - 1;
                 Question question = new Question(prompt, answerChoice, correctAnswer);
@@ -108,14 +108,14 @@ public class Course {
                 String prompt = scanner.nextLine();
                 System.out.println("How many choices will question include?");
                 int amountOfChoices = Integer.parseInt(scanner.nextLine());
-                String[] options = new String[amountOfChoices];
+                ArrayList<String> options = new ArrayList<>();
                 //Initialize array of options from asking a user to enter list of questions.
-                for (int i = 0; i < options.length; i++) {
+                for (int i = 0; i < amountOfChoices; i++) {
                     System.out.println((i+1) + ": ");
                     String answerChoice = scanner.nextLine();
-                    options[i] = answerChoice;
+                    options.add(answerChoice);
                 }
-                ArrayList<String> answerChoice = (ArrayList<String>) Arrays.asList(options);
+                ArrayList<String> answerChoice = options;
                 System.out.println("What is a correct answer?");
                 // -1 because user will see list of questions start from 1, but actually it starts from 0
                 int correctAnswer = Integer.parseInt(scanner.nextLine()) - 1;
