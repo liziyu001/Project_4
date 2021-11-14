@@ -14,9 +14,9 @@ public class Account {
     private static int id = 1;
     private int accountId;
 
-    /** Constructs a newly allocated Account object with the specified username, password, and boolean isStudent
+    /** 
+     * Constructs a newly allocated Account object with the specified username, password, and boolean isStudent
      * The account id increments by 1 each time a person's account is created
-     *
      * @param username The specified username of the person to be used in construction
      * @param password The specified password of the person to be used in construction
      * @param isStudent The specified boolean to be used in construction that determines whether the person is a student or not
@@ -28,11 +28,11 @@ public class Account {
         this.accountId = id;
         id++;
     }
-     /** Constucts a newly allocated Account object with a specified account
-     * The account id increments by 1 each time a person's account is created
-     * 
-     * @param a The specified account to be used in construction
-     */
+     /** 
+      * Constucts a newly allocated Account object with a specified account
+      * The account id increments by 1 each time a person's account is created
+      * @param a The specified account to be used in construction
+      */
      
     public Account(Account a) {
         this.username = a.getUsername();
@@ -41,51 +41,59 @@ public class Account {
         this.accountId = id;
         id++;
     }
-    /** Returns the username of the person's account
-    * @return the username of the person's account
-    */
+    /** 
+     * Returns the username of the person's account
+     * @return the username of the person's account
+     */
     public String getUsername() {
         return username;
     }
-    /** Updates the username of the person's account using the specified username
-    * @param username The specified username that is going to be used in the update
-    */
+    /** 
+     * Updates the username of the person's account using the specified username
+     * @param username The specified username that is going to be used in the update
+     */
     public void setUsername(String username) {
         this.username = username;
     }
-    /** Returns the password of the person's account
-    * @return the password of the person's account
-    */
+    /** 
+     * Returns the password of the person's account
+     * @return the password of the person's account
+     */
     public String getPassword() {
         return password;
     }
-    /** Updates the password of the person's account using the specified password
-    * @param password The specified password that is going to be used in the update
-    */
+    /** 
+     * Updates the password of the person's account using the specified password
+     * @param password The specified password that is going to be used in the update
+     */
     public void setPassword(String password) {
         this.password = password;
     }
-    /** Returns whether or not the person who made the account is a student or not
-    * @return whether or not the person who made the account is a student or not
-    */
+    /** 
+     * Returns whether or not the person who made the account is a student or not
+     * @return whether or not the person who made the account is a student or not
+     */
     public boolean isStudent() {
         return isStudent;
     }
-    /** Updates the student status of the person's account using the specified boolean
-    * @param isStudent The specified boolean that is going to be used in the update to determine whether or not the person is a student
-    */
+    /** 
+     * Updates the student status of the person's account using the specified boolean
+     * @param isStudent The specified boolean that is going to be used in the update to determine whether or not the person is a student
+     */
     public void setStudent(boolean student) {
         isStudent = student;
     }
-    /** Returns the account ID of the person's account
-    * @return the account ID of the person's account
-    */
+    /** 
+     * Returns the account ID of the person's account
+     * @return the account ID of the person's account
+     */
     public int getAccountId() {
         return accountId;
     }
-    /** Updates the account ID of the person's account using the specified account id
-    * @param accountId The specified account ID that is going to be used in the update
-    */
+    /** 
+     * Updates the account ID of the person's account using the specified account id
+     * @param accountId The specified account ID that is going to be used in the update
+     */
     public void setAccountId(int accountId) { this.accountId = accountId; }
 
     @Override
