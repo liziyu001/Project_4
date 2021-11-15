@@ -82,7 +82,7 @@ public class Quiz {
      * 2. Manas
      * 3. Leo
      * 4. William
-     * Correct Answer: Ram
+     * Correct Answer: 1
      * @return The String representation of the quiz
      */
     public String toString() {
