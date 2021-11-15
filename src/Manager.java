@@ -2,49 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Manager {
-    public static void main(String[] args) {
-        /*
-        Account a = new Account("Manas", "password1", true);
-        Account b = new Account("asda", "asd", false);
-        addAccount(a);
-        addAccount(b);
-        Account c = new Account("Manas1", "password1", true);
-        addAccount(c);
-        deleteAccount(a);
-        deleteAccount(c);
-        editAccount(b, c);
-        Account current = login("Manas","password1");
-        addAccount(current);
-        boolean bool = checkAvailability("Manas1");
-        System.out.println(bool);
-        bool = checkAvailability("anant");
-        System.out.println(bool);
-        Account acc = new Account("anant", ";0", true);
-        addAccount(acc);
-        bool = checkAvailability("anant");
-        System.out.println(bool);
-
-        System.out.println(listCourses());
-        Course c = new Course("CS180");
-        addCourse(c);
-        System.out.println(listCourses());
-        Course m = new Course("Manas");
-        addCourse(m);
-        System.out.println(listCourses());
-        Course l = new Course("lol");
-        addCourse(l);
-        System.out.println(listCourses());
-        getCourseName(1);
-        Course a = new Course("CS193");
-        addCourse(a);
-
-
-         */
-        // might not need
-        //editCourse(l, c);
-
-    }
-
+    //called when trying to validate a new user/a user changing their username
     public boolean checkDeletedAccounts(String username) {
         try {
             ArrayList<String> names = readFile("deleted_accounts.txt");
@@ -60,6 +18,7 @@ public class Manager {
         }
     }
 
+    //reads a file and creates an arraylist of Submission objects
     public ArrayList<Submission> convertSubmissions(String coursename, String quizname) {
         try {
             ArrayList<String> lines = readFile("accessible_quizzes.txt");
@@ -118,65 +77,13 @@ public class Manager {
                             intPoints[0] = Integer.parseInt(points[0]);
                             s.setSubGrades(intPoints);
                         }
-                        //System.out.println("xd");
                         s.setTotalGrades(Integer.parseInt(lines.get(i + 5).substring(14)));
                         timeStamp = lines.get(i + 6).substring(16);
                         s.setTimestamp(timeStamp);
                         submissions.add(s);
-                        //System.out.println(s);
-                    }
-                    /*
-                    if (lines.get(i).startsWith("Username: ")) {
-                        s.setUsername(lines.get(i).substring(10));
-                    } else if (lines.get(i).startsWith("Graded: ")) {
-                        s.setGraded(Boolean.parseBoolean(lines.get(i).substring(8)));
-                    } else if (lines.get(i).startsWith("Answers: ")) {
-                        ansString = lines.get(i).substring(9).replace("[", "").replace("]", "");
-                        if (ansString.contains(",")) {
-                            ans = ansString.split(",");
-                            int[] intAns = new int[ans.length];
-                            for (int j = 0; j < ans.length; i++) {
-                                intAns[j] = Integer.parseInt(ans[j]);
-                            }
-                            s.setAnswers(intAns);
-                        } else {
-                            ans = new String[1];
-                            ans[0] = ansString;
-                            int[] intAns = new int[1];
-                            intAns[0] = Integer.parseInt(ans[0]);
-                            s.setAnswers(intAns);
-                        }
-                    } else if (lines.get(i).startsWith("Points: ")) {
-                        pointString = lines.get(i).substring(8).replace("[", "").replace("]", "");
-                        if (pointString.contains(",")) {
-                            points = pointString.split(",");
-                            int[] intPoints = new int[points.length];
-                            for (int j = 0; j < points.length; i++) {
-                                intPoints[j] = Integer.parseInt(points[j]);
-                            }
-                            s.setSubGrades(intPoints);
-                        } else {
-                            points = new String[1];
-                            points[0] = pointString;
-                            int[] intPoints = new int[1];
-                            intPoints[0] = Integer.parseInt(points[0]);
-                            s.setSubGrades(intPoints);
-                        }
-                    } else if (lines.get(i).startsWith("Total Points: ")) {
-                        s.setTotalGrades(Integer.parseInt(lines.get(i).substring(14)));
-                    } else if (lines.get(i).startsWith("Time Submitted: ")) {
-                        timeStamp = lines.get(i).substring(16);
-                        s.setTimestamp(timeStamp);
-                        submissions.add(s);
-                        //System.out.println(s);
-                        //System.out.println(submissions);
                     }
 
-                     */
                 }
-                //System.out.println("what is returnedL");
-                //System.out.println(submissions);
-                //System.out.println("counter");
                 return submissions;
             }
         } catch (Exception e) {
@@ -186,6 +93,7 @@ public class Manager {
         }
     }
 
+    //updates the file containing a list of quizzes that have been graded(not used)
     public void updateGradedQuizzes(String filename, Submission submission) {
         try {
             ;ArrayList<String> lines = readFile(filename);
@@ -218,6 +126,7 @@ public class Manager {
 
     }
 
+    //given a coursename and quizname, searches the accessible_quizzes.txt file for the given quiz.
     public String searchAccessibleQuizzes(String coursename, String quizname) {
         try {
             boolean found = false;
@@ -241,6 +150,7 @@ public class Manager {
         }
     }
 
+    //deletes a quiz from the accessible_quizzes.txt file
     public void deleteAccessibleQuiz(String coursename, String quizname) {
         try {
             boolean found = false;
@@ -266,6 +176,7 @@ public class Manager {
         }
     }
 
+    //updates the accessible_quizzes.txt file
     public void updateAccessibleQuizzes(String coursename, String quizname, String timestamp) {
         try {
             boolean found = false;
@@ -290,6 +201,7 @@ public class Manager {
         }
     }
 
+    //writes the student's submission to the correct file
     public void submit(String coursename, String quizname, Submission submission) {
         try {
             String filename;
@@ -307,6 +219,7 @@ public class Manager {
         }
     }
 
+    //creates a quiz file given its information
     public  void createQuizFile(String coursename, Quiz q, String timestamp) {
         try {
             writeChangesToFile(q.toString(), coursename +"_"+ q.getName() + "_" + timestamp + ".txt", false);
@@ -316,6 +229,7 @@ public class Manager {
 
     }
 
+    //returns a Quiz that was parsed from a file
     public Quiz addQuizFromFile(String filename) {
         try {
             String prompt = "";
