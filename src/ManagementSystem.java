@@ -293,7 +293,7 @@ public class ManagementSystem {
                                         //System.out.println("Before: " + submissions);
                                         //submissions = m.checkIfSubmissionsAreGraded(currentCourse.getName(), currentQuiz.getName(), submissions);
                                         //System.out.println("After: " + submissions);
-                                        if (submissions.size() == 0) {
+                                        if (submissions == null || submissions.size() == 0) {
                                             System.out.println("There are no submissions for this quiz!");
                                             break;
                                         }
@@ -308,21 +308,14 @@ public class ManagementSystem {
                                         int sub;
                                         while (true) {
                                             try {
-                                                int count = currentQuiz.checkIfGraded(currentCourse.getName());
-                                                if (count == 0) {
-                                                    System.out.println("There are no submissions for this quiz!");
-                                                    continue Teacher;
+                                                System.out.println("Choose submission you want to grade(number): ");
+                                                currentQuiz.showAllSubmission(currentCourse.getName());
+                                                sub = Integer.parseInt(s.nextLine());
+                                                if (sub <= 0 || sub > submissions.size()) {
+                                                    System.out.println("Enter a valid index!");
                                                 } else {
-                                                    System.out.println("Choose submission you want to grade(number): ");
-                                                    currentQuiz.showAllSubmission(currentCourse.getName());
-                                                    sub = Integer.parseInt(s.nextLine());
-                                                    if (sub <= 0 || sub > count) {
-                                                        System.out.println("Enter a valid index!");
-                                                    } else {
-                                                        break;
-                                                    }
+                                                    break;
                                                 }
-
                                             } catch (Exception e) {
                                                 System.out.println("Invalid input!");
                                             }
@@ -497,8 +490,10 @@ public class ManagementSystem {
                                     }
                                     switch (s.nextLine()) {
                                         case "1":
-                                            //currentQuiz.showResultsOfQuiz(currentAccount);
+                                            ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.getName(), currentQuiz.getName());
+                                            currentQuiz.showResultsOfQuiz(currentAccount.getUsername(), submissions);
                                             break;
+
                                         case "2":
                                             ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
                                             Submission sub = currentQuiz.addSubmission(currentAccount, answers);

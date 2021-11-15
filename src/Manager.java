@@ -64,13 +64,54 @@ public class Manager {
                 return null;
             } else {
                 lines = readFile(filename);
-                Submission s = new Submission();
-                String[] ans;
-                String ansString = "";
-                String[] points;
-                String pointString = "";
-                String timeStamp = "";
                 for (int i = 0; i < lines.size(); i++) {
+                    if (lines.get(i).startsWith("Submission:")) {
+                        Submission s = new Submission();
+                        String[] ans;
+                        String ansString = "";
+                        String[] points;
+                        String pointString = "";
+                        String timeStamp = "";
+                        s.setUsername(lines.get(i + 1).substring(10));
+                        s.setGraded(Boolean.parseBoolean(lines.get(i + 2).substring(8)));
+                        ansString = lines.get(i + 3).substring(9).replace("[", "").replace("]", "");
+                        if (ansString.contains(",")) {
+                            ans = ansString.split(",");
+                            int[] intAns = new int[ans.length];
+                            for (int j = 0; j < ans.length; i++) {
+                                intAns[j] = Integer.parseInt(ans[j]);
+                            }
+                            s.setAnswers(intAns);
+                        } else {
+                            ans = new String[1];
+                            ans[0] = ansString;
+                            int[] intAns = new int[1];
+                            intAns[0] = Integer.parseInt(ans[0]);
+                            s.setAnswers(intAns);
+                        }
+                        pointString = lines.get(i + 4).substring(8).replace("[", "").replace("]", "");
+                        if (pointString.contains(",")) {
+                            points = pointString.split(",");
+                            int[] intPoints = new int[points.length];
+                            for (int j = 0; j < points.length; i++) {
+                                intPoints[j] = Integer.parseInt(points[j]);
+                            }
+                            s.setSubGrades(intPoints);
+                        } else {
+                            points = new String[1];
+                            points[0] = pointString;
+                            int[] intPoints = new int[1];
+                            intPoints[0] = Integer.parseInt(points[0]);
+                            s.setSubGrades(intPoints);
+                        }
+                        //System.out.println("xd");
+                        s.setTotalGrades(Integer.parseInt(lines.get(i + 5).substring(14)));
+                        timeStamp = lines.get(i + 6).substring(16);
+                        s.setTimestamp(timeStamp);
+                        submissions.add(s);
+                        //System.out.println(s);
+                    }
+                    /*
                     if (lines.get(i).startsWith("Username: ")) {
                         s.setUsername(lines.get(i).substring(10));
                     } else if (lines.get(i).startsWith("Graded: ")) {
@@ -113,16 +154,19 @@ public class Manager {
                         timeStamp = lines.get(i).substring(16);
                         s.setTimestamp(timeStamp);
                         submissions.add(s);
-                        System.out.println(s);
-                        System.out.println(submissions);
+                        //System.out.println(s);
+                        //System.out.println(submissions);
                     }
+
+                     */
                 }
                 //System.out.println("what is returnedL");
                 //System.out.println(submissions);
-                System.out.println("counter");
+                //System.out.println("counter");
                 return submissions;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("There was a problem converting the submission!");
             return null;
         }

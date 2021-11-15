@@ -121,23 +121,30 @@ public class Quiz {
      * Quiz may not be graded if the submission is null, or if there was an error that was encountered when trying to grade their submission
      * @param username The username that the person submitted their quiz on, and is awaiting their results on the quiz
      */
-    public void showResultsOfQuiz(String username, String timestamp) {
-        Submission submission = getSubmissionOfAccount(username, timestamp);
-        if (submission == null) {
-            System.out.println("You didn't submit your response to that quiz");
-        }
-        else {
-            if (submission.isGraded()) {
-                int max;
-                for (int i =0; i<submission.getSubGrades().length; i++) {
-                    System.out.println("Your grade for " + (i + 1) + " question was" + submission.getSubGrades()[i]);
+    public void showResultsOfQuiz(String username, ArrayList<Submission> submissions) {
+        for (int x = 0; x < submissions.size(); x++) {
+            if (submissions.get(x).getUsername().equals(username)) {
+                Submission submission = submissions.get(x);
+                if (!submission.getUsername().equals(username)) {
+                    System.out.println("You didn't submit your response to that quiz");
                 }
-                System.out.println("Your total grade: " + submission.getTotalGrades());
-            }
-            else {
-                System.out.println("Your quiz was not graded");
+                else {
+                    if (submission.isGraded()) {
+                        System.out.println("Submission: " + submission.getTimestamp());
+                        for (int i = 0; i<submission.getSubGrades().length; i++) {
+                            System.out.println("Your grade for question " + (i + 1) + " was: " + submission.getSubGrades()[i]);
+                        }
+                        System.out.println("Your total grade: " + submission.getTotalGrades());
+                    }
+                    else {
+                        System.out.println("Submission: " + submission.getTimestamp());
+                        System.out.println("Your quiz was not graded");
+                    }
+                }
             }
         }
+        //Submission submission = getSubmissionOfAccount(username);
+
     }
     /** 
      * Shows the submissions that the teacher has not graded yet
@@ -145,16 +152,15 @@ public class Quiz {
      */
     public void showAllSubmission(String coursename) {
         Manager m = new Manager();
-        String file = m.searchAccessibleQuizzes(coursename, this.getName());
+        //String file = m.searchAccessibleQuizzes(coursename, this.getName());
         ArrayList<Submission> subs = m.convertSubmissions(coursename, this.getName());
         int i = 1;
         for (Submission sub: subs) {
-            if (!sub.isGraded()) {
-                System.out.println(i + ". View submission of "+ sub.getUsername() + " " + sub.getTimestamp());
-            }
+            System.out.println(i + ". View submission of "+ sub.getUsername() + " " + sub.getTimestamp());
             i++;
         }
     }
+    /*
     //NEED TO COMMENT
     public  int checkIfGraded(String coursename) {
         Manager m = new Manager();
@@ -168,6 +174,8 @@ public class Quiz {
         }
         return count;
     }
+
+     */
     /**
      * Gets the submission of a certain person based on their ID
      * @param index Represents the ID number of the student 
