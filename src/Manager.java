@@ -300,15 +300,16 @@ public class Manager {
 
     }
 
-    public void deleteAccount(Account a) {
+    public void deleteAccount(int accountId) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
             for (String account : accounts) {
                 String[] info = account.split(",");
-                Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
-                temp.setAccountId(a.getAccountId());
-                if (temp.equals(a)) {
+                int id = Integer.parseInt(info[0]);
+                //Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
+                //temp.setAccountId(a.getAccountId());
+                if (id == accountId) {
                     accounts.remove(account);
                     found = true;
                     break;
@@ -333,16 +334,15 @@ public class Manager {
 
     }
 
-    public void editAccount(Account current, Account updated) {
+    public void editAccount(Account updated, int accountId) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
                 String[] info = accounts.get(i).split(",");
-                Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
-                temp.setAccountId(current.getAccountId());
-                if (temp.equals(current)) {
-                    updated.setAccountId(current.getAccountId());
+                int id = Integer.valueOf(info[0].trim());
+                if (id == accountId) {
+                    updated.setAccountId(accountId);
                     accounts.set(i, updated.toString());
                     found = true;
                     break;
@@ -364,7 +364,7 @@ public class Manager {
 
 
         } catch (Exception e) {
-            System.out.println("There was a problem deleting this account, try again!");
+            System.out.println("There was a problem editing this account, try again!");
         }
 
     }

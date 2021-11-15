@@ -9,6 +9,7 @@ public class ManagementSystem {
         System.out.println("Welcome to the System");
         String ans = "";
         Manager m = new Manager();
+        boolean quit = false;
         Account currentAccount;
         try {
             File a = new File("accounts.txt");
@@ -37,7 +38,6 @@ public class ManagementSystem {
                             System.out.println("Username already exists!");
                             continue;
                         }
-
                         break;
                     }
                     String pwd;
@@ -85,7 +85,7 @@ public class ManagementSystem {
                             System.out.println("Successfully logged in as " + currentAccount.getUsername());
                         } else {
                             System.out.println("Invalid ID or password");
-                            continue login;
+                            continue;
                         }
                         break;
                     }
@@ -98,14 +98,13 @@ public class ManagementSystem {
         }
         if (!currentAccount.isStudent()) {
             Teacher:
-            while (true) {
+            while (!quit) {
                 System.out.println("1. View Courses");
                 System.out.println("2. Create a Course");
                 System.out.println("3. Account Setting");
                 switch (s.nextLine()){
                     case "2":
                         try {
-                            // need to set s.nextLine() to a variable and input into these 2 functions
                             Course c = ( currentAccount).createCourse(s);
                             if (m.checkCourseAvailability(c)) {
                                 m.addCourse(c);
@@ -129,39 +128,38 @@ public class ManagementSystem {
                             System.out.println("0. Back");
                             switch (s.nextLine()) {
                                 case "1":
-                                    Account temp = currentAccount;
                                     while (true) {
                                         System.out.println("Enter your new Username:");
                                         String tempUser = s.nextLine();
+                                        if (!m.checkAvailability(tempUser)) {
+                                            System.out.println("Username already exists!");
+                                            continue AccountSetting;
+                                        }
                                         if (tempUser.contains(",")) {
                                             System.out.println("Invalid Username, no commas allowed!");
-                                            continue;
                                         } else {
                                             currentAccount.setUsername(tempUser);
-                                            m.editAccount(temp, currentAccount);
-                                            break;
+                                            m.editAccount(currentAccount, currentAccount.getAccountId());
+                                            continue AccountSetting;
                                         }
                                     }
-                                    break;
                                 case "2":
-                                    temp = currentAccount;
                                     while (true) {
                                         System.out.println("Enter your new Password:");
                                         String tempPass = s.nextLine();
                                         if (tempPass.contains(",")) {
                                             System.out.println("Invalid Password, no commas allowed!");
-                                            continue;
                                         } else {
                                             currentAccount.setPassword(tempPass);
-                                            m.editAccount(temp, currentAccount);
-                                            break;
+                                            m.editAccount(currentAccount, currentAccount.getAccountId());
+                                            continue AccountSetting;
                                         }
                                     }
-                                    break;
                                 case "3":
                                     // need to deal with files associated with the account? gonna be hard
-                                    m.deleteAccount(currentAccount);
+                                    m.deleteAccount(currentAccount.getAccountId());
                                     System.out.println("Your account has been deleted!");
+                                    quit = true;
                                     break;
                                 case "0":
                                     continue Teacher;
@@ -169,6 +167,9 @@ public class ManagementSystem {
                                     System.out.println("Invalid Choice");
                                     continue AccountSetting;
                             }
+                            break;
+                        }
+                        if (quit) {
                             break;
                         }
                     case "1":
@@ -276,7 +277,7 @@ public class ManagementSystem {
             }
         } else {
             Student:
-            while (true) {
+            while (!quit) {
                 System.out.println("1. View Courses");
                 System.out.println("2. Account Setting");
                 switch (s.nextLine()) {
@@ -286,42 +287,51 @@ public class ManagementSystem {
                             System.out.println("1. Edit your username");
                             System.out.println("2. Edit your password");
                             System.out.println("3. Delete your account");
+                            System.out.println("0. Back");
                             switch (s.nextLine()) {
                                 case "1":
-                                    Account temp = currentAccount;
                                     while (true) {
                                         System.out.println("Enter your new Username:");
                                         String tempUser = s.nextLine();
+                                        if (!m.checkAvailability(tempUser)) {
+                                            System.out.println("Username already exists!");
+                                            continue studentAccountChoice;
+                                        }
                                         if (tempUser.contains(",")) {
                                             System.out.println("Invalid Username, no commas allowed!");
-                                            continue;
                                         } else {
                                             currentAccount.setUsername(tempUser);
-                                            m.editAccount(temp, currentAccount);
-                                            break;
+                                            m.editAccount(currentAccount, currentAccount.getAccountId());
+                                            continue studentAccountChoice;
                                         }
                                     }
                                 case "2":
-                                    temp = currentAccount;
                                     while (true) {
                                         System.out.println("Enter your new Password:");
                                         String tempPass = s.nextLine();
                                         if (tempPass.contains(",")) {
                                             System.out.println("Invalid Password, no commas allowed!");
-                                            continue;
                                         } else {
                                             currentAccount.setPassword(tempPass);
-                                            m.editAccount(temp, currentAccount);
-                                            break;
+                                            m.editAccount(currentAccount, currentAccount.getAccountId());
+                                            continue studentAccountChoice;
                                         }
                                     }
                                 case "3":
-                                    m.deleteAccount(currentAccount);
+                                    // need to deal with files associated with the account? gonna be hard
+                                    m.deleteAccount(currentAccount.getAccountId());
+                                    System.out.println("Your account has been deleted!");
+                                    quit = true;
                                     break;
+                                case "0":
+                                    continue Student;
                                 default :
                                     System.out.println("Invalid Choice");
                                     continue studentAccountChoice;
                             }
+                            break;
+                        }
+                        if (quit) {
                             break;
                         }
                         break;
@@ -361,6 +371,7 @@ public class ManagementSystem {
                         System.out.println("Invalid Choice");
                         continue Student;
                 }
+
             }
         }
 
