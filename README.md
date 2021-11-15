@@ -1,6 +1,112 @@
-
+//READ AS SOURCE BLOB!
 You have to compile all the classes created (Account, Course, Manager, Question, Quiz, Submission, ManagementSystem), and you only have to run the ManagementSystem class because that is the only class that contains a main method. You have to compile all the classes though because methods in other classes are implemented in the ManagementSystem class.   
 
+File System + formats:
+
+//When a course is created, a coursename.txt file is made with an empty course and its name is added to the courses.txt file
+sampleCourse.txt:
+CourseName: sampleCourse
+_____________________________________
+courses.txt:
+sampleCourse
+_____________________________________
+//When a quiz is created, its contents are added to the course object that it is under, and the coursesname.txt file is updated
+// THE CORRECT ANSWER REPRESENTS THE INDEX OF THE CORRECT ANSWER
+_____________________________________
+sampleCourse.txt:
+CourseName: sampleCourse
+isRandom: false
+Name of Quiz: Q1
+Prompt of Question: What is 1 + 1?
+1. 2
+2. 0
+3. 1
+Correct Answer: 0
+Prompt of Question: What is 2 * 2?
+1. 2
+2. 4
+3. 0
+4. 8
+Correct Answer: 1
+_____________________________________
+//a file with the format: coursename_quizname_timestamp.txt is also created, with timestamp = time of quiz creation
+//it initially has the contents of the quiz object
+______________________________________
+sampleCourse_Q1_2021.11.15.05.00.00.txt:
+isRandom: false
+Name of Quiz: Q1
+Prompt of Question: What is 1 + 1?
+1. 2
+2. 0
+3. 1
+Correct Answer: 0
+Prompt of Question: What is 2 * 2?
+1. 2
+2. 4
+3. 0
+4. 8
+Correct Answer: 1
+____________________________________
+//When a new quiz is created, the filename is added to the accessible_courses.txt file
+______________________________________
+accessible_courses.txt:
+sampleCourse_Q1_2021.11.15.05.00.00.txt
+______________________________________
+//When a student takes a quiz, their submission is added to the coursename_quizname_timestamp.txt file
+_____________________________________
+sampleCourse_Q1_2021.11.15.05.00.00.txt:
+isRandom: false
+Name of Quiz: Q1
+Prompt of Question: What is 1 + 1?
+1. 2
+2. 0
+3. 1
+Correct Answer: 0
+Prompt of Question: What is 2 * 2?
+1. 2
+2. 4
+3. 0
+4. 8
+Correct Answer: 1
+
+Submission: 
+Username: leo
+Graded: false
+Answers: [1, 2]
+Points: [0, 0]
+Total Points: 0
+Time Submitted: 2021.11.15 09-10-04
+___________________________________
+//When the teacher grades, submissions, they can edit this file and assign point values to the answers
+___________________________________
+sampleCourse_Q1_2021.11.15.05.00.00.txt:
+isRandom: false
+Name of Quiz: Q1
+Prompt of Question: What is 1 + 1?
+1. 2
+2. 0
+3. 1
+Correct Answer: 0
+Prompt of Question: What is 2 * 2?
+1. 2
+2. 4
+3. 0
+4. 8
+Correct Answer: 1
+
+Submission: 
+Username: leo
+Graded: true
+Answers: [1, 2]
+Points: [10, 10]
+Total Points: 20
+Time Submitted: 2021.11.15 09-10-04
+___________________________________
+//When a student wants to submit a file as an answer to a quiz, it must contain only 1 integer
+//When a teacher wants to use a file to create a quiz, it must contain only 1 quiz in the format shown above
+//When a teacher deletes or edits a quiz, the quiz is removed from the accessable_quizzes.txt file, and students can't view them anymore
+//When a user deletes thier account or edits their account's username, the username is added to a file called "deleted_accounts.txt"
+//Users can't change their name or create accounts with the same name as any name in this file
 Ram Laxminarayan - Submitted Report on Brightspace. William Li - Submitted Vocareum workspace.
 
 The Account class represents the account of either a teacher or a student, and it intakes methods that a teacher can use to make quizzes, and student can use to take the quizzes. 
