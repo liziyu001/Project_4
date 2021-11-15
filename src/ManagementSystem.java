@@ -192,11 +192,12 @@ public class ManagementSystem {
                                 }
                             }
                             if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
-                                Quiz currentQuiz;
+                                Quiz currentQuiz = new Quiz("tempquizXDDDD");
                                 while (true) {
                                     try {
                                         System.out.println("Select the Quiz you want to proceed.");
                                         System.out.println("-1. Create a new Quiz");
+                                        System.out.println("-2. Create a new Quiz from file");
                                         System.out.println(m.listQuizzes(currentCourse.getName()));
                                         System.out.println("0. Back");
                                         String quizzes = m.listQuizzes(currentCourse.getName());
@@ -214,17 +215,32 @@ public class ManagementSystem {
                                                 System.out.println("Quiz not created!");
                                             }
                                             continue Teacher;
+                                        } else if (choice.equals("-2")) {
+                                            Course temp = currentCourse;
+                                            System.out.println("Enter the filepath(just the filename)");
+                                            String filename = s.nextLine();
+                                            boolean create = currentCourse.addQuizFromFile(m.addQuizFromFile(filename));
+                                            if (create) {
+                                                m.editCourse(temp, currentCourse);
+                                                System.out.println("Quiz created from file!");
+                                            } else {
+                                                System.out.println("Quiz not created from file!");
+                                            }
+                                        } else {
+                                            currentQuiz = m.convertQuiz(currentCourse.getName(),
+                                                    m.getQuizName(Integer.parseInt(choice), quizzes));
+                                            System.out.println("1. Edit the Quiz");
+                                            System.out.println("2. Grade Submissions");
+                                            System.out.println("3. Delete this Quiz");
+                                            System.out.println("4. Upload Quiz from file");
+                                            System.out.println("5. View Quiz");
+                                            System.out.println("0. Back");
+                                            break;
+
                                         }
-                                        currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                                m.getQuizName(Integer.parseInt(choice), quizzes));
-                                        System.out.println("1. Edit the Quiz");
-                                        System.out.println("2. Grade Submissions");
-                                        System.out.println("3. Delete this Quiz");
-                                        System.out.println("4. Upload Quiz from file");
-                                        System.out.println("5. View Quiz");
-                                        System.out.println("0. Back");
-                                        break;
+
                                     } catch (Exception e) {
+                                        e.printStackTrace();
                                         System.out.println("Please enter a valid index!");
                                     }
                                 }
@@ -267,7 +283,8 @@ public class ManagementSystem {
                                             (currentAccount).randomizeQuiz(filename);
                                         }
                                         else if (randomize.equalsIgnoreCase("N")) {
-                                            currentCourse.AddQuizFromFile(filename);
+                                            //not implemented yet
+                                            //currentCourse.addQuizFromFile(filename);
                                         }
                                         break;
                                     case "0":

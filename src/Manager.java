@@ -73,6 +73,41 @@ public class Manager {
 
 
      */
+
+    public Quiz addQuizFromFile(String filename) {
+        try {
+            String prompt = "";
+            int correctAnswer;
+            ArrayList<String> choices = new ArrayList<>();
+            ArrayList<String> lines = readFile(filename + ".txt");
+            ArrayList<Question> questions = new ArrayList<>();
+            String quizname = lines.get(0).substring(14);
+            for (int i = 1; i < lines.size(); i++) {
+                if (lines.get(i).startsWith("Correct Answer: ")) {
+                    correctAnswer = Integer.parseInt(lines.get(i).substring(16));
+                    Question temp = new Question(prompt, choices, correctAnswer);
+                    questions.add(temp);
+                    prompt = "";
+                    choices = new ArrayList<>();
+                } else if (lines.get(i).startsWith("Prompt of Question: ")){
+                    prompt = lines.get(i).substring(20);
+                } else if (lines.get(i).startsWith("Name of Quiz: ")) {
+                    System.out.println("ONLY 1 QUIZ PER FILE");
+                    return null;
+                }
+                else {
+                    choices.add(lines.get(i));
+                }
+            }
+            Quiz q = new Quiz(quizname, questions);
+            return q;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("There was a problem converting this file to a quiz!");
+            return null;
+        }
+
+    }
     public Course convertCourse(String coursename) {
         try {
             ArrayList<String> lines = readFile(coursename + ".txt");
@@ -93,10 +128,10 @@ public class Manager {
             return null;
         }
     }
+
     public Quiz convertQuiz(String coursename, String quizname) {
         try {
             boolean quizFound = false;
-            boolean questionFound = false;
             String prompt = "";
             int correctAnswer;
             ArrayList<String> choices = new ArrayList<>();
@@ -114,11 +149,9 @@ public class Manager {
                         correctAnswer = Integer.parseInt(lines.get(i).substring(16));
                         Question temp = new Question(prompt, choices, correctAnswer);
                         questions.add(temp);
-                        questionFound = false;
                         prompt = "";
                         choices = new ArrayList<>();
                     } else if (lines.get(i).startsWith("Prompt of Question: ")){
-                        questionFound = true;
                         prompt = lines.get(i).substring(20);
                     } else {
                         choices.add(lines.get(i));
@@ -140,6 +173,7 @@ public class Manager {
         return lines[index].substring(16 + String.valueOf(index).length());
 
     }
+
     public String getCourseName(int index) {
         try {
             ArrayList<String> courses = readFile("courses.txt");
@@ -377,7 +411,7 @@ public class Manager {
 
     }
 
-    public ArrayList<String> readFile(String fileName) throws FileNotFoundException {
+    public ArrayList<String> readFile(String fileName) {
         ArrayList<String> tempString = new ArrayList<>();
         File f = new File(fileName);
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
@@ -389,16 +423,17 @@ public class Manager {
             }
             return tempString;
         } catch (IOException e) {
-            throw new FileNotFoundException();
+            System.out.println("There was a problem reading from this file!");
+            return null;
         }
     }
 
-    public void writeChangesToFile(String info, String filename, boolean append) throws FileNotFoundException {
+    public void writeChangesToFile(String info, String filename, boolean append)  {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);
         } catch (IOException e) {
-            throw new FileNotFoundException();
+            System.out.println("There was an error writing changes to the file!");
         }
     }
 }

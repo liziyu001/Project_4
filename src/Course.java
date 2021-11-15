@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -239,42 +240,30 @@ public class Course {
             return false;
         }
     }
-    public void AddQuizFromFile(String filename) {
-        /*
-        text file should look like this:
-        Name of Quiz
-        Promt of question
-        Answer1, Answer2, Answer3, ANswer4
-        CorrectAnswer
-        -
-        Promt of question
-        Answer1, Answer2, Answer3, ANswer4
-        CorrectAnswer
-         */
-        try {
-            Path filePath = new File(filename).toPath();
-            List<String> stringList = Files.readAllLines(filePath);
-            String[] stringArray = stringList.toArray(new String[]{});
-            String nameOfQuiz = stringArray[0];
-            ArrayList<Question> questions = new ArrayList<>();
-            for (int i = 1; i < stringArray.length; i += 4){
-                String promptOfQuestion = stringArray[i];
-                String answers = stringArray[i+1];
-                int correctAnswer = Integer.parseInt(stringArray[i+2]);
-                String[] str = answers.split(",");
-                List<String> answerChoices = new ArrayList<>();
-                answerChoices = Arrays.asList(str);
-                Question question = new Question(promptOfQuestion, (ArrayList<String>) answerChoices, correctAnswer);
-                questions.add(question);
-            }
-            Quiz quiz = new Quiz(nameOfQuiz, questions);
-            courseQuiz.add(quiz);
-            System.out.println("Quiz has been successfully added");
 
-        } catch (IOException e) {
-            System.out.println("Cannot read from a file");
+
+    public boolean addQuizFromFile(Quiz q) {
+        try {
+            for (Quiz quiz : courseQuiz) {
+                if (quiz.getName().equals(q.getName())) {
+                    return false;
+                }
+            }
+            ArrayList<Question> questions = q.getQuestions();
+            for (int i = 0; i < questions.size(); i++) {
+                Question question = questions.get(i);
+                if (question.getCorrectAnswer() >= question.getAnswerChoices().size()) {
+                    return false;
+                }
+            }
+            courseQuiz.add(q);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
+
     }
+
 
     public String toString() {
         String finalToReturn = "CourseName: " + name + "\n";
