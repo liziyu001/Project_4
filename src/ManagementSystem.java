@@ -4,6 +4,7 @@ import java.io.File;
 import java.security.cert.PolicyQualifierInfo;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 // need to check ALL scanners to ensure no commas are inputted, will mess with file reading/writing otherwise
 //Implements all of the other classes created and runs the entire main method needed for testing
@@ -178,9 +179,7 @@ public class ManagementSystem {
                             }
                             break;
                         }
-                        if (quit) {
-                            break;
-                        }
+                        break;
                     case "1":
                         if (!m.listCourses().equals("There are currently no courses!")) {
                             Course currentCourse;
@@ -306,7 +305,7 @@ public class ManagementSystem {
                                     case "0":
                                         continue Teacher;
                                     case "5":
-                                        System.out.println(currentCourse);
+                                        System.out.println(currentQuiz);
                                 }
                             } else {
                                 System.out.println("There are currently no quizzes!");
@@ -330,6 +329,7 @@ public class ManagementSystem {
                             System.out.println("There are currently no courses!");
                             continue Teacher;
                         }
+                        break;
                     default:
                         System.out.println("Invalid Choice!");
                 }
@@ -391,11 +391,7 @@ public class ManagementSystem {
                             }
                             break;
                         }
-                        if (quit) {
-                            break;
-                        }
                         break;
-
                     case "1":
                         if (!m.listCourses().equals("There are currently no courses!")) {
                             Course currentCourse;
@@ -437,7 +433,8 @@ public class ManagementSystem {
                                             //currentQuiz.addSubmissionViaFile(currentAccount, filename);
                                         } else {
                                             currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                                    m.getQuizName(Integer.parseInt(choice) - 1, quizzes));
+                                                    m.getQuizName(Integer.parseInt(choice), quizzes));
+                                            System.out.println("quiz: " + currentQuiz);
                                             System.out.println("1. View Gradings");
                                             System.out.println("2. Take the quiz");
                                             System.out.println("0. Back");
@@ -447,10 +444,13 @@ public class ManagementSystem {
                                     }
                                     switch (s.nextLine()) {
                                         case "1":
-                                            currentQuiz.showResultsOfQuiz(currentAccount);
+                                            //currentQuiz.showResultsOfQuiz(currentAccount);
                                             break;
                                         case "2":
-                                            //ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
+                                            //System.out.println(currentQuiz.toStringWithoutAnswer());
+                                            //System.out.println("Enter your answers as a comma separated list!");
+                                            ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
+                                            System.out.println(Arrays.deepToString(answers.toArray()));
                                             //currentQuiz.addSubmission(currentAccount, answers);
                                             break;
                                         case "0":
@@ -473,6 +473,7 @@ public class ManagementSystem {
                             System.out.println("There are currently no courses!");
                             continue Student;
                         }
+                        break;
                     default:
                         System.out.println("Invalid Choice");
                 }

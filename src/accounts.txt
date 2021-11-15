@@ -9,3 +9,4 @@
 9, XD, 1212, true
 10, manas, xd, true
 11, asa, 21, true
+12, anant, pokemango, true

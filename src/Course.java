@@ -77,20 +77,6 @@ public class Course {
             System.out.println("A quiz with this name doesn't exist!");
         }
 
-        /*
-        Optional<Quiz> quiz  = courseQuiz.stream().parallel().filter(val -> val.getName().equals(name)).findFirst();
-        if (quiz.isPresent()) {
-            System.out.println("Before:");
-            System.out.println(courseQuiz);
-            courseQuiz.remove(quiz);
-            System.out.println("After:");
-            System.out.println(courseQuiz);
-            System.out.println("Quiz: " + name + "has been successfully removed");
-        }
-        else {
-            System.out.println("Such name doesn't exits in the list of quizzes");
-        }
-         */
     }
      /**
      * Creates the question prompt and answer choices and determines if the quiz created is valid or not

@@ -45,7 +45,7 @@ public class Manager {
 
     }
     /*
-    public void submitQuiz(String coursename, String quizname, Submission submission) {
+    public void takeQuiz(String coursename, String quizname, Submission submission) {
         try {
             String filename = c.getName() + ".txt";
             writeChangesToFile(c.toString(), filename, false);
@@ -70,8 +70,6 @@ public class Manager {
             System.out.println("There was a problem creating this course, try again!");
         }
     }
-
-
      */
 
     public Quiz addQuizFromFile(String filename) {
@@ -108,6 +106,7 @@ public class Manager {
         }
 
     }
+
     public Course convertCourse(String coursename) {
         try {
             ArrayList<String> lines = readFile(coursename + ".txt");
@@ -233,28 +232,6 @@ public class Manager {
             } else {
                 System.out.println("The course you provided was not found!");
             }
-            /*else {
-                File tempFile = new File(current.getName() + ".txt");
-                //checks if the current course has a file
-                if (tempFile.exists()) {
-                    tempFile.delete();
-                    String update = updated.toString();
-                    //creates a file with the updated course
-                    writeChangesToFile(update, (updated.getName() + ".txt"), false);
-                    //updates the courses.txt file since the course name was changed
-                    ArrayList<String> courses = readFile("courses.txt");
-                    courses.set(courses.indexOf(current.getName()), updated.getName());
-                    String updatedCourses = "";
-                    for (int i = 0; i < courses.size(); i++) {
-                        updatedCourses += courses.get(i) + "\n";
-                    }
-                    writeChangesToFile(updatedCourses, "courses.txt", false);
-                } else {
-                    System.out.println("The course you provided was not found!");
-                }
-            }
-
-             */
         } catch (Exception e) {
             System.out.println("There was a problem editing your course, try again!");
         }

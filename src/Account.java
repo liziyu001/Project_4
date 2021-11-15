@@ -138,12 +138,11 @@ public class Account {
      */
     public ArrayList<String> takeQuiz(Scanner scan, Quiz quiz) {
         System.out.println("You are now taking Quiz: " + quiz.getName() + ".");
-
         // The arraylist which contains the quizzes questions
-        ArrayList<Question> questions = new ArrayList<Question>();
+        ArrayList<Question> questions = quiz.getQuestions();
 
         // The arraylist which contains the user's responses
-        ArrayList<String> responses = new ArrayList<String>();
+        ArrayList<String> responses = new ArrayList<>();
 
         // Iterate through the questions arraylist
         for(Question q : questions){
@@ -164,9 +163,7 @@ public class Account {
             responses.add(scan.nextLine());
 
         }
-
         return responses;
-
     }
 
     /**
