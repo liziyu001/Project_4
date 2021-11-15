@@ -21,8 +21,10 @@ public class ManagementSystem {
         try {
             File a = new File("accounts.txt");
             File c = new File("courses.txt");
+            File u = new File("accessible_quizzes.txt");
             c.createNewFile();
             a.createNewFile();
+            u.createNewFile();
         } catch (Exception e) {
             System.out.println("There was a problem on startup");
         }
@@ -227,6 +229,7 @@ public class ManagementSystem {
                                                 String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
                                                 currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
                                                 m.createQuizFile(currentCourse.getName(), currentQuiz, time);
+                                                m.updateAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName(), time);
                                                 System.out.println("Quiz created");
                                             } else {
                                                 System.out.println("Quiz not created!");
@@ -242,6 +245,7 @@ public class ManagementSystem {
                                                 m.editCourse(temp, currentCourse);
                                                 currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
                                                 m.createQuizFile(currentCourse.getName(), currentQuiz, time);
+                                                m.updateAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName(), time);
                                                 System.out.println("Quiz created from file!");
                                             } else {
                                                 System.out.println("Quiz not created from file!");
@@ -278,6 +282,7 @@ public class ManagementSystem {
                                             String time  = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
                                             currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
                                             m.createQuizFile(currentCourse.getName(), currentQuiz, time);
+                                            m.updateAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName(), time);
                                             System.out.println("Quiz edited!");
                                         }
                                         break;
@@ -296,8 +301,10 @@ public class ManagementSystem {
                                         System.out.println("Not implemented yet");
                                     case "3":
                                         temp = currentCourse;
+                                        m.deleteAccessibleQuiz(currentCourse.getName(), currentQuiz.getName());
                                         currentCourse.deleteQuiz(currentQuiz.getName());
                                         m.editCourse(temp, currentCourse);
+                                        System.out.println("Quiz deleted!");
                                         break;
                                     case "4":
                                         System.out.println("Enter the filename: ");
@@ -332,6 +339,7 @@ public class ManagementSystem {
                                     m.editCourse(temp, currentCourse);
                                     String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
                                     m.createQuizFile(currentCourse.getName(), currentCourse.getCourseQuiz().get(0), time);
+                                    m.updateAccessibleQuizzes(currentCourse.getName(), currentCourse.getCourseQuiz().get(0).getName(), time);
                                     System.out.println("Quiz created");
                                 } else {
                                     System.out.println("Quiz not created!");

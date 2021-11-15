@@ -178,6 +178,8 @@ public class Course {
             }
         }
         if (isFound) {
+            Manager m = new Manager();
+            m.deleteAccessibleQuiz(this.getName(), name);
             String newName;
             boolean isValid = true;
             while (true) {

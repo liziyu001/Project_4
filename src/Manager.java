@@ -44,6 +44,54 @@ public class Manager {
         //editCourse(l, c);
 
     }
+    public void deleteAccessibleQuiz(String coursename, String quizname) {
+        try {
+            boolean found = false;
+            ArrayList<String> lines = readFile("accessible_quizzes.txt");
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).startsWith(coursename + "_" + quizname + "_")) {
+                    lines.remove(i);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("The given quiz wasn't found in the accessible quizzes!");
+            }
+            String finalString = "";
+            for (int i = 0; i < lines.size(); i++) {
+                finalString += lines.get(i) + "\n";
+            }
+            finalString = finalString.substring(0, finalString.length() - 1);
+            writeChangesToFile(finalString, "accessible_quizzes.txt", false);
+        } catch (Exception e) {
+            System.out.println("There was a problem deleting the quiz from the accessible quizzes!");
+        }
+    }
+    public void updateAccessibleQuizzes(String coursename, String quizname, String timestamp) {
+        try {
+            boolean found = false;
+            String filename = coursename + "_" + quizname + "_" + timestamp + ".txt";
+            ArrayList<String> lines = readFile("accessible_quizzes.txt");
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).startsWith(coursename + "_" + quizname + "_")) {
+                    found = true;
+                    System.out.println("There was a problem updating the accessible quizzes");
+                    return;
+                }
+            }
+            lines.add(filename);
+            String finalString = "";
+            for (int i = 0; i < lines.size(); i++) {
+                finalString += lines.get(i) + "\n";
+            }
+            finalString = finalString.substring(0, finalString.length() - 1);
+            writeChangesToFile(finalString, "accessible_quizzes.txt", false);
+        } catch (Exception e) {
+            System.out.println("There was a problem updating the accessible quizzes!");
+        }
+    }
+
     /*
     public void submit(String coursename, String quizname, Submission submission) {
         try {
@@ -53,8 +101,6 @@ public class Manager {
             System.out.println("There was a problem creating this course, try again!");
         }
     }
-
-
 
      */
 
