@@ -184,12 +184,20 @@ public class ManagementSystem {
                             Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(choice) - 1)));
                             if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
                                 System.out.println("Select the Quiz you want to proceed.");
+                                System.out.println("-1. Create a new Quiz");
                                 System.out.println(m.listQuizzes(currentCourse.getName()));
                                 System.out.println("0. Back");
                                 //System.out.println(currentCourse.toString());
                                 String quizzes = m.listQuizzes(currentCourse.getName());
                                 choice = s.nextLine();
                                 if (choice.equals("0")) {
+                                    continue Teacher;
+                                } else if (choice.equals("-1")) {
+                                    System.out.println("Enter the name of the Quiz");
+                                    Course temp = currentCourse;
+                                    currentCourse.addQuiz(s.nextLine(), s);
+                                    m.editCourse(temp, currentCourse);
+                                    System.out.println("Quiz created");
                                     continue Teacher;
                                 }
                                 Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
@@ -198,6 +206,7 @@ public class ManagementSystem {
                                 System.out.println("2. Grade Submissions");
                                 System.out.println("3. Delete this Quiz");
                                 System.out.println("4. Upload Quiz from file");
+                                System.out.println("5. View Quiz");
                                 System.out.println("0. Back");
 
 
@@ -243,6 +252,8 @@ public class ManagementSystem {
                                         break;
                                     case "0":
                                         continue Teacher;
+                                    case "5":
+                                        System.out.println(currentCourse);
                                 }
                             } else {
                                 System.out.println("There are currently no quizzes!");
