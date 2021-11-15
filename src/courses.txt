@@ -5,3 +5,6 @@ CSXD
 XD
 XDD
 NO
+YES
+no
+o

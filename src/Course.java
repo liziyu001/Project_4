@@ -255,22 +255,21 @@ public class Course {
                     isEnough = true;
                 }
             } while (!isEnough);
-            Optional<Quiz> quiz  = courseQuiz.stream().parallel().filter(val -> val.getName().equals(name)).findFirst();
             Quiz quizToAdd = new Quiz(newName, questions);
-            if (quiz.isPresent()) {
-                courseQuiz.set(courseQuiz.indexOf(quiz) + 1, quizToAdd);
-                System.out.println("Quiz has been successfully edited");
-                return true;
+            for (int i = 0; i < courseQuiz.size(); i++) {
+                if (courseQuiz.get(i).getName().equals(name)) {
+                    courseQuiz.set(i, quizToAdd);
+                    System.out.println("Quiz has been successfully edited");
+                    return true;
+                }
             }
-            else {
-                System.out.println("There is no quiz with such name: " + name);
-                return false;
-            }
+            //courseQuiz.set(courseQuiz.indexOf(quiz) + 1, quizToAdd);
         }
         else {
             System.out.println("There is no quiz with such name: " + name);
             return false;
         }
+        return false;
     }
 
      /**

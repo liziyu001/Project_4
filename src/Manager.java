@@ -45,33 +45,27 @@ public class Manager {
 
     }
     /*
-    public void takeQuiz(String coursename, String quizname, Submission submission) {
+    public void submit(String coursename, String quizname, Submission submission) {
         try {
-            String filename = c.getName() + ".txt";
-            writeChangesToFile(c.toString(), filename, false);
-            ArrayList<String> courses = readFile("courses.txt");
-            for (int i = 0; i < courses.size(); i++) {
-                if (courses.get(i).isBlank()) {
-                    courses.remove(i);
-                }
-            }
-            courses.add(c.getName());
-            String courseString = "";
-            for (int i = 0; i < courses.size(); i++) {
-                if (i == courses.size() - 1) {
-                    courseString += courses.get(i);
-                } else {
-                    courseString += courses.get(i) + "\n";
-                }
-
-            }
-            writeChangesToFile(courseString, coursename + "_" + quizname + ".txt", true);
+            submission.
+            writeChangesToFile(submitString, coursename + "_" + quizname + ".txt", true);
         } catch (Exception e) {
             System.out.println("There was a problem creating this course, try again!");
         }
     }
+
+
+
      */
 
+    public  void createQuizFile(String coursename, Quiz q, String timestamp) {
+        try {
+            writeChangesToFile(q.toString(), coursename +"_"+ q.getName() + "_" + timestamp + ".txt", false);
+        } catch (Exception e) {
+            System.out.println("There was a problem creating this quiz submission file!");
+        }
+
+    }
     public Quiz addQuizFromFile(String filename) {
         try {
             String prompt = "";

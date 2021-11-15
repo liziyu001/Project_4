@@ -3,6 +3,7 @@ import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.security.cert.PolicyQualifierInfo;
 import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -223,6 +224,9 @@ public class ManagementSystem {
                                             boolean create = currentCourse.addQuiz(s.nextLine(), s);
                                             if (create) {
                                                 m.editCourse(temp, currentCourse);
+                                                String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                                                currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
+                                                m.createQuizFile(currentCourse.getName(), currentQuiz, time);
                                                 System.out.println("Quiz created");
                                             } else {
                                                 System.out.println("Quiz not created!");
@@ -234,7 +238,10 @@ public class ManagementSystem {
                                             String filename = s.nextLine();
                                             boolean create = currentCourse.addQuizFromFile(m.addQuizFromFile(filename));
                                             if (create) {
+                                                String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
                                                 m.editCourse(temp, currentCourse);
+                                                currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
+                                                m.createQuizFile(currentCourse.getName(), currentQuiz, time);
                                                 System.out.println("Quiz created from file!");
                                             } else {
                                                 System.out.println("Quiz not created from file!");
@@ -268,6 +275,10 @@ public class ManagementSystem {
                                         boolean create = currentCourse.editQuiz(currentQuiz.getName(), s);
                                         if (create) {
                                             m.editCourse(temp, currentCourse);
+                                            String time  = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                                            currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
+                                            m.createQuizFile(currentCourse.getName(), currentQuiz, time);
+                                            System.out.println("Quiz edited!");
                                         }
                                         break;
                                     case "2" :
@@ -319,6 +330,8 @@ public class ManagementSystem {
                                 boolean create = currentCourse.addQuiz(s.nextLine(), s);
                                 if (create) {
                                     m.editCourse(temp, currentCourse);
+                                    String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                                    m.createQuizFile(currentCourse.getName(), currentCourse.getCourseQuiz().get(0), time);
                                     System.out.println("Quiz created");
                                 } else {
                                     System.out.println("Quiz not created!");
@@ -419,7 +432,7 @@ public class ManagementSystem {
                                 Quiz currentQuiz = new Quiz("XDDDDTEMPXD!@#$");
                                 while (true) {
                                     try {
-                                        System.out.println("Select the Quiz you want to take.");
+                                        System.out.println("Select the Quiz you want to view.");
                                         System.out.println(m.listQuizzes(currentCourse.getName()));
                                         String quizzes = m.listQuizzes(currentCourse.getName());
                                         System.out.println("0. Back");
@@ -441,15 +454,8 @@ public class ManagementSystem {
                                             //currentQuiz.showResultsOfQuiz(currentAccount);
                                             break;
                                         case "2":
-                                            //System.out.println(currentQuiz.toStringWithoutAnswer());
-                                            //System.out.println("Enter your answers as a comma separated list!");
                                             ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
-                                            //System.out.println(Arrays.deepToString(answers.toArray()));
                                             currentQuiz.addSubmission(currentAccount, answers);
-
-                                            System.out.println("Enter the filepath(just the filename): ");
-                                            String filename = s.nextLine();
-                                            //currentQuiz.addSubmissionViaFile(currentAccount, filename);
                                             break;
                                         case "0":
                                             continue Student;

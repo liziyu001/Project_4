@@ -178,12 +178,14 @@ public class Quiz {
      * @param account The account of the person who is taking the quiz and submitting it
      * @param filename The name of the file that is being parsed to help read the person's submission
      */
+    //not needed
+    /*
     public void addSubmissionViaFile(Account account, String filename) {
-           /*
+
            txt should have format like this:
            1, 2, 4, 1
            each number is an answer for the each question if number of answer is bigger than amount of question throw error.
-            */
+
         try {
             String data = new String(Files.readAllBytes(Paths.get(filename)));
             String[] answers = data.split(",");
@@ -203,11 +205,14 @@ public class Quiz {
             System.out.println("Wrong format...");
         }
     }
+    */
     /**
      * Edits the submission of the student of each question, and for the total grade
      * @param values An arraylist of integer values that represents the amount of sub grades that are needed in the submission
      * @param Account The account of the person whose submission needs to be edited
      */
+
+
     public void EditSubmission(ArrayList<Integer> values, Account Account) {
         int[] subGrades = new int[values.size()-1];
         for (int i = 0; i < subGrades.length; i++) {
@@ -224,6 +229,8 @@ public class Quiz {
             System.out.println("Quiz has been successfully graded");
         }
     }
+
+
 
 
 }
