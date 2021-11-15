@@ -29,15 +29,33 @@ public class Course {
     }
     //deleting quiz based on the name (name must be unique)
     public void deleteQuiz(String name) {
+        boolean found = false;
+        for (int i = 0; i < courseQuiz.size(); i++) {
+            if (courseQuiz.get(i).getName().equals(name)) {
+                courseQuiz.remove(i);
+                System.out.println("Quiz: " + name + " has been successfully removed");
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("A quiz with this name doesn't exist!");
+        }
+
+        /*
         Optional<Quiz> quiz  = courseQuiz.stream().parallel().filter(val -> val.getName().equals(name)).findFirst();
         if (quiz.isPresent()) {
+            System.out.println("Before:");
+            System.out.println(courseQuiz);
             courseQuiz.remove(quiz);
+            System.out.println("After:");
+            System.out.println(courseQuiz);
             System.out.println("Quiz: " + name + "has been successfully removed");
         }
         else {
             System.out.println("Such name doesn't exits in the list of quizzes");
         }
-
+         */
     }
     public boolean addQuiz(String name, Scanner scanner) {
         boolean isFound = false;
@@ -108,9 +126,9 @@ public class Course {
             } while (!isEnough);
             Quiz quiz = new Quiz(name, questions);
             courseQuiz.add(quiz);
-            System.out.println("Course quiz list:");
+            //System.out.println("Course quiz list:");
             //System.out.println(courseQuiz);
-            System.out.println(this);
+            //System.out.println(this);
             System.out.println("Quiz has been successfully added!");
             return true;
         }
@@ -135,9 +153,12 @@ public class Course {
                 for (Quiz quiz : courseQuiz) {
                     if (quiz.getName().equals(newName)) {
                         isValid = false;
+                        break;
+                    } else {
+                        isValid = true;
                     }
                 }
-                if (isValid) {
+                if (!isValid) {
                     System.out.println("Quiz with this name already exists!");
                 } else {
                     break;
@@ -204,7 +225,7 @@ public class Course {
             Optional<Quiz> quiz  = courseQuiz.stream().parallel().filter(val -> val.getName().equals(name)).findFirst();
             Quiz quizToAdd = new Quiz(newName, questions);
             if (quiz.isPresent()) {
-                courseQuiz.set(courseQuiz.indexOf(quiz), quizToAdd);
+                courseQuiz.set(courseQuiz.indexOf(quiz) + 1, quizToAdd);
                 System.out.println("Quiz has been successfully edited");
                 return true;
             }

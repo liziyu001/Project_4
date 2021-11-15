@@ -232,8 +232,8 @@ public class ManagementSystem {
                                 switch (s.nextLine()) {
                                     case "1":
                                         Course temp = currentCourse;
-                                        System.out.println("Current course :" + currentCourse);
-                                        System.out.println("Current Quiz: " + currentQuiz);
+                                        System.out.println("Current course: " +"\n" + currentCourse);
+                                        System.out.println("Current Quiz: " + "\n" + currentQuiz);
                                         System.out.println("Quiz name: " + currentQuiz.getName());
                                         boolean create = currentCourse.editQuiz(currentQuiz.getName(), s);
                                         if (create) {
