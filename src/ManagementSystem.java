@@ -64,7 +64,8 @@ public class ManagementSystem {
                     //Can determine if you are a teacher or a student
                     roleChoice:
                     while (true) {
-                        System.out.println("Your role: 1. Teacher   2. Student");
+                        System.out.println("Your role: 1. Teacher(manage quizzes/courses, grade student's submissions" + "\n" +
+                                "2. Student(view courses/quizzes and submit their responses to quizzes)");
                         switch (s.nextLine()) {
                             case "1":
                                 currentAccount = new Account(id, pwd, false);
