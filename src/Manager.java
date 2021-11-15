@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * The Manager class has methods that deal with all the reading and writing to files.
+ */
+
 public class Manager {
     //called when trying to validate a new user/a user changing their username
     public boolean checkDeletedAccounts(String username) {
@@ -266,6 +270,7 @@ public class Manager {
 
     }
 
+    //returns a Course from a file with the given coursename
     public Course convertCourse(String coursename) {
         try {
             ArrayList<String> lines = readFile(coursename + ".txt");
@@ -287,6 +292,7 @@ public class Manager {
         }
     }
 
+    //helper method for convertCourse, returns a Quiz from a file
     public Quiz convertQuiz(String coursename, String quizname) {
         try {
             boolean quizFound = false;
@@ -328,12 +334,14 @@ public class Manager {
 
     }
 
+    //helper method to list the quizzes
     public String getQuizName(int index, String quizzes) {
         String[] lines = quizzes.split("\n");
         return lines[index].substring(16 + String.valueOf(index).length());
 
     }
 
+    //helper method to list the courses
     public String getCourseName(int index) {
         try {
             ArrayList<String> courses = readFile("courses.txt");
@@ -344,6 +352,7 @@ public class Manager {
         }
     }
 
+    //adds the coursename to courses.txt and creates a file with the course contents
     public void addCourse(Course c) {
         try {
             String filename = c.getName() + ".txt";
@@ -370,6 +379,7 @@ public class Manager {
         }
     }
 
+    //checks if the coursename doesn't already exist in courses.txt
     public boolean checkCourseAvailability(Course c) {
         try {
             ArrayList<String> courses = readFile("courses.txt");
@@ -385,6 +395,7 @@ public class Manager {
         }
     }
 
+    //helper method for editing quizzes and other course contents
     public void editCourse(Course current, Course updated) {
         try {
             if (current.getName().equals(updated.getName())) {
@@ -399,6 +410,7 @@ public class Manager {
 
     }
 
+    //reads the courses.txt file and lists the names of the courses
     public String listCourses() {
         try {
             ArrayList<String> courseInfo = readFile("courses.txt");
@@ -416,6 +428,7 @@ public class Manager {
         }
     }
 
+    //reads quizzes from a given course and lists them
     public String listQuizzes(String coursename) {
         try {
             ArrayList<String> courseInfo = readFile(coursename + ".txt");
@@ -438,6 +451,7 @@ public class Manager {
         }
     }
 
+    //checks if the given username doesn't exist in the accounts.txt file
     public boolean checkAvailability(String username) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
@@ -455,6 +469,7 @@ public class Manager {
         }
     }
 
+    //checks if the given credentials are valid
     public Account login(String username, String password) {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
@@ -471,6 +486,7 @@ public class Manager {
         return null;
     }
 
+    //writes the account to the accounts.txt file
     public void addAccount(Account a) {
         try {
             writeChangesToFile(a.toString(), "accounts.txt", true);
@@ -480,6 +496,7 @@ public class Manager {
 
     }
 
+    //deletes the account from the accounts.txt file and adds it to deleted_accounts.txt
     public void deleteAccount(int accountId) {
         try {
             boolean found = false;
@@ -517,6 +534,7 @@ public class Manager {
 
     }
 
+    //writes the changed account to the accounts.txt file
     public void editAccount(Account updated, int accountId) {
         try {
             boolean found = false;
@@ -552,6 +570,7 @@ public class Manager {
 
     }
 
+    //reads a file's contents
     public ArrayList<String> readFile(String fileName) {
         ArrayList<String> tempString = new ArrayList<>();
         File f = new File(fileName);
@@ -569,6 +588,7 @@ public class Manager {
         }
     }
 
+    //writes the contents to a file
     public void writeChangesToFile(String info, String filename, boolean append)  {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
