@@ -36,8 +36,14 @@ public class Submission {
     /**
      * Returns the String representation of Submission
      * Example:
-     * //CHANGE THIS -MANAS**************W
-     *Submission{Account="1, username, password, false", graded=true, answers=["1","2","3","4"], subGrades=["2","2","1","1"], totalGrades=6};
+     *
+     * Submission: 
+     * Username: user
+     * Graded: true
+     * Answers: ["1","2","3","4"]
+     * Points: {"2","2","1","1"]
+     * Total Points: 6
+     * Time Submitted: 2021.11.15 04-18-25
      * @return Returns the String representation of Submission
      */
     @Override
