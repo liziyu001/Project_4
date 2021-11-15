@@ -1,5 +1,8 @@
 
+import javax.sound.midi.Soundbank;
 import java.io.File;
+import java.security.cert.PolicyQualifierInfo;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 // need to check ALL scanners to ensure no commas are inputted, will mess with file reading/writing otherwise
@@ -176,7 +179,7 @@ public class ManagementSystem {
                         if (!m.listCourses().equals("There are currently no courses!")) {
                             Course currentCourse;
                             String choice;
-                            while(true) {
+                            while (true) {
                                 System.out.println("Select the course you want to view");
                                 System.out.println(m.listCourses());
                                 System.out.println("0. Back");
@@ -186,13 +189,17 @@ public class ManagementSystem {
                                         continue Teacher;
                                     }
                                     currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(choice) - 1)));
-                                    break;
+                                    if (currentCourse != null) {
+                                        break;
+                                    } else {
+                                        System.out.println("Please enter a valid index!");
+                                    }
                                 } catch (Exception e) {
                                     System.out.println("Please enter a valid index!");
                                 }
                             }
                             if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
-                                Quiz currentQuiz = new Quiz("tempquizXDDDD");
+                                Quiz currentQuiz;
                                 while (true) {
                                     try {
                                         System.out.println("Select the Quiz you want to proceed.");
@@ -236,11 +243,10 @@ public class ManagementSystem {
                                             System.out.println("5. View Quiz");
                                             System.out.println("0. Back");
                                             break;
-
                                         }
 
                                     } catch (Exception e) {
-                                        e.printStackTrace();
+                                        //e.printStackTrace();
                                         System.out.println("Please enter a valid index!");
                                     }
                                 }
@@ -314,6 +320,8 @@ public class ManagementSystem {
                             System.out.println("There are currently no courses!");
                             continue Teacher;
                         }
+                    default:
+                        System.out.println("Invalid Choice!");
                 }
             }
         } else {
@@ -378,39 +386,84 @@ public class ManagementSystem {
                         break;
 
                     case "1":
-                        System.out.println("Select the course you want to view, ");
-                        System.out.println(m.listCourses());
-                        Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(s.nextLine()) - 1)));
-                        System.out.println("Select the Quiz you want to take.");
-                        //System.out.println(currentCourse.toString());
-                        System.out.println(m.listQuizzes(currentCourse.getName()));
-                        //System.out.println(currentCourse.toString());
-                        String quizzes = m.listQuizzes(currentCourse.getName());
-                        Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                m.getQuizName(Integer.parseInt(s.nextLine()) - 1, quizzes));
-                        System.out.println("1. View Gradings");
-                        System.out.println("2. Take a quiz");
-                        System.out.println("3. Take a quiz using a File:");
-                        switch (s.nextLine()){
-                            case "1":
-                                currentQuiz.showResultsOfQuiz(currentAccount);
-                                break;
-                            case "2":
-                                ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
-                                currentQuiz.addSubmission(currentAccount, answers);
-                                break;
-                            case "3":
-                                System.out.println("Enter the filename: ");
-                                String filename = s.nextLine();
-                                currentQuiz.addSubmissionViaFile(currentAccount, filename);
-                            default:
-                                System.out.println("Invalid input");
-                                break;
+                        if (!m.listCourses().equals("There are currently no courses!")) {
+                            Course currentCourse;
+                            String choice;
+                            while (true) {
+                                System.out.println("Select the course you want to view");
+                                System.out.println(m.listCourses());
+                                System.out.println("0. Back");
+                                try {
+                                    choice = s.nextLine();
+                                    if (choice.equals("0")) {
+                                        continue Student;
+                                    }
+                                    currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(choice) - 1)));
+                                    if (currentCourse != null) {
+                                        break;
+                                    } else {
+                                        System.out.println("Please enter a valid index!");
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Please enter a valid index!");
+                                }
+                            }
+                            if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
+                                Quiz currentQuiz = new Quiz("XDDDDTEMPXD!@#$");
+                                while (true) {
+                                    try {
+                                        System.out.println("Select the Quiz you want to take.");
+                                        System.out.println(m.listQuizzes(currentCourse.getName()));
+                                        String quizzes = m.listQuizzes(currentCourse.getName());
+                                        System.out.println("-1. Take a quiz using a File:");
+                                        System.out.println("0. Back");
+                                        choice = s.nextLine();
+                                        if (choice.equals("0")) {
+                                            continue Student;
+                                        } else if (choice.equals("-1")) {
+                                            System.out.println("Enter the filepath(just the filename): ");
+                                            String filename = s.nextLine();
+                                            //currentQuiz.addSubmissionViaFile(currentAccount, filename);
+                                        } else {
+                                            currentQuiz = m.convertQuiz(currentCourse.getName(),
+                                                    m.getQuizName(Integer.parseInt(choice) - 1, quizzes));
+                                            System.out.println("1. View Gradings");
+                                            System.out.println("2. Take the quiz");
+                                            System.out.println("0. Back");
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println("Please enter a valid index!");
+                                    }
+                                    switch (s.nextLine()) {
+                                        case "1":
+                                            currentQuiz.showResultsOfQuiz(currentAccount);
+                                            break;
+                                        case "2":
+                                            //ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
+                                            //currentQuiz.addSubmission(currentAccount, answers);
+                                            break;
+                                        case "0":
+                                            continue Student;
+                                        default:
+                                            System.out.println("Invalid input");
+                                            break;
+                                    }
+                                }
+                            } else {
+                                System.out.println("0. Back");
+                                if (!s.nextLine().equals("0")) {
+                                    System.out.println("Invalid Input!");
+                                    continue Student;
+                                } else if (s.nextLine().equals("0")) {
+                                    continue Student;
+                                }
+                            }
+                        } else {
+                            System.out.println("There are currently no courses!");
+                            continue Student;
                         }
-                        break;
                     default:
                         System.out.println("Invalid Choice");
-                        continue Student;
                 }
 
             }
