@@ -1,4 +1,4 @@
-
+//READ AS SOURCE BLOB!
 You have to compile all the classes created (Account, Course, Manager, Question, Quiz, Submission, ManagementSystem), and you only have to run the ManagementSystem class because that is the only class that contains a main method. You have to compile all the classes though because methods in other classes are implemented in the ManagementSystem class.   
 
 File System + formats:
