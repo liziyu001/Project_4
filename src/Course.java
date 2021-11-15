@@ -323,7 +323,7 @@ public class Course {
       * 2. Manas
       * 3. Leo
       * 4. William
-      * Correct Answer: Ram
+      * Correct Answer: 1
       * @return the String representation of the course
       */
     public String toString() {
