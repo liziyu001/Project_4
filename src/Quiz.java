@@ -14,7 +14,7 @@ public class Quiz {
     //List of submissions that the students make after completing the quiz
     private ArrayList<Submission> submissions;
 
-    //Determins if the quiz is going to have a randomized question and answer order or not
+    //Determines if the quiz is going to have a randomized question and answer order or not
     private boolean isRandom = false;
     /**
      * Constructs a newly allocated Quiz object with the specified name, list of quiz questions, and random status
