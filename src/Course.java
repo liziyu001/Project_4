@@ -51,11 +51,24 @@ public class Course {
 
             boolean isEnough;
             do {
-                System.out.println("Initialization of questions");
+                //System.out.println("Initialization of questions");
                 System.out.println("Enter prompt of the question: ");
                 String prompt = scanner.nextLine();
                 System.out.println("How many choices will question include?");
-                int amountOfChoices = Integer.parseInt(scanner.nextLine());
+                int amountOfChoices = 0;
+                while (true) {
+                    try {
+                        amountOfChoices = Integer.parseInt(scanner.nextLine());
+                        if (amountOfChoices <= 0) {
+                            System.out.println("Please enter a valid amount of choices!");
+                        } else {
+                            break;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Please enter a valid amount of choices!");
+                    }
+
+                }
                 ArrayList<String> options = new ArrayList<>();
                 //Initialize array of options from asking a user to enter list of questions.
                 for (int i = 0; i < amountOfChoices; i++) {
@@ -66,7 +79,19 @@ public class Course {
                 ArrayList<String> answerChoice = options;
                 System.out.println("What is a correct answer?(Enter a value from 1- # of questions)");
                 // -1 because user will see list of questions start from 1, but actually it starts from 0
-                int correctAnswer = Integer.parseInt(scanner.nextLine()) - 1;
+                int correctAnswer;
+                while (true) {
+                    try {
+                        correctAnswer = Integer.parseInt(scanner.nextLine()) - 1;
+                        if (correctAnswer <= 0) {
+                            System.out.println("Please enter a valid answer!");
+                        } else {
+                            break;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Please enter a valid answer!");
+                    }
+                }
                 Question question = new Question(prompt, answerChoice, correctAnswer);
                 questions.add(question);
                 System.out.println("Do you want to add another question? (Y/N)");
@@ -103,11 +128,23 @@ public class Course {
             boolean isEnough;
             ArrayList<Question> questions = new ArrayList<>();
             do {
-                System.out.println("Initialization of questions");
                 System.out.println("Enter prompt of the question: ");
                 String prompt = scanner.nextLine();
                 System.out.println("How many choices will question include?");
-                int amountOfChoices = Integer.parseInt(scanner.nextLine());
+                int amountOfChoices = 0;
+                while (true) {
+                    try {
+                        amountOfChoices = Integer.parseInt(scanner.nextLine());
+                        if (amountOfChoices <= 0) {
+                            System.out.println("Please enter a valid amount of choices!");
+                        } else {
+                            break;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Please enter a valid amount of choices!");
+                    }
+
+                }
                 ArrayList<String> options = new ArrayList<>();
                 //Initialize array of options from asking a user to enter list of questions.
                 for (int i = 0; i < amountOfChoices; i++) {
@@ -116,9 +153,21 @@ public class Course {
                     options.add((i + 1) + ". " + answerChoice);
                 }
                 ArrayList<String> answerChoice = options;
-                System.out.println("What is a correct answer?");
+                System.out.println("What is a correct answer?(Enter a value from 1- # of questions)");
                 // -1 because user will see list of questions start from 1, but actually it starts from 0
-                int correctAnswer = Integer.parseInt(scanner.nextLine()) - 1;
+                int correctAnswer;
+                while (true) {
+                    try {
+                        correctAnswer = Integer.parseInt(scanner.nextLine()) - 1;
+                        if (correctAnswer <= 0) {
+                            System.out.println("Please enter a valid answer!");
+                        } else {
+                            break;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Please enter a valid answer!");
+                    }
+                }
                 Question question = new Question(prompt, answerChoice, correctAnswer);
                 questions.add(question);
                 System.out.println("Do you want to add another question? (Y/N)");

@@ -111,7 +111,7 @@ public class ManagementSystem {
                                 System.out.println("Course " + c.getName() + " successfully created");
                                 continue Teacher;
                             } else {
-                                System.out.println(" Failed! Course with the same name already exists!");
+                                System.out.println("Failed! Course with the same name already exists!");
                                 continue Teacher;
                             }
                         } catch (Exception e) {
