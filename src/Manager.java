@@ -105,9 +105,12 @@ public class Manager {
             for (int i = 0; i < lines.size(); i++) {
                 if (lines.get(i).equals("Name of Quiz: " + quizname)) {
                     quizFound = true;
+                    i++;
                 }
                 if (quizFound) {
-                    if (lines.get(i).startsWith("Correct Answer: ")) {
+                    if (lines.get(i).startsWith("Name of Quiz: ")) {
+                        break;
+                    } else if (lines.get(i).startsWith("Correct Answer: ")) {
                         correctAnswer = Integer.parseInt(lines.get(i).substring(16));
                         Question temp = new Question(prompt, choices, correctAnswer);
                         questions.add(temp);
@@ -244,16 +247,17 @@ public class Manager {
     public String listQuizzes(String coursename) {
         try {
             ArrayList<String> courseInfo = readFile(coursename + ".txt");
-            int quizNumber = 0;
+            int quizNumber = 1;
             //System.out.println(courseInfo.size());
             if (courseInfo.size() == 2) {
                 return ("There are currently no quizzes!");
             }
             String quizList = "Quizzes:" + "\n";
             for (int i = 0; i < courseInfo.size(); i++) {
-                if (courseInfo.get(i).startsWith("Name of Quiz: "))
-                quizList += (quizNumber + ". ") + courseInfo.get(i) + "\n";
-                quizNumber++;
+                if (courseInfo.get(i).startsWith("Name of Quiz: ")) {
+                    quizList += (quizNumber + ". ") + courseInfo.get(i) + "\n";
+                    quizNumber++;
+                }
             }
             quizList = quizList.substring(0, quizList.length() - 1);
             return quizList;

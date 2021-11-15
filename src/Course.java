@@ -108,6 +108,9 @@ public class Course {
             } while (!isEnough);
             Quiz quiz = new Quiz(name, questions);
             courseQuiz.add(quiz);
+            System.out.println("Course quiz list:");
+            //System.out.println(courseQuiz);
+            System.out.println(this);
             System.out.println("Quiz has been successfully added!");
             return true;
         }

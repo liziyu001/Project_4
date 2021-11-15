@@ -46,7 +46,7 @@ public class Quiz {
         for (Question question : questions){
             output += question.toString();
         }
-        return output + "\n";
+        return output;
     }
 
     public Submission getSubmissionOfAccount(Account Account){
