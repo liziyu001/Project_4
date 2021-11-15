@@ -1,3 +1,5 @@
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -18,10 +20,19 @@ public class RunTestMethods {
     public void testExpectedOne() {
         // Set the input
         // Separate each input with a newline (\n).
-        String input = "Line One\nLine Two\n";
+        String input = "2\nLeo\nhi\n0";
 
         // Pair the input with the expected result
-        String expected = "Insert the expected output here"
+        String expected = "Welcome to the System\n" +
+                "1. Create account\n" +
+                "2. Login\n" +
+                "Enter your User ID:\n" +
+                "Enter your Password:\n" +
+                "Successfully logged in as Leo\n" +
+                "1. View Courses\n" +
+                "2. Account Setting\n" +
+                "0. Exit\n" +
+                "Thanks for using our program!";
 
         // Runs the program with the input values
         // Replace TestProgram with the name of the class with the main method
@@ -38,11 +49,13 @@ public class RunTestMethods {
 
     }
 
+    @Before
     public void outputStart() {
         testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
     }
 
+    @After
     public void restoreInputAndOutput() {
         System.setIn(originalSysin);
         System.setOut(originalOutput);
