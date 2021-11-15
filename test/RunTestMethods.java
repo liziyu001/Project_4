@@ -17,6 +17,9 @@ public class RunTestMethods {
     private final InputStream originalSysin = System.in;
 
     @Test(timeout = 1000)
+    /**
+     * Makes sure that the program can log into an account properly
+     */
     public void testExpectedOne() {
         // Set the input
         // Separate each input with a newline (\n).
@@ -43,6 +46,40 @@ public class RunTestMethods {
         String stuOut = getOutput();
 
         // Trims the output and verifies it is correct.
+        stuOut = stuOut.replace("\r\n", "\n");
+        assertEquals("Error message if output is incorrect, customize as needed",
+                expected.trim(), stuOut.trim());
+
+    }
+
+    @Test(timeout = 1000)
+    /**
+     * Makes sure that the program handles an incorrect password properly.
+     */
+    public void testExpectedTwo() {
+
+        String input = "2\nLeo\nhi2\nLeo\nhi\n0";
+
+        String expected = "Welcome to the System\n" +
+                "1. Create account\n" +
+                "2. Login\n" +
+                "Enter your User ID:\n" +
+                "Enter your Password:\n" +
+                "Invalid ID or password\n" +
+                "Enter your User ID:\n" +
+                "Enter your Password:\n" +
+                "Successfully logged in as Leo\n" +
+                "1. View Courses\n" +
+                "2. Account Setting\n" +
+                "0. Exit\n" +
+                "Thanks for using our program!";
+
+
+        receiveInput(input);
+        ManagementSystem.main(new String[0]);
+
+        String stuOut = getOutput();
+
         stuOut = stuOut.replace("\r\n", "\n");
         assertEquals("Error message if output is incorrect, customize as needed",
                 expected.trim(), stuOut.trim());
