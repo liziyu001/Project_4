@@ -55,30 +55,30 @@ public class Manager {
                         if (ansString.contains(",")) {
                             ans = ansString.split(",");
                             int[] intAns = new int[ans.length];
-                            for (int j = 0; j < ans.length; i++) {
-                                intAns[j] = Integer.parseInt(ans[j]);
+                            for (int j = 0; j < ans.length; j++) {
+                                intAns[j] = Integer.parseInt(ans[j].trim());
                             }
                             s.setAnswers(intAns);
                         } else {
                             ans = new String[1];
                             ans[0] = ansString;
                             int[] intAns = new int[1];
-                            intAns[0] = Integer.parseInt(ans[0]);
+                            intAns[0] = Integer.parseInt(ans[0].trim());
                             s.setAnswers(intAns);
                         }
                         pointString = lines.get(i + 4).substring(8).replace("[", "").replace("]", "");
                         if (pointString.contains(",")) {
                             points = pointString.split(",");
                             int[] intPoints = new int[points.length];
-                            for (int j = 0; j < points.length; i++) {
-                                intPoints[j] = Integer.parseInt(points[j]);
+                            for (int j = 0; j < points.length; j++) {
+                                intPoints[j] = Integer.parseInt(points[j].trim());
                             }
                             s.setSubGrades(intPoints);
                         } else {
                             points = new String[1];
                             points[0] = pointString;
                             int[] intPoints = new int[1];
-                            intPoints[0] = Integer.parseInt(points[0]);
+                            intPoints[0] = Integer.parseInt(points[0].trim());
                             s.setSubGrades(intPoints);
                         }
                         s.setTotalGrades(Integer.parseInt(lines.get(i + 5).substring(14)));
