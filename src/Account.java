@@ -2,6 +2,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+/**
+ * An account of a student or a teacher
+ */
 
 public class Account {
     //The username of the person's account
