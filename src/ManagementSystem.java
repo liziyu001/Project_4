@@ -6,6 +6,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 // need to check ALL scanners to ensure no commas are inputted, will mess with file reading/writing otherwise
+//Implements all of the other classes created and runs the entire main method needed for testing
 public class ManagementSystem {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
@@ -14,6 +15,7 @@ public class ManagementSystem {
         Manager m = new Manager();
         boolean quit = false;
         Account currentAccount;
+        //Creates files
         try {
             File a = new File("accounts.txt");
             File c = new File("courses.txt");
@@ -22,7 +24,7 @@ public class ManagementSystem {
         } catch (Exception e) {
             System.out.println("There was a problem on startup");
         }
-
+        //Login process where a person cannot create an account or log in into their existing account
         login:
         while (true) {
             System.out.println("1. Create account");
@@ -53,6 +55,7 @@ public class ManagementSystem {
                         }
                         break;
                     }
+                    //Can determine if you are a teacher or a student
                     roleChoice:
                     while (true) {
                         System.out.println("Your role: 1. Teacher   2. Student");
@@ -73,6 +76,7 @@ public class ManagementSystem {
                     }
                     break;
                 case "2":
+                    //Input your existing user ID and password
                     logininput:
                     while (true) {
                         System.out.println("Enter your User ID:");
@@ -99,6 +103,7 @@ public class ManagementSystem {
             }
             break;
         }
+        //If the person has a teacher account, then they have the option to view their courses, create a course, and see their account settings
         if (!currentAccount.isStudent()) {
             Teacher:
             while (!quit) {
@@ -123,6 +128,7 @@ public class ManagementSystem {
                         }
                         break;
                     case "3":
+                        //The account setting allows you to change your username and password, delete your account, or exit
                         AccountSetting:
                         while (true) {
                             System.out.println("1. Edit your username");
@@ -201,6 +207,7 @@ public class ManagementSystem {
                             if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
                                 Quiz currentQuiz;
                                 while (true) {
+                                    //Allows teacher to select a certain quiz, and create a new quiz either from a file or not from a file
                                     try {
                                         System.out.println("Select the Quiz you want to proceed.");
                                         System.out.println("-1. Create a new Quiz");
@@ -234,6 +241,8 @@ public class ManagementSystem {
                                                 System.out.println("Quiz not created from file!");
                                             }
                                         } else {
+                                            //Allows the teacher to edit or view a quiz, grade a student's submission, delete a quiz, or upload a quiz from a file that they already created
+                                            //There is always the option to exit
                                             currentQuiz = m.convertQuiz(currentCourse.getName(),
                                                     m.getQuizName(Integer.parseInt(choice), quizzes));
                                             System.out.println("1. Edit the Quiz");
@@ -283,6 +292,7 @@ public class ManagementSystem {
                                     case "4":
                                         System.out.println("Enter the filename: ");
                                         String filename = s.nextLine();
+                                        //Teacher has the option to randomize the question order and answer choice order or not
                                         System.out.println("Randomize Quiz? (Y/N)");
                                         String randomize = s.nextLine();
                                         if (randomize.equalsIgnoreCase("Y")) {
@@ -326,6 +336,7 @@ public class ManagementSystem {
             }
         } else {
             Student:
+            //A person with a student account only has the options to view their courses and their account setting, as these options are similar to teacher
             while (!quit) {
                 System.out.println("1. View Courses");
                 System.out.println("2. Account Setting");
