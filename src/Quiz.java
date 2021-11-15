@@ -3,8 +3,12 @@ import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+
 /**
  * A quiz that be created by the teacher and taken by the student
+ *
+ * @author Manas Srivastava, Ziyu Li, Leo Pan, Ram Laxminarayan, Miras Abdishev
+ * @version November 15, 2021
  */
 public class Quiz {
     //Name of the quiz
@@ -16,12 +20,14 @@ public class Quiz {
 
     //Determines if the quiz is going to have a randomized question and answer order or not
     private boolean isRandom = false;
+
     /**
      * Constructs a newly allocated Quiz object with the specified name, list of quiz questions, and random status
      * The list of submissions is set to an empty array list
-     * @param name The specified name of the quiz to be used in construction
+     *
+     * @param name      The specified name of the quiz to be used in construction
      * @param questions The specified list of quiz questions to be used in construction
-     * @param isRandom The specified random status of the quiz to be used in construction
+     * @param isRandom  The specified random status of the quiz to be used in construction
      */
     public Quiz(String name, ArrayList<Question> questions, boolean isRandom) {
         this.name = name;
@@ -29,16 +35,20 @@ public class Quiz {
         this.submissions = new ArrayList<>();
         this.isRandom = isRandom;
     }
+
     /**
      * Returns if the quiz is going to be randomized or not
+     *
      * @return the random status of the quiz
      */
 
     public boolean isRandom() {
         return isRandom;
     }
+
     /**
      * Updates the random status using the specified random status
+     *
      * @param The specified status that determines if the quiz will be randomized that is going to be used in the update
      */
     public void setRandom(boolean random) {
@@ -47,6 +57,7 @@ public class Quiz {
 
     /**
      * Constructs a newly allocated object with the specified name and empty list of quiz questions and quiz submissions
+     *
      * @param name The specified name of the quiz to be used in construction
      */
     public Quiz(String name) {
@@ -54,43 +65,55 @@ public class Quiz {
         questions = new ArrayList<>();
         submissions = new ArrayList<>();
     }
+
     /**
      * Returns the name of the quiz
+     *
      * @return the name of the quiz
      */
     public String getName() {
         return name;
     }
+
     /**
      * Updates the name of the quiz using the specified name
+     *
      * @param name The specified name that is going to be used in the update
      */
     public void setName(String name) {
         this.name = name;
     }
+
     /**
      * Returns the list of quiz questions
+     *
      * @return the list of quiz questions
      */
     public ArrayList<Question> getQuestions() {
         return questions;
     }
+
     /**
      * Updates the list of quiz questions using the specified list of quiz questions
+     *
      * @param questions The specified list of quiz questions that is going to be used in the update
      */
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
+
     /**
      * Updates the list of submissions using the specified list of submissions
+     *
      * @param questions The specified list of submissions that is going to be used in the update
      */
-    public void  setSubmissions(ArrayList<Submission> submissions) {
+    public void setSubmissions(ArrayList<Submission> submissions) {
         this.submissions = submissions;
     }
+
     /**
      * Returns the list of quiz submissions
+     *
      * @return the list of quiz submissions
      */
     public ArrayList<Submission> getSubmissions() {
@@ -100,8 +123,9 @@ public class Quiz {
     /**
      * Determines whether or not the specified object is equal to this quiz
      * Returns true if the object is an instance of quiz and if their names and list of questions are the same; otherwise it returns false
-     * @ param o The specified object that is going to be used for comparison
+     *
      * @return Returns if the object and quiz are equal to each other or not
+     * @ param o The specified object that is going to be used for comparison
      */
     public boolean equals(Object o) {
         if (o instanceof Quiz) {
@@ -110,17 +134,19 @@ public class Quiz {
         }
         return false;
     }
+
     /**
      * Returns the string representation of the quiz
      * Example:
      * IsRandom: false
      * Name of Quiz: quiz
      * Prompt of Question: What's your name
-     * 1. Ram 
+     * 1. Ram
      * 2. Manas
      * 3. Leo
      * 4. William
      * Correct Answer: 1
+     *
      * @return The String representation of the quiz
      */
     public String toString() {
@@ -130,23 +156,27 @@ public class Quiz {
         }
         return output;
     }
+
     /**
      * Returns the submission of the person's account that submitted it
+     *
      * @param username The username of the person who is submitting the quiz
      * @return the submission of the person's account that submitted it
      */
     public Submission getSubmissionOfAccount(String username, String timestamp) {
         Submission submission = null;
-        for(Submission sub : submissions) {
+        for (Submission sub : submissions) {
             if (sub.getUsername().equals(username) && sub.getTimestamp().equals(timestamp)) {
                 submission = sub;
             }
         }
         return submission;
     }
+
     /**
      * Shows the grade the person got on their quiz based on their submission
      * Quiz may not be graded if the submission is null, or if there was an error that was encountered when trying to grade their submission
+     *
      * @param username The username that the person submitted their quiz on, and is awaiting their results on the quiz
      */
     public void showResultsOfQuiz(String username, ArrayList<Submission> submissions) {
@@ -155,16 +185,14 @@ public class Quiz {
                 Submission submission = submissions.get(x);
                 if (!submission.getUsername().equals(username)) {
                     System.out.println("You didn't submit your response to that quiz");
-                }
-                else {
+                } else {
                     if (submission.isGraded()) {
                         System.out.println("Submission: " + submission.getTimestamp());
-                        for (int i = 0; i<submission.getSubGrades().length; i++) {
+                        for (int i = 0; i < submission.getSubGrades().length; i++) {
                             System.out.println("Your grade for question " + (i + 1) + " was: " + submission.getSubGrades()[i]);
                         }
                         System.out.println("Your total grade: " + submission.getTotalGrades());
-                    }
-                    else {
+                    } else {
                         System.out.println("Submission: " + submission.getTimestamp());
                         System.out.println("Your quiz was not graded");
                     }
@@ -173,31 +201,35 @@ public class Quiz {
         }
 
     }
-    /** 
+
+    /**
      * Shows the submissions that the teacher has not graded yet
      * Increments an int to determine how many submissions have not been graded yet
+     *
      * @param coursename The name of the course that contains the quiz submissions
      */
     public void showAllSubmission(String coursename) {
         Manager m = new Manager();
         ArrayList<Submission> subs = m.convertSubmissions(coursename, this.getName());
         int i = 1;
-        for (Submission sub: subs) {
-            System.out.println(i + ". View submission of "+ sub.getUsername() + " " + sub.getTimestamp());
+        for (Submission sub : subs) {
+            System.out.println(i + ". View submission of " + sub.getUsername() + " " + sub.getTimestamp());
             i++;
         }
     }
+
     /**
      * Determines how many submissions the teacher has graded
+     *
      * @param coursename The name of the course where the quiz has been submitted under
      * @return the int value of the amount of submissions that the teacher has graded
      */
-    public  int checkIfGraded(String coursename) {
+    public int checkIfGraded(String coursename) {
         Manager m = new Manager();
         String file = m.searchAccessibleQuizzes(coursename, this.getName());
         ArrayList<Submission> subs = m.convertSubmissions(coursename, this.getName());
         int count = 0;
-        for (Submission sub: subs) {
+        for (Submission sub : subs) {
             if (!sub.isGraded()) {
                 count++;
             }
@@ -205,18 +237,21 @@ public class Quiz {
         return count;
     }
 
-     
+
     /**
      * Gets the submission of a certain person based on their ID
-     * @param index Represents the ID number of the student 
+     *
+     * @param index Represents the ID number of the student
      * @return the submission of a certain person based on their ID
      */
     public Submission getSubmissionById(int index) {
         return submissions.get(index);
     }
+
     /**
      * Adds the responses made by the specified account owner, puts the responses into a submission, and stores the submission in a submissions list
-     * @param Account The account of the person writing their responses and submitting
+     *
+     * @param Account   The account of the person writing their responses and submitting
      * @param responses A list of the answers that the person with the specified account put
      */
     public Submission addSubmission(Account Account, ArrayList<String> responses) {
@@ -271,9 +306,11 @@ public class Quiz {
         }
     }
     */
+
     /**
      * Edits the submission of the student of each question, and for the total grade
-     * @param values An arraylist of integer values that represents the amount of sub grades that are needed in the submission
+     *
+     * @param values   An arraylist of integer values that represents the amount of sub grades that are needed in the submission
      * @param username The username of the person whose submission needs to be edited
      */
 
@@ -289,8 +326,7 @@ public class Quiz {
         if (submission == null) {
             System.out.println("Something went wrong");
             return null;
-        }
-        else {
+        } else {
             Submission submissionToAdd = new Submission(submission.getUsername(), true, submission.getAnswers(), subGrades, totalGrade);
             submissionToAdd.setTimestamp(timestamp);
             submissions.set(submissions.indexOf(submission), submissionToAdd);
@@ -298,8 +334,6 @@ public class Quiz {
             return submissionToAdd;
         }
     }
-
-
 
 
 }

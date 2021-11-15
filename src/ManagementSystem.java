@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 //Implements all of the other classes created and runs the entire main method needed for testing
+
+/**
+ * The ManagementSystem contains the only main method and need to be run to start the system
+ *
+ * @author Manas Srivastava, Ziyu Li, Leo Pan, Ram Laxminarayan, Miras Abdishev
+ * @version November 15, 2021
+ */
 public class ManagementSystem {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
@@ -39,13 +46,13 @@ public class ManagementSystem {
                     while (true) {
                         System.out.println("Enter your User ID:");
                         id = s.nextLine();
-                        if (id.contains(",")){
+                        if (id.contains(",")) {
                             System.out.println("Invalid Username, no commas allowed!");
                             continue;
                         }
                         if (!m.checkAvailability(id) || (!m.checkDeletedAccounts(id))) {
                             System.out.println("Username already exists!");
-                            continue;
+                            continue login;
                         }
                         break;
                     }
@@ -88,7 +95,7 @@ public class ManagementSystem {
                         id = s.nextLine();
                         System.out.println("Enter your Password:");
                         ans = s.nextLine();
-                        if (id.contains(",") || ans.contains(",")){
+                        if (id.contains(",") || ans.contains(",")) {
                             System.out.println("Invalid input, no commas allowed!");
                             continue login;
                         }
@@ -116,13 +123,13 @@ public class ManagementSystem {
                 System.out.println("2. Create a Course");
                 System.out.println("3. Account Setting");
                 System.out.println("0. Exit");
-                switch (s.nextLine()){
+                switch (s.nextLine()) {
                     case "0":
                         System.out.println("Thanks for using our program!");
                         break Teacher;
                     case "2":
                         try {
-                            Course c = ( currentAccount).createCourse(s);
+                            Course c = (currentAccount).createCourse(s);
                             if (m.checkCourseAvailability(c)) {
                                 m.addCourse(c);
                                 System.out.println("Course " + c.getName() + " successfully created");
@@ -180,7 +187,7 @@ public class ManagementSystem {
                                     break;
                                 case "0":
                                     continue Teacher;
-                                default :
+                                default:
                                     System.out.println("Invalid Choice");
                                     continue AccountSetting;
                             }
@@ -276,20 +283,20 @@ public class ManagementSystem {
                                 switch (s.nextLine()) {
                                     case "1":
                                         Course temp = currentCourse;
-                                        System.out.println("Current course: " +"\n" + currentCourse);
+                                        System.out.println("Current course: " + "\n" + currentCourse);
                                         System.out.println("Current Quiz: " + "\n" + currentQuiz);
                                         System.out.println("Quiz name: " + currentQuiz.getName());
                                         boolean create = currentCourse.editQuiz(currentQuiz.getName(), s);
                                         if (create) {
                                             m.editCourse(temp, currentCourse);
-                                            String time  = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                                            String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
                                             currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
                                             m.createQuizFile(currentCourse.getName(), currentQuiz, time);
                                             m.updateAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName(), time);
                                             System.out.println("Quiz edited!");
                                         }
                                         break;
-                                    case "2" :
+                                    case "2":
                                         ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.getName(), currentQuiz.getName());
                                         if (submissions == null || submissions.size() == 0) {
                                             System.out.println("There are no submissions for this quiz!");
@@ -415,7 +422,7 @@ public class ManagementSystem {
                                     break;
                                 case "0":
                                     continue Student;
-                                default :
+                                default:
                                     System.out.println("Invalid Choice");
                                     continue studentAccountChoice;
                             }
@@ -456,9 +463,9 @@ public class ManagementSystem {
                                         choice = s.nextLine();
                                         if (choice.equals("0")) {
                                             continue Student;
-                                        }  else {
+                                        } else {
                                             currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                            m.getQuizName(Integer.parseInt(choice), quizzes));
+                                                    m.getQuizName(Integer.parseInt(choice), quizzes));
                                             System.out.println("1. View Gradings");
                                             System.out.println("2. Take the quiz");
                                             System.out.println("0. Back");

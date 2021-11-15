@@ -3,6 +3,9 @@ import java.util.*;
 
 /**
  * The Manager class has methods that deal with all the reading and writing to files.
+ *
+ * @author Manas Srivastava, Ziyu Li, Leo Pan, Ram Laxminarayan, Miras Abdishev
+ * @version November 15, 2021
  */
 
 public class Manager {
@@ -100,7 +103,8 @@ public class Manager {
     //updates the file containing a list of quizzes that have been graded(not used)
     public void updateGradedQuizzes(String filename, Submission submission) {
         try {
-            ;ArrayList<String> lines = readFile(filename);
+            ;
+            ArrayList<String> lines = readFile(filename);
             String finalString = "";
             boolean done = false;
             for (int i = 0; i < lines.size(); i++) {
@@ -224,9 +228,9 @@ public class Manager {
     }
 
     //creates a quiz file given its information
-    public  void createQuizFile(String coursename, Quiz q, String timestamp) {
+    public void createQuizFile(String coursename, Quiz q, String timestamp) {
         try {
-            writeChangesToFile(q.toString(), coursename +"_"+ q.getName() + "_" + timestamp + ".txt", false);
+            writeChangesToFile(q.toString(), coursename + "_" + q.getName() + "_" + timestamp + ".txt", false);
         } catch (Exception e) {
             System.out.println("There was a problem creating this quiz submission file!");
         }
@@ -241,7 +245,7 @@ public class Manager {
             ArrayList<String> choices = new ArrayList<>();
             ArrayList<String> lines = readFile(filename + ".txt");
             ArrayList<Question> questions = new ArrayList<>();
-            boolean rand = Boolean.parseBoolean(lines.get(0).replace("IsRandom: ",""));
+            boolean rand = Boolean.parseBoolean(lines.get(0).replace("IsRandom: ", ""));
             String quizname = lines.get(1).substring(14);
             for (int i = 2; i < lines.size(); i++) {
                 if (lines.get(i).startsWith("Correct Answer: ")) {
@@ -250,13 +254,12 @@ public class Manager {
                     questions.add(temp);
                     prompt = "";
                     choices = new ArrayList<>();
-                } else if (lines.get(i).startsWith("Prompt of Question: ")){
+                } else if (lines.get(i).startsWith("Prompt of Question: ")) {
                     prompt = lines.get(i).substring(20);
                 } else if (lines.get(i).startsWith("IsRandom: ")) {
                     System.out.println("ONLY 1 QUIZ PER FILE");
                     return null;
-                }
-                else {
+                } else {
                     choices.add(lines.get(i));
                 }
             }
@@ -317,7 +320,7 @@ public class Manager {
                         questions.add(temp);
                         prompt = "";
                         choices = new ArrayList<>();
-                    } else if (lines.get(i).startsWith("Prompt of Question: ")){
+                    } else if (lines.get(i).startsWith("Prompt of Question: ")) {
                         prompt = lines.get(i).substring(20);
                     } else {
                         choices.add(lines.get(i));
@@ -524,7 +527,7 @@ public class Manager {
                     }
                 }
                 writeChangesToFile(finalString, "accounts.txt", false);
-                writeChangesToFile(username,"deleted_accounts.txt", true);
+                writeChangesToFile(username, "deleted_accounts.txt", true);
             } else {
                 System.out.println("The provided account was not found!");
             }
@@ -589,7 +592,7 @@ public class Manager {
     }
 
     //writes the contents to a file
-    public void writeChangesToFile(String info, String filename, boolean append)  {
+    public void writeChangesToFile(String info, String filename, boolean append) {
         File f = new File(filename);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(f, append))) {
             pw.println(info);
