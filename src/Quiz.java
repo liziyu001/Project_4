@@ -14,13 +14,14 @@ public class Quiz {
     //List of submissions that the students make after completing the quiz
     private ArrayList<Submission> submissions;
 
-    //NEED TO COMMENT
+    //Determins if the quiz is going to have a randomized question and answer order or not
     private boolean isRandom = false;
     /**
-     * Constructs a newly allocated Quiz object with the specified name and list of quiz questions
+     * Constructs a newly allocated Quiz object with the specified name, list of quiz questions, and random status
      * The list of submissions is set to an empty array list
      * @param name The specified name of the quiz to be used in construction
      * @param questions The specified list of quiz questions to be used in construction
+     * @param isRandom The specified random status of the quiz to be used in construction
      */
     public Quiz(String name, ArrayList<Question> questions, boolean isRandom) {
         this.name = name;
@@ -28,12 +29,18 @@ public class Quiz {
         this.submissions = new ArrayList<>();
         this.isRandom = isRandom;
     }
-    //NEED TO COMMENT
+    /**
+     * Returns if the quiz is going to be randomized or not
+     * @return the random status of the quiz
+     */
 
     public boolean isRandom() {
         return isRandom;
     }
-
+    /**
+     * Updates the random status using the specified random status
+     * @param The specified status that determines if the quiz will be randomized that is going to be used in the update
+     */
     public void setRandom(boolean random) {
         isRandom = random;
     }
@@ -75,11 +82,17 @@ public class Quiz {
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
-    // ADD COMMENT-MANAS
+    /**
+     * Updates the list of submissions using the specified list of submissions
+     * @param questions The specified list of submissions that is going to be used in the update
+     */
     public void  setSubmissions(ArrayList<Submission> submissions) {
         this.submissions = submissions;
     }
-
+    /**
+     * Returns the list of quiz submissions
+     * @return the list of quiz submissions
+     */
     public ArrayList<Submission> getSubmissions() {
         return submissions;
     }
@@ -174,8 +187,11 @@ public class Quiz {
             i++;
         }
     }
-    /*
-    //NEED TO COMMENT
+    /**
+     * Determines how many submissions the teacher has graded
+     * @param coursename The name of the course where the quiz has been submitted under
+     * @return the int value of the amount of submissions that the teacher has graded
+     */
     public  int checkIfGraded(String coursename) {
         Manager m = new Manager();
         String file = m.searchAccessibleQuizzes(coursename, this.getName());
@@ -189,7 +205,7 @@ public class Quiz {
         return count;
     }
 
-     */
+     
     /**
      * Gets the submission of a certain person based on their ID
      * @param index Represents the ID number of the student 
