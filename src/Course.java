@@ -113,7 +113,7 @@ public class Course {
                 for (int i = 0; i < amountOfChoices; i++) {
                     System.out.println((i+1) + ": ");
                     String answerChoice = scanner.nextLine();
-                    options.add(answerChoice);
+                    options.add((i + 1) + ". " + answerChoice);
                 }
                 ArrayList<String> answerChoice = options;
                 System.out.println("What is a correct answer?");
