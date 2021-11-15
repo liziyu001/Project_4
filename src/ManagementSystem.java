@@ -487,7 +487,7 @@ public class ManagementSystem {
                                             continue Student;
                                         }  else {
                                             currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                                    m.getQuizName(Integer.parseInt(choice), quizzes));
+                                            m.getQuizName(Integer.parseInt(choice), quizzes));
                                             System.out.println("1. View Gradings");
                                             System.out.println("2. Take the quiz");
                                             System.out.println("0. Back");
