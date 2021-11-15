@@ -1,8 +1,18 @@
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+
 import static org.junit.Assert.assertEquals;
 
 public class RunTestMethods {
+
+    private ByteArrayInputStream testIn;
+    private ByteArrayOutputStream testOut;
+    private final PrintStream originalOutput = System.out;
+    private final InputStream originalSysin = System.in;
 
     @Test(timeout = 1000)
     public void testExpectedOne() {
@@ -26,5 +36,24 @@ public class RunTestMethods {
         assertEquals("Error message if output is incorrect, customize as needed",
                 expected.trim(), stuOut.trim());
 
+    }
+
+    public void outputStart() {
+        testOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testOut));
+    }
+
+    public void restoreInputAndOutput() {
+        System.setIn(originalSysin);
+        System.setOut(originalOutput);
+    }
+
+    private String getOutput() {
+        return testOut.toString();
+    }
+
+    private void receiveInput(String str) {
+        testIn = new ByteArrayInputStream(str.getBytes());
+        System.setIn(testIn);
     }
 }
