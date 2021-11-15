@@ -40,8 +40,8 @@ public class Submission {
      * Submission: 
      * Username: user
      * Graded: true
-     * Answers: ["1","2","3","4"]
-     * Points: {"2","2","1","1"]
+     * Answers: [1, 2, 3, 4]
+     * Points: [2, 2, 1, 1]
      * Total Points: 6
      * Time Submitted: 2021.11.15 04-18-25
      * @return Returns the String representation of Submission
@@ -71,7 +71,7 @@ public class Submission {
         this.subGrades = subGrades;
         this.totalGrades = totalGrades;
     }
-    //KEEP THIS
+    //used for creating a temporary Submission object
     public Submission() {
 
     }

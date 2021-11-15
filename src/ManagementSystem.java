@@ -1,4 +1,3 @@
-
 import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.security.cert.PolicyQualifierInfo;
@@ -7,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-// need to check ALL scanners to ensure no commas are inputted, will mess with file reading/writing otherwise
 //Implements all of the other classes created and runs the entire main method needed for testing
 public class ManagementSystem {
     public static void main(String[] args) {

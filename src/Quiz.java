@@ -112,7 +112,8 @@ public class Quiz {
     }
     /**
      * Returns the string representation of the quiz
-     * Example: 
+     * Example:
+     * IsRandom: false
      * Name of Quiz: quiz
      * Prompt of Question: What's your name
      * 1. Ram 
@@ -170,7 +171,6 @@ public class Quiz {
                 }
             }
         }
-        //Submission submission = getSubmissionOfAccount(username);
 
     }
     /** 
@@ -179,7 +179,6 @@ public class Quiz {
      */
     public void showAllSubmission(String coursename) {
         Manager m = new Manager();
-        //String file = m.searchAccessibleQuizzes(coursename, this.getName());
         ArrayList<Submission> subs = m.convertSubmissions(coursename, this.getName());
         int i = 1;
         for (Submission sub: subs) {
@@ -292,8 +291,6 @@ public class Quiz {
         }
         else {
             Submission submissionToAdd = new Submission(submission.getUsername(), true, submission.getAnswers(), subGrades, totalGrade);
-            //System.out.println("submissionto add:");
-            //System.out.println(submissionToAdd);
             submissionToAdd.setTimestamp(timestamp);
             submissions.set(submissions.indexOf(submission), submissionToAdd);
             System.out.println("Quiz has been successfully graded");
