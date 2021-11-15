@@ -100,7 +100,8 @@ public class Course {
      * Creates the question prompt and answer choices and determines if the quiz created is valid or not
      *
      * @param name    The name of the quiz that is being found and added if it is found
-     * @param scanner The scanner object that allows the teacher to enter the question prompt, answer choices, and correct answer
+     * @param scanner The scanner object that allows the teacher to enter the question prompt, answer choices,
+     *                and correct answer
      * @return Returns if the quiz can be added or not
      */
     public boolean addQuiz(String name, Scanner scanner) {
@@ -197,7 +198,8 @@ public class Course {
      * Allows the teacher to edit the quiz based on the name of the quiz they want to edit
      *
      * @param name    The name of the quiz that the teacher wants to edit
-     * @param scanner The Scanner object that allows the teacher to enter a new name for the quiz and redo the same process as the addQuiz(String name, Scanner scanner) method
+     * @param scanner The Scanner object that allows the teacher to enter a new name for the quiz and redo the same
+     *                process as the addQuiz(String name, Scanner scanner) method
      * @return Returns if the new edited quiz is valid or not
      */
     public boolean editQuiz(String name, Scanner scanner) {

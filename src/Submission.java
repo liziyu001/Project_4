@@ -66,7 +66,8 @@ public class Submission {
     }
 
     /**
-     * Constructs a newly allocated Submission object with the specified account, graded status, list of answers and subgrades, and total grade
+     * Constructs a newly allocated Submission object with the specified account, graded status, list of answers and
+     * subgrades, and total grade
      *
      * @param username    The specified username of the person to be used in construction
      * @param graded      The specified grade status of the person to be used in construction

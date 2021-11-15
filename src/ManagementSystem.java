@@ -69,7 +69,8 @@ public class ManagementSystem {
                     //Can determine if you are a teacher or a student
                     roleChoice:
                     while (true) {
-                        System.out.println("Your role: 1. Teacher(manage quizzes/courses, grade student's submissions" + "\n" +
+                        System.out.println("Your role: 1. Teacher(manage quizzes/courses, grade student's submissions"
+                                + "\n" +
                                 "2. Student(view courses/quizzes and submit their responses to quizzes)");
                         switch (s.nextLine()) {
                             case "1":
@@ -115,7 +116,8 @@ public class ManagementSystem {
             }
             break;
         }
-        //If the person has a teacher account, then they have the option to view their courses, create a course, and see their account settings
+        //If the person has a teacher account, then they have the option to view their courses, create a course, and
+        // see their account settings
         if (!currentAccount.isStudent()) {
             Teacher:
             while (!quit) {
@@ -144,7 +146,8 @@ public class ManagementSystem {
                         }
                         break;
                     case "3":
-                        //The account setting allows you to change your username and password, delete your account, or exit
+                        //The account setting allows you to change your username and password, delete your account,
+                        // or exit
                         AccountSetting:
                         while (true) {
                             System.out.println("1. Edit your username");
@@ -220,7 +223,8 @@ public class ManagementSystem {
                             if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
                                 Quiz currentQuiz;
                                 while (true) {
-                                    //Allows teacher to select a certain quiz, and create a new quiz either from a file or not from a file
+                                    //Allows teacher to select a certain quiz, and create a new quiz either from a file
+                                    // or not from a file
                                     try {
                                         System.out.println("Select the Quiz you want to proceed.");
                                         System.out.println("-1. Create a new Quiz");
@@ -237,10 +241,13 @@ public class ManagementSystem {
                                             boolean create = currentCourse.addQuiz(s.nextLine(), s);
                                             if (create) {
                                                 m.editCourse(temp, currentCourse);
-                                                String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-                                                currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
+                                                String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
+                                                        .format(new java.util.Date());
+                                                currentQuiz = currentCourse.getCourseQuiz().
+                                                        get(currentCourse.getCourseQuiz().size() - 1);
                                                 m.createQuizFile(currentCourse.getName(), currentQuiz, time);
-                                                m.updateAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName(), time);
+                                                m.updateAccessibleQuizzes(currentCourse.getName(),
+                                                        currentQuiz.getName(), time);
                                                 System.out.println("Quiz created");
                                             } else {
                                                 System.out.println("Quiz not created!");
@@ -252,17 +259,21 @@ public class ManagementSystem {
                                             String filename = s.nextLine();
                                             boolean create = currentCourse.addQuizFromFile(m.addQuizFromFile(filename));
                                             if (create) {
-                                                String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                                                String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").
+                                                        format(new java.util.Date());
                                                 m.editCourse(temp, currentCourse);
-                                                currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
+                                                currentQuiz = currentCourse.getCourseQuiz().
+                                                        get(currentCourse.getCourseQuiz().size() - 1);
                                                 m.createQuizFile(currentCourse.getName(), currentQuiz, time);
-                                                m.updateAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName(), time);
+                                                m.updateAccessibleQuizzes(currentCourse.getName(),
+                                                        currentQuiz.getName(), time);
                                                 System.out.println("Quiz created from file!");
                                             } else {
                                                 System.out.println("Quiz not created from file!");
                                             }
                                         } else {
-                                            //Allows the teacher to edit or view a quiz, grade a student's submission, delete a quiz, or view a quiz
+                                            //Allows the teacher to edit or view a quiz, grade a student's submission,
+                                            // delete a quiz, or view a quiz
                                             //There is always the option to exit
                                             currentQuiz = m.convertQuiz(currentCourse.getName(),
                                                     m.getQuizName(Integer.parseInt(choice), quizzes));
@@ -289,15 +300,19 @@ public class ManagementSystem {
                                         boolean create = currentCourse.editQuiz(currentQuiz.getName(), s);
                                         if (create) {
                                             m.editCourse(temp, currentCourse);
-                                            String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-                                            currentQuiz = currentCourse.getCourseQuiz().get(currentCourse.getCourseQuiz().size() - 1);
+                                            String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").
+                                                    format(new java.util.Date());
+                                            currentQuiz = currentCourse.getCourseQuiz().
+                                                    get(currentCourse.getCourseQuiz().size() - 1);
                                             m.createQuizFile(currentCourse.getName(), currentQuiz, time);
-                                            m.updateAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName(), time);
+                                            m.updateAccessibleQuizzes(currentCourse.getName(),
+                                                    currentQuiz.getName(), time);
                                             System.out.println("Quiz edited!");
                                         }
                                         break;
                                     case "2":
-                                        ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.getName(), currentQuiz.getName());
+                                        ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.getName()
+                                                , currentQuiz.getName());
                                         if (submissions == null || submissions.size() == 0) {
                                             System.out.println("There are no submissions for this quiz!");
                                             break;
@@ -320,8 +335,10 @@ public class ManagementSystem {
                                         }
                                         Submission tempSub = currentQuiz.getSubmissionById(sub - 1);
                                         ArrayList<Integer> answers = currentAccount.gradeSubmission(s, tempSub);
-                                        tempSub = currentQuiz.EditSubmission(answers, tempSub.getUsername(), tempSub.getTimestamp());
-                                        String file = m.searchAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName());
+                                        tempSub = currentQuiz.EditSubmission(answers, tempSub.getUsername(),
+                                                tempSub.getTimestamp());
+                                        String file = m.searchAccessibleQuizzes(currentCourse.getName(),
+                                                currentQuiz.getName());
                                         m.updateGradedQuizzes(file, tempSub);
                                         break;
 
@@ -350,9 +367,12 @@ public class ManagementSystem {
                                 boolean create = currentCourse.addQuiz(s.nextLine(), s);
                                 if (create) {
                                     m.editCourse(temp, currentCourse);
-                                    String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-                                    m.createQuizFile(currentCourse.getName(), currentCourse.getCourseQuiz().get(0), time);
-                                    m.updateAccessibleQuizzes(currentCourse.getName(), currentCourse.getCourseQuiz().get(0).getName(), time);
+                                    String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").
+                                            format(new java.util.Date());
+                                    m.createQuizFile(currentCourse.getName(), currentCourse.
+                                            getCourseQuiz().get(0), time);
+                                    m.updateAccessibleQuizzes(currentCourse.getName(), currentCourse.
+                                            getCourseQuiz().get(0).getName(), time);
                                     System.out.println("Quiz created");
                                 } else {
                                     System.out.println("Quiz not created!");
@@ -370,7 +390,8 @@ public class ManagementSystem {
             }
         } else {
             Student:
-            //A person with a student account only has the options to view their courses and their account setting, as these options are similar to teacher
+            //A person with a student account only has the options to view their courses and their account setting,
+            // as these options are similar to teacher
             while (!quit) {
                 System.out.println("1. View Courses");
                 System.out.println("2. Account Setting");
@@ -475,7 +496,8 @@ public class ManagementSystem {
                                     }
                                     switch (s.nextLine()) {
                                         case "1":
-                                            ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.getName(), currentQuiz.getName());
+                                            ArrayList<Submission> submissions = m.convertSubmissions(
+                                                    currentCourse.getName(), currentQuiz.getName());
                                             currentQuiz.showResultsOfQuiz(currentAccount.getUsername(), submissions);
                                             break;
 

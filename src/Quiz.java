@@ -122,7 +122,8 @@ public class Quiz {
 
     /**
      * Determines whether or not the specified object is equal to this quiz
-     * Returns true if the object is an instance of quiz and if their names and list of questions are the same; otherwise it returns false
+     * Returns true if the object is an instance of quiz and if their names and list of questions are the same;
+     * otherwise it returns false
      *
      * @return Returns if the object and quiz are equal to each other or not
      * @ param o The specified object that is going to be used for comparison
@@ -175,7 +176,8 @@ public class Quiz {
 
     /**
      * Shows the grade the person got on their quiz based on their submission
-     * Quiz may not be graded if the submission is null, or if there was an error that was encountered when trying to grade their submission
+     * Quiz may not be graded if the submission is null, or if there was an error that was encountered when trying to
+     * grade their submission
      *
      * @param username The username that the person submitted their quiz on, and is awaiting their results on the quiz
      */
@@ -189,7 +191,8 @@ public class Quiz {
                     if (submission.isGraded()) {
                         System.out.println("Submission: " + submission.getTimestamp());
                         for (int i = 0; i < submission.getSubGrades().length; i++) {
-                            System.out.println("Your grade for question " + (i + 1) + " was: " + submission.getSubGrades()[i]);
+                            System.out.println("Your grade for question " + (i + 1) + " was: " +
+                                    submission.getSubGrades()[i]);
                         }
                         System.out.println("Your total grade: " + submission.getTotalGrades());
                     } else {
@@ -249,7 +252,8 @@ public class Quiz {
     }
 
     /**
-     * Adds the responses made by the specified account owner, puts the responses into a submission, and stores the submission in a submissions list
+     * Adds the responses made by the specified account owner, puts the responses into a submission, and stores the
+     * submission in a submissions list
      *
      * @param Account   The account of the person writing their responses and submitting
      * @param responses A list of the answers that the person with the specified account put
@@ -274,7 +278,8 @@ public class Quiz {
         }
     }
     /**
-     * Adds a submission of the person with the specified account from parsing through the file with the specific filename
+     * Adds a submission of the person with the specified account from parsing through the file with the
+     * specific filename
      * @param account The account of the person who is taking the quiz and submitting it
      * @param filename The name of the file that is being parsed to help read the person's submission
      */
@@ -284,7 +289,8 @@ public class Quiz {
 
            txt should have format like this:
            1, 2, 4, 1
-           each number is an answer for the each question if number of answer is bigger than amount of question throw error.
+           each number is an answer for the each question if number of answer is bigger than
+           amount of question throw error.
 
         try {
             String data = new String(Files.readAllBytes(Paths.get(filename)));
@@ -310,7 +316,8 @@ public class Quiz {
     /**
      * Edits the submission of the student of each question, and for the total grade
      *
-     * @param values   An arraylist of integer values that represents the amount of sub grades that are needed in the submission
+     * @param values   An arraylist of integer values that represents the amount of sub grades that are needed in
+     *                 the submission
      * @param username The username of the person whose submission needs to be edited
      */
 
@@ -327,7 +334,8 @@ public class Quiz {
             System.out.println("Something went wrong");
             return null;
         } else {
-            Submission submissionToAdd = new Submission(submission.getUsername(), true, submission.getAnswers(), subGrades, totalGrade);
+            Submission submissionToAdd = new Submission(submission.getUsername(), true, submission.getAnswers(),
+                    subGrades, totalGrade);
             submissionToAdd.setTimestamp(timestamp);
             submissions.set(submissions.indexOf(submission), submissionToAdd);
             System.out.println("Quiz has been successfully graded");

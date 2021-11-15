@@ -54,7 +54,8 @@ public class Manager {
                         String timeStamp = "";
                         s.setUsername(lines.get(i + 1).substring(10));
                         s.setGraded(Boolean.parseBoolean(lines.get(i + 2).substring(8)));
-                        ansString = lines.get(i + 3).substring(9).replace("[", "").replace("]", "");
+                        ansString = lines.get(i + 3).substring(9).replace("[", "").replace("]"
+                                , "");
                         if (ansString.contains(",")) {
                             ans = ansString.split(",");
                             int[] intAns = new int[ans.length];
@@ -69,7 +70,8 @@ public class Manager {
                             intAns[0] = Integer.parseInt(ans[0].trim());
                             s.setAnswers(intAns);
                         }
-                        pointString = lines.get(i + 4).substring(8).replace("[", "").replace("]", "");
+                        pointString = lines.get(i + 4).substring(8).replace("[", "").
+                                replace("]", "");
                         if (pointString.contains(",")) {
                             points = pointString.split(",");
                             int[] intPoints = new int[points.length];
@@ -230,7 +232,8 @@ public class Manager {
     //creates a quiz file given its information
     public void createQuizFile(String coursename, Quiz q, String timestamp) {
         try {
-            writeChangesToFile(q.toString(), coursename + "_" + q.getName() + "_" + timestamp + ".txt", false);
+            writeChangesToFile(q.toString(), coursename + "_" + q.getName() + "_" + timestamp + ".txt",
+                    false);
         } catch (Exception e) {
             System.out.println("There was a problem creating this quiz submission file!");
         }

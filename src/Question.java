@@ -15,7 +15,8 @@ public class Question {
     private int correctAnswer;
 
     /**
-     * Constructs a newly allocated Question object with the specified prompt, list of answer choices, and correct answer
+     * Constructs a newly allocated Question object with the specified prompt, list of answer choices,
+     * and correct answer
      *
      * @param prompt        The specified prompt of the question to be used in construction
      * @param answerChoices The specified list of answer choices of the question to be used in construction

@@ -29,7 +29,8 @@ public class Account {
      *
      * @param username  The specified username of the person to be used in construction
      * @param password  The specified password of the person to be used in construction
-     * @param isStudent The specified boolean to be used in construction that determines whether the person is a student or not
+     * @param isStudent The specified boolean to be used in construction that determines whether the person is
+     *                  a student or not
      */
     public Account(String username, String password, boolean isStudent) {
         this.username = username;
@@ -102,7 +103,8 @@ public class Account {
     /**
      * Updates the student status of the person's account using the specified boolean
      *
-     * @param student The specified boolean that is going to be used in the update to determine whether or not the person is a student
+     * @param student The specified boolean that is going to be used in the update to determine whether or not the
+     *                person is a student
      */
     public void setStudent(boolean student) {
         isStudent = student;
@@ -128,11 +130,13 @@ public class Account {
 
     /**
      * Determines whether or not the specified object is equal to this account
-     * Returns false if the object is null, if the objects have a different class type, or if their account ID and type of person is not the same
+     * Returns false if the object is null, if the objects have a different class type, or if their account ID and type
+     * of person is not the same
      * Otherwise it returns true
      *
      * @param o The specified object that is going to be used for comparison
-     * @return false if the object is null, if the objects have a different class type, or if their account ID and type of person is not the same; otherwise it returns true
+     * @return false if the object is null, if the objects have a different class type, or if their account ID and type
+     * of person is not the same; otherwise it returns true
      */
     @Override
     public boolean equals(Object o) {
@@ -162,7 +166,8 @@ public class Account {
     /**
      * Helper method which prompts the user to enter responses to a given set of questions.
      *
-     * @param scan Scanner object which is passed to allow for only one instance of a Scanner object throughout program workflow
+     * @param scan Scanner object which is passed to allow for only one instance of a Scanner object throughout program
+     *             workflow
      * @param quiz The quiz object which information is pulled from.
      * @return Returns an ArrayList containing the user's responses. Example: {1, 2, 3, 4}
      */
@@ -276,7 +281,8 @@ public class Account {
     }
 
     /**
-     * Creates the course based on the user input of the teacher and returns the Course object implemented in the Course class
+     * Creates the course based on the user input of the teacher and returns the Course object implemented in the
+     * Course class
      *
      * @param scanner A scanner object which allows the teacher to enter the name of the course they want to create
      * @return the Course object implemented in the Course class
@@ -292,7 +298,8 @@ public class Account {
      * Adds each grade of each question into an array list and returns that array list
      * It also adds the grade of each question to determine the total amount of points the student earned
      *
-     * @param s   A Scanner object which allows the teacher to input the amount of points the student gets for their answer
+     * @param s   A Scanner object which allows the teacher to input the amount of points the student gets for
+     *            their answer
      * @param sub A Submission object which shows the teacher the student's submission
      * @return the grade the teacher gave the student for each question in an array list
      */
@@ -412,10 +419,13 @@ public class Account {
      */
 
     /**
-     * A picky method which will look through a file, add its contents to an ArrayList, then iterate through the ArrayList and append each component to a specified location.
+     * A picky method which will look through a file, add its contents to an ArrayList, then iterate through the
+     * ArrayList and append each component to a specified location.
      *
-     * @param fileName     The file that the method parses through. File must be formatted in the Quiz format or else the method will return an error.
-     * @param targetCourse The name of the course the method will append the data to. Do not include a ".txt" as the method automatically adds one.
+     * @param fileName     The file that the method parses through. File must be formatted in the Quiz format or else
+     *                     the method will return an error.
+     * @param targetCourse The name of the course the method will append the data to. Do not include a ".txt" as the
+     *                     method automatically adds one.
      */
     public void uploadQuizFromFile(String fileName, String targetCourse) {
 
