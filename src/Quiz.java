@@ -13,17 +13,31 @@ public class Quiz {
     private ArrayList<Question> questions;
     //List of submissions that the students make after completing the quiz
     private ArrayList<Submission> submissions;
+
+    //NEED TO COMMENT
+    private boolean isRandom = false;
     /**
      * Constructs a newly allocated Quiz object with the specified name and list of quiz questions
      * The list of submissions is set to an empty array list
      * @param name The specified name of the quiz to be used in construction
      * @param questions The specified list of quiz questions to be used in construction
      */
-    public Quiz(String name, ArrayList<Question> questions) {
+    public Quiz(String name, ArrayList<Question> questions, boolean isRandom) {
         this.name = name;
         this.questions = questions;
         this.submissions = new ArrayList<>();
+        this.isRandom = isRandom;
     }
+    //NEED TO COMMENT
+
+    public boolean isRandom() {
+        return isRandom;
+    }
+
+    public void setRandom(boolean random) {
+        isRandom = random;
+    }
+
     /**
      * Constructs a newly allocated object with the specified name and empty list of quiz questions and quiz submissions
      * @param name The specified name of the quiz to be used in construction
@@ -96,7 +110,7 @@ public class Quiz {
      * @return The String representation of the quiz
      */
     public String toString() {
-        String output = "Name of Quiz: " + name + "\n";
+        String output = "IsRandom: " + isRandom + "\n" + "Name of Quiz: " + name + "\n";
         for (Question question : questions) {
             output += question.toString();
         }

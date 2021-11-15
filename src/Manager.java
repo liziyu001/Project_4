@@ -323,8 +323,9 @@ public class Manager {
             ArrayList<String> choices = new ArrayList<>();
             ArrayList<String> lines = readFile(filename + ".txt");
             ArrayList<Question> questions = new ArrayList<>();
-            String quizname = lines.get(0).substring(14);
-            for (int i = 1; i < lines.size(); i++) {
+            boolean rand = Boolean.parseBoolean(lines.get(0).replace("IsRandom: ",""));
+            String quizname = lines.get(1).substring(14);
+            for (int i = 2; i < lines.size(); i++) {
                 if (lines.get(i).startsWith("Correct Answer: ")) {
                     correctAnswer = Integer.parseInt(lines.get(i).substring(16));
                     Question temp = new Question(prompt, choices, correctAnswer);
@@ -333,7 +334,7 @@ public class Manager {
                     choices = new ArrayList<>();
                 } else if (lines.get(i).startsWith("Prompt of Question: ")){
                     prompt = lines.get(i).substring(20);
-                } else if (lines.get(i).startsWith("Name of Quiz: ")) {
+                } else if (lines.get(i).startsWith("IsRandom: ")) {
                     System.out.println("ONLY 1 QUIZ PER FILE");
                     return null;
                 }
@@ -341,7 +342,7 @@ public class Manager {
                     choices.add(lines.get(i));
                 }
             }
-            Quiz q = new Quiz(quizname, questions);
+            Quiz q = new Quiz(quizname, questions, rand);
             return q;
         } catch (Exception e) {
             e.printStackTrace();
@@ -377,16 +378,18 @@ public class Manager {
             boolean quizFound = false;
             String prompt = "";
             int correctAnswer;
+            boolean rand = false;
             ArrayList<String> choices = new ArrayList<>();
             ArrayList<String> lines = readFile(coursename + ".txt");
             ArrayList<Question> questions = new ArrayList<>();
             for (int i = 0; i < lines.size(); i++) {
                 if (lines.get(i).equals("Name of Quiz: " + quizname)) {
+                    rand = Boolean.parseBoolean(lines.get(i - 1).replace("IsRandom: ", ""));
                     quizFound = true;
                     i++;
                 }
                 if (quizFound) {
-                    if (lines.get(i).startsWith("Name of Quiz: ")) {
+                    if (lines.get(i).startsWith("IsRandom: ")) {
                         break;
                     } else if (lines.get(i).startsWith("Correct Answer: ")) {
                         correctAnswer = Integer.parseInt(lines.get(i).substring(16));
@@ -401,7 +404,7 @@ public class Manager {
                     }
                 }
             }
-            Quiz q = new Quiz(quizname, questions);
+            Quiz q = new Quiz(quizname, questions, rand);
             return q;
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,3 +1,4 @@
+IsRandom: true
 Name of Quiz: XDDDXXDDDDXDDDDDDD12
 Prompt of Question: XSADASDSA
 1. 1

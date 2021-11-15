@@ -1,4 +1,6 @@
+import java.awt.*;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -140,22 +142,32 @@ public class Account {
         System.out.println("You are now taking Quiz: " + quiz.getName() + ".");
         // The arraylist which contains the quizzes questions
         ArrayList<Question> questions = quiz.getQuestions();
+        Question[] q  = new Question[questions.size()];
 
         // The arraylist which contains the user's responses
-        ArrayList<String> responses = new ArrayList<>();
-
+        String[] responses = new String[q.length];
+        ArrayList<Integer> random = new ArrayList<>();
+        for (int i = 0; i < q.length; i++) {
+            random.add(i);
+        }
+        Collections.shuffle(random);
         // Iterate through the questions arraylist
         for (int i = 0; i < questions.size(); i++){
 
-            System.out.println(questions.get(i).getPrompt());
+            System.out.println(questions.get(random.get(i)).getPrompt());
 
 
             // The arraylist which contains the answer prompts.
-            ArrayList<String> answers = questions.get(i).getAnswerChoices();
+            ArrayList<String> answers = questions.get(random.get(i)).getAnswerChoices();
+            ArrayList<String> answersRandom = new ArrayList<>();
+            for (String ans : answers) {
+                answersRandom.add(ans);
+            }
+            Collections.shuffle(answersRandom);
 
             int x = 0;
-            for(String s : answers){
-                System.out.println((x+1) + ": " + s);
+            for (String s : answersRandom){
+                System.out.println((x+1) + ": " + s.substring(s.indexOf(".") + 2));
                 x++;
             }
             System.out.println("Please select your answer.");
@@ -171,7 +183,9 @@ public class Account {
                         } else {
                             response = temp;
                             if (response >= 1 && (response <= answers.size())) {
-                                responses.add(String.valueOf(response));
+                                String value = answersRandom.get(response - 1);
+                                response = answers.indexOf(value) + 1;
+                                responses[random.get(i)] = String.valueOf(response);
                             } else {
                                 System.out.println("Please enter a valid answer!");
                                 i--;
@@ -182,7 +196,9 @@ public class Account {
                 } else {
                     response = Integer.parseInt(ans);
                     if (response >= 1 && (response <= answers.size())) {
-                        responses.add(String.valueOf(response));
+                        String value = answersRandom.get(response - 1);
+                        response = answers.indexOf(value) + 1;
+                        responses[random.get(i)] = String.valueOf(response);
                     } else {
                         System.out.println("Please enter a valid answer!");
                         i--;
@@ -194,7 +210,8 @@ public class Account {
             }
 
         }
-        return responses;
+        ArrayList<String> finalArray = new ArrayList<>(Arrays.asList(responses));
+        return finalArray;
     }
 
     /**
@@ -324,6 +341,8 @@ public class Account {
      * Adds the quiz from the file with a randomized question and answer choice order
      * @param filename The name of the file that is being parsed
      */
+    //RANDOM IS DONE IN TAKEQUIZ
+    /*
     public void randomizeQuiz(String filename) {
         try {
             Path filePath = new File(filename).toPath();
@@ -357,6 +376,8 @@ public class Account {
         }
     }
 
+
+     */
     /**
      * A picky method which will look through a file, add its contents to an ArrayList, then iterate through the ArrayList and append each component to a specified location.
      * @param fileName The file that the method parses through. File must be formatted in the Quiz format or else the method will return an error.

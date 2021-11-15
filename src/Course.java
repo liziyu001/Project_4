@@ -151,13 +151,48 @@ public class Course {
                     isEnough = true;
                 }
             } while (!isEnough);
-            Quiz quiz = new Quiz(name, questions);
-            courseQuiz.add(quiz);
-            //System.out.println("Course quiz list:");
-            //System.out.println(courseQuiz);
-            //System.out.println(this);
-            System.out.println("Quiz has been successfully added!");
-            return true;
+            /*
+            System.out.println("Randomize Quiz");
+            while (true) {
+                //System.out.println("Enter the filename: ");
+                //String filename = s.nextLine();
+                //Teacher has the option to randomize the question order and answer choice order or not
+                System.out.println("Randomize Quiz? (Y/N)");
+                String randomize = s.nextLine();
+                if (randomize.equalsIgnoreCase("Y")) {
+                    (currentAccount).randomizeQuiz(filename);
+                    break;
+                }
+                else if (randomize.equalsIgnoreCase("N")) {
+                    //not implemented yet
+                    //currentCourse.addQuizFromFile(filename);
+                    break;
+                } else {
+                    System.out.println("Please enter a valid input!");
+                }
+            }
+
+             */
+            while (true) {
+                System.out.println("Do you want to randomize this quiz?(Y/N)");
+                String randomize = scanner.nextLine();
+                if (randomize.equalsIgnoreCase("Y")) {
+                    Quiz quiz = new Quiz(name, questions, true);
+                    courseQuiz.add(quiz);
+                    System.out.println("Quiz has been successfully added!");
+                    return true;
+                }
+                else if (randomize.equalsIgnoreCase("N")) {
+                    Quiz quiz = new Quiz(name, questions, false);
+                    courseQuiz.add(quiz);
+                    System.out.println("Quiz has been successfully added!");
+                    return true;
+                } else {
+                    System.out.println("Please enter a valid input!");
+                }
+
+            }
+
         }
         else {
             System.out.println("Quiz with such name already exist");
@@ -257,21 +292,37 @@ public class Course {
                     isEnough = true;
                 }
             } while (!isEnough);
-            Quiz quizToAdd = new Quiz(newName, questions);
-            for (int i = 0; i < courseQuiz.size(); i++) {
-                if (courseQuiz.get(i).getName().equals(name)) {
-                    courseQuiz.set(i, quizToAdd);
-                    System.out.println("Quiz has been successfully edited");
-                    return true;
+            while (true) {
+                System.out.println("Do you want to randomize this quiz?(Y/N)");
+                String randomize = scanner.nextLine();
+                if (randomize.equalsIgnoreCase("Y")) {
+                    Quiz quizToAdd = new Quiz(name, questions, true);
+                    for (int i = 0; i < courseQuiz.size(); i++) {
+                        if (courseQuiz.get(i).getName().equals(name)) {
+                            courseQuiz.set(i, quizToAdd);
+                            System.out.println("Quiz has been successfully edited");
+                            return true;
+                        }
+                    }
+                }
+                else if (randomize.equalsIgnoreCase("N")) {
+                    Quiz quizToAdd = new Quiz(name, questions, false);
+                    for (int i = 0; i < courseQuiz.size(); i++) {
+                        if (courseQuiz.get(i).getName().equals(name)) {
+                            courseQuiz.set(i, quizToAdd);
+                            System.out.println("Quiz has been successfully edited");
+                            return true;
+                        }
+                    }
+                } else {
+                    System.out.println("Please enter a valid input!");
                 }
             }
-            //courseQuiz.set(courseQuiz.indexOf(quiz) + 1, quizToAdd);
         }
         else {
             System.out.println("There is no quiz with such name: " + name);
             return false;
         }
-        return false;
     }
 
      /**

@@ -176,7 +176,6 @@ public class ManagementSystem {
                                         }
                                     }
                                 case "3":
-                                    // need to deal with files associated with the account? gonna be hard
                                     m.deleteAccount(currentAccount.getAccountId());
                                     System.out.println("Your account has been deleted!");
                                     quit = true;
@@ -244,7 +243,7 @@ public class ManagementSystem {
                                             continue Teacher;
                                         } else if (choice.equals("-2")) {
                                             Course temp = currentCourse;
-                                            System.out.println("Enter the filepath(just the filename)");
+                                            System.out.println("Enter the filepath(just the filename no .txt)");
                                             String filename = s.nextLine();
                                             boolean create = currentCourse.addQuizFromFile(m.addQuizFromFile(filename));
                                             if (create) {
@@ -258,15 +257,14 @@ public class ManagementSystem {
                                                 System.out.println("Quiz not created from file!");
                                             }
                                         } else {
-                                            //Allows the teacher to edit or view a quiz, grade a student's submission, delete a quiz, or upload a quiz from a file that they already created
+                                            //Allows the teacher to edit or view a quiz, grade a student's submission, delete a quiz, or view a quiz
                                             //There is always the option to exit
                                             currentQuiz = m.convertQuiz(currentCourse.getName(),
                                                     m.getQuizName(Integer.parseInt(choice), quizzes));
                                             System.out.println("1. Edit the Quiz");
                                             System.out.println("2. Grade Submissions");
                                             System.out.println("3. Delete this Quiz");
-                                            System.out.println("4. Randomize Quiz");
-                                            System.out.println("5. View Quiz");
+                                            System.out.println("4. View Quiz");
                                             System.out.println("0. Back");
                                             break;
                                         }
@@ -341,23 +339,9 @@ public class ManagementSystem {
                                         m.editCourse(temp, currentCourse);
                                         System.out.println("Quiz deleted!");
                                         break;
-                                    case "4":
-                                        System.out.println("Enter the filename: ");
-                                        String filename = s.nextLine();
-                                        //Teacher has the option to randomize the question order and answer choice order or not
-                                        System.out.println("Randomize Quiz? (Y/N)");
-                                        String randomize = s.nextLine();
-                                        if (randomize.equalsIgnoreCase("Y")) {
-                                            (currentAccount).randomizeQuiz(filename);
-                                        }
-                                        else if (randomize.equalsIgnoreCase("N")) {
-                                            //not implemented yet
-                                            //currentCourse.addQuizFromFile(filename);
-                                        }
-                                        break;
                                     case "0":
                                         continue Teacher;
-                                    case "5":
+                                    case "4":
                                         System.out.println(currentQuiz);
                                         break;
                                 }
@@ -439,7 +423,6 @@ public class ManagementSystem {
                                         }
                                     }
                                 case "3":
-                                    // need to deal with files associated with the account? gonna be hard
                                     m.deleteAccount(currentAccount.getAccountId());
                                     System.out.println("Your account has been deleted!");
                                     quit = true;
