@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -60,6 +61,15 @@ public class Quiz {
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
+    // ADD COMMENT-MANAS
+    public void  setSubmissions(ArrayList<Submission> submissions) {
+        this.submissions = submissions;
+    }
+
+    public ArrayList<Submission> getSubmissions() {
+        return submissions;
+    }
+
     /**
      * Determines whether or not the specified object is equal to this quiz
      * Returns true if the object is an instance of quiz and if their names and list of questions are the same; otherwise it returns false
@@ -94,13 +104,13 @@ public class Quiz {
     }
     /**
      * Returns the submission of the person's account that submitted it
-     * @param Account The account of the person who is submitting the quiz
+     * @param username The username of the person who is submitting the quiz
      * @return the submission of the person's account that submitted it
      */
-    public Submission getSubmissionOfAccount(Account Account) {
+    public Submission getSubmissionOfAccount(String username, String timestamp) {
         Submission submission = null;
         for(Submission sub : submissions) {
-            if (sub.getAccount().equals(Account)) {
+            if (sub.getUsername().equals(username) && sub.getTimestamp().equals(timestamp)) {
                 submission = sub;
             }
         }
@@ -109,10 +119,10 @@ public class Quiz {
     /**
      * Shows the grade the person got on their quiz based on their submission
      * Quiz may not be graded if the submission is null, or if there was an error that was encountered when trying to grade their submission
-     * @param Account The account that the person submitted their quiz on, and is awaiting their results on the quiz
+     * @param username The username that the person submitted their quiz on, and is awaiting their results on the quiz
      */
-    public void showResultsOfQuiz(Account Account) {
-        Submission submission = getSubmissionOfAccount(Account);
+    public void showResultsOfQuiz(String username, String timestamp) {
+        Submission submission = getSubmissionOfAccount(username, timestamp);
         if (submission == null) {
             System.out.println("You didn't submit your response to that quiz");
         }
@@ -133,14 +143,30 @@ public class Quiz {
      * Shows the submissions that the teacher has not graded yet
      * Increments an int to determine how many submissions have not been graded yet
      */
-    public void showAllSubmission() {
+    public void showAllSubmission(String coursename) {
+        Manager m = new Manager();
+        String file = m.searchAccessibleQuizzes(coursename, this.getName());
+        ArrayList<Submission> subs = m.convertSubmissions(coursename, this.getName());
         int i = 1;
-        for (Submission sub: submissions) {
+        for (Submission sub: subs) {
             if (!sub.isGraded()) {
-                System.out.println(i + "View submission of "+sub.getAccount().getUsername() + " " +sub.getTimestamp());
+                System.out.println(i + ". View submission of "+ sub.getUsername() + " " + sub.getTimestamp());
             }
             i++;
         }
+    }
+    //NEED TO COMMENT
+    public  int checkIfGraded(String coursename) {
+        Manager m = new Manager();
+        String file = m.searchAccessibleQuizzes(coursename, this.getName());
+        ArrayList<Submission> subs = m.convertSubmissions(coursename, this.getName());
+        int count = 0;
+        for (Submission sub: subs) {
+            if (!sub.isGraded()) {
+                count++;
+            }
+        }
+        return count;
     }
     /**
      * Gets the submission of a certain person based on their ID
@@ -165,7 +191,7 @@ public class Quiz {
             for (int i = 0; i < ans.length; i++) {
                 ans[i] = answers.get(i);
             }
-            Submission submission = new Submission(Account, ans);
+            Submission submission = new Submission(Account.getUsername(), ans);
             submissions.add(submission);
             System.out.println("Quiz has been taken");
             return submission;
@@ -210,24 +236,30 @@ public class Quiz {
     /**
      * Edits the submission of the student of each question, and for the total grade
      * @param values An arraylist of integer values that represents the amount of sub grades that are needed in the submission
-     * @param Account The account of the person whose submission needs to be edited
+     * @param username The username of the person whose submission needs to be edited
      */
 
 
-    public void EditSubmission(ArrayList<Integer> values, Account Account) {
-        int[] subGrades = new int[values.size()-1];
+    public Submission EditSubmission(ArrayList<Integer> values, String username, String timestamp) {
+        int totalGrade = 0;
+        int[] subGrades = new int[values.size()];
         for (int i = 0; i < subGrades.length; i++) {
             subGrades[i] = values.get(i);
+            totalGrade += values.get(i);
         }
-        int totalGrade = values.get(subGrades.length);
-        Submission submission = getSubmissionOfAccount(Account);
+        Submission submission = getSubmissionOfAccount(username, timestamp);
         if (submission == null) {
             System.out.println("Something went wrong");
+            return null;
         }
         else {
-            Submission submissionToAdd = new Submission(submission.getAccount(), true, submission.getAnswers(), subGrades, totalGrade);
+            Submission submissionToAdd = new Submission(submission.getUsername(), true, submission.getAnswers(), subGrades, totalGrade);
+            //System.out.println("submissionto add:");
+            //System.out.println(submissionToAdd);
+            submissionToAdd.setTimestamp(timestamp);
             submissions.set(submissions.indexOf(submission), submissionToAdd);
             System.out.println("Quiz has been successfully graded");
+            return submissionToAdd;
         }
     }
 

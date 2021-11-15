@@ -81,7 +81,7 @@ public class Account {
     }
     /** 
      * Updates the student status of the person's account using the specified boolean
-     * @param isStudent The specified boolean that is going to be used in the update to determine whether or not the person is a student
+     * @param student The specified boolean that is going to be used in the update to determine whether or not the person is a student
      */
     public void setStudent(boolean student) {
         isStudent = student;
@@ -248,18 +248,30 @@ public class Account {
      * @return the grade the teacher gave the student for each question in an array list
      */
     public ArrayList<Integer> gradeSubmission(Scanner s, Submission sub) {
-        int[] subGrades = new int[sub.getSubGrades().length];
-        int totalGrade = 0;
-        ArrayList<Integer> toReturn = new ArrayList<>();
-        for (int i = 0; i<sub.getAnswers().length; i++){
-            System.out.println("Answer for the " + i+1 + "question is: " + sub.getAnswers()[i]);
-            System.out.println("How many points would you give for this answer? ");
-            int subGrade = Integer.parseInt(s.nextLine());
-            totalGrade+=subGrade;
-            subGrades[i] = subGrade;
-            toReturn.add(subGrade);
+        try {
+            int[] subGrades = new int[sub.getSubGrades().length];
+            int totalGrade = 0;
+            ArrayList<Integer> toReturn = new ArrayList<>();
+            for (int i = 0; i<sub.getAnswers().length; i++){
+                while (true) {
+                    try {
+                        System.out.println("Answer for question " + (i+1) +  " is: " + sub.getAnswers()[i]);
+                        System.out.println("How many points would you give for this answer? ");
+                        int subGrade = Integer.parseInt(s.nextLine());
+                        totalGrade+=subGrade;
+                        subGrades[i] = subGrade;
+                        toReturn.add(subGrade);
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Enter a valid # of points!");
+                    }
+                }
+            }
+            return toReturn;
+        } catch (Exception e) {
+            System.out.println("There was en error grading this submission!");
+            return null;
         }
-        return toReturn;
 
     }
 

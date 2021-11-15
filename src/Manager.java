@@ -44,6 +44,145 @@ public class Manager {
         //editCourse(l, c);
 
     }
+
+
+    public ArrayList<Submission> convertSubmissions(String coursename, String quizname) {
+        try {
+            ArrayList<String> lines = readFile("accessible_quizzes.txt");
+            String filename = "";
+            boolean found = false;
+            ArrayList<Submission> submissions = new ArrayList<>();
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).startsWith(coursename + "_" + quizname)) {
+                    filename = lines.get(i);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("The quiz submission file wasn't under accessible_quizzes!");
+                return null;
+            } else {
+                lines = readFile(filename);
+                Submission s = new Submission();
+                String[] ans;
+                String ansString = "";
+                String[] points;
+                String pointString = "";
+                String timeStamp = "";
+                for (int i = 0; i < lines.size(); i++) {
+                    if (lines.get(i).startsWith("Username: ")) {
+                        s.setUsername(lines.get(i).substring(10));
+                    } else if (lines.get(i).startsWith("Graded: ")) {
+                        s.setGraded(Boolean.parseBoolean(lines.get(i).substring(8)));
+                    } else if (lines.get(i).startsWith("Answers: ")) {
+                        ansString = lines.get(i).substring(9).replace("[", "").replace("]", "");
+                        if (ansString.contains(",")) {
+                            ans = ansString.split(",");
+                            int[] intAns = new int[ans.length];
+                            for (int j = 0; j < ans.length; i++) {
+                                intAns[j] = Integer.parseInt(ans[j]);
+                            }
+                            s.setAnswers(intAns);
+                        } else {
+                            ans = new String[1];
+                            ans[0] = ansString;
+                            int[] intAns = new int[1];
+                            intAns[0] = Integer.parseInt(ans[0]);
+                            s.setAnswers(intAns);
+                        }
+                    } else if (lines.get(i).startsWith("Points: ")) {
+                        pointString = lines.get(i).substring(8).replace("[", "").replace("]", "");
+                        if (pointString.contains(",")) {
+                            points = pointString.split(",");
+                            int[] intPoints = new int[points.length];
+                            for (int j = 0; j < points.length; i++) {
+                                intPoints[j] = Integer.parseInt(points[j]);
+                            }
+                            s.setSubGrades(intPoints);
+                        } else {
+                            points = new String[1];
+                            points[0] = pointString;
+                            int[] intPoints = new int[1];
+                            intPoints[0] = Integer.parseInt(points[0]);
+                            s.setSubGrades(intPoints);
+                        }
+                    } else if (lines.get(i).startsWith("Total Points: ")) {
+                        s.setTotalGrades(Integer.parseInt(lines.get(i).substring(14)));
+                    } else if (lines.get(i).startsWith("Time Submitted: ")) {
+                        timeStamp = lines.get(i).substring(16);
+                        s.setTimestamp(timeStamp);
+                        submissions.add(s);
+                        System.out.println(s);
+                        System.out.println(submissions);
+                    }
+                }
+                //System.out.println("what is returnedL");
+                //System.out.println(submissions);
+                System.out.println("counter");
+                return submissions;
+            }
+        } catch (Exception e) {
+            System.out.println("There was a problem converting the submission!");
+            return null;
+        }
+    }
+
+    public void updateGradedQuizzes(String filename, Submission submission) {
+        try {
+            ;ArrayList<String> lines = readFile(filename);
+            String finalString = "";
+            boolean done = false;
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).startsWith(("Username: ") + submission.getUsername())) {
+                    if (lines.get(i + 5).startsWith(("Time Submitted: " + submission.getTimestamp()))) {
+                        lines.set(i + 1, "Graded: true");
+                        lines.set(i + 3, "Points: " + Arrays.toString(submission.getSubGrades()));
+                        lines.set(i + 4, "Total Points: " + submission.getTotalGrades());
+                        done = true;
+                        break;
+                    }
+                }
+            }
+            if (!done) {
+                System.out.println("The submission wasn't found!");
+            } else {
+                for (int i = 0; i < lines.size(); i++) {
+                    finalString += lines.get(i) + "\n";
+                }
+                finalString = finalString.substring(0, finalString.length() - 1);
+                writeChangesToFile(finalString, filename, false);
+                System.out.println("The submission was updated in the quiz submission file!");
+            }
+        } catch (Exception e) {
+            System.out.println("There was a problem updating the graded quizzes to a file!!");
+        }
+
+    }
+
+    public String searchAccessibleQuizzes(String coursename, String quizname) {
+        try {
+            boolean found = false;
+            String filename = "";
+            ArrayList<String> lines = readFile("accessible_quizzes.txt");
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).startsWith(coursename + "_" + quizname + "_")) {
+                    filename = lines.get(i);
+                    return filename;
+                }
+            }
+            if (!found) {
+                System.out.println("The given quiz wasn't found in the accessible quizzes!");
+                return null;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("There was a problem deleting the quiz from the accessible quizzes!");
+            return null;
+        }
+    }
+
     public void deleteAccessibleQuiz(String coursename, String quizname) {
         try {
             boolean found = false;
@@ -93,7 +232,6 @@ public class Manager {
         }
     }
 
-
     public void submit(String coursename, String quizname, Submission submission) {
         try {
             String filename;
@@ -110,8 +248,6 @@ public class Manager {
             System.out.println("There was a problem creating this course, try again!");
         }
     }
-
-
 
     public  void createQuizFile(String coursename, Quiz q, String timestamp) {
         try {

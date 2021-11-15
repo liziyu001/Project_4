@@ -22,9 +22,11 @@ public class ManagementSystem {
             File a = new File("accounts.txt");
             File c = new File("courses.txt");
             File u = new File("accessible_quizzes.txt");
+            File d = new File("deleted_accounts.txt");
             c.createNewFile();
             a.createNewFile();
             u.createNewFile();
+            d.createNewFile();
         } catch (Exception e) {
             System.out.println("There was a problem on startup");
         }
@@ -258,7 +260,7 @@ public class ManagementSystem {
                                             System.out.println("1. Edit the Quiz");
                                             System.out.println("2. Grade Submissions");
                                             System.out.println("3. Delete this Quiz");
-                                            System.out.println("4. Upload Quiz from file");
+                                            System.out.println("4. Randomize Quiz");
                                             System.out.println("5. View Quiz");
                                             System.out.println("0. Back");
                                             break;
@@ -287,18 +289,53 @@ public class ManagementSystem {
                                         }
                                         break;
                                     case "2" :
-                                /*
-                                ArrayList<Submission> graded = (currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
-                                currentQuiz.setSubmissions(graded);
+                                        ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.getName(), currentQuiz.getName());
+                                        //System.out.println("Before: " + submissions);
+                                        //submissions = m.checkIfSubmissionsAreGraded(currentCourse.getName(), currentQuiz.getName(), submissions);
+                                        //System.out.println("After: " + submissions);
+                                        if (submissions.size() == 0) {
+                                            System.out.println("There are no submissions for this quiz!");
+                                            break;
+                                        }
+                                        /*else {
+                                            for (int i = 0; i < submissions.size(); i++) {
+                                                System.out.println(submissions.get(i));
+                                            }
+                                        }
+                                         */
+                                        currentQuiz.setSubmissions(submissions);
+                                        //ArrayList<Submission> graded = (currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
+                                        int sub;
+                                        while (true) {
+                                            try {
+                                                int count = currentQuiz.checkIfGraded(currentCourse.getName());
+                                                if (count == 0) {
+                                                    System.out.println("There are no submissions for this quiz!");
+                                                    continue Teacher;
+                                                } else {
+                                                    System.out.println("Choose submission you want to grade(number): ");
+                                                    currentQuiz.showAllSubmission(currentCourse.getName());
+                                                    sub = Integer.parseInt(s.nextLine());
+                                                    if (sub <= 0 || sub > count) {
+                                                        System.out.println("Enter a valid index!");
+                                                    } else {
+                                                        break;
+                                                    }
+                                                }
 
-                                 */
-                                        System.out.println("Choose submission you want to grade(number): ");
-                                        currentQuiz.showAllSubmission();
-                                        int sub = Integer.parseInt(s.nextLine());
-                                        Submission tempSub = currentQuiz.getSubmissionById(sub-1);
-                                        ArrayList<Integer>answers = currentAccount.gradeSubmission(s, tempSub);
-                                        currentQuiz.EditSubmission(answers, tempSub.getAccount());
-                                        System.out.println("Not implemented yet");
+                                            } catch (Exception e) {
+                                                System.out.println("Invalid input!");
+                                            }
+                                        }
+                                        Submission tempSub = currentQuiz.getSubmissionById(sub - 1);
+                                        ArrayList<Integer> answers = currentAccount.gradeSubmission(s, tempSub);
+                                        //System.out.println("answers: " + answers.toString());
+                                        tempSub = currentQuiz.EditSubmission(answers, tempSub.getUsername(), tempSub.getTimestamp());
+                                        String file = m.searchAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName());
+                                        m.updateGradedQuizzes(file, tempSub);
+                                        //m.addSubmissionToGraded(currentCourse.getName(), currentQuiz.getName(), tempSub);
+                                        break;
+
                                     case "3":
                                         temp = currentCourse;
                                         m.deleteAccessibleQuiz(currentCourse.getName(), currentQuiz.getName());
@@ -324,6 +361,7 @@ public class ManagementSystem {
                                         continue Teacher;
                                     case "5":
                                         System.out.println(currentQuiz);
+                                        break;
                                 }
                             } else {
                                 System.out.println("There are currently no quizzes!");
