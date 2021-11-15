@@ -156,17 +156,22 @@ public class Quiz {
      * @param responses A list of the answers that the person with the specified account put
      */
     public void addSubmission(Account Account, ArrayList<String> responses) {
-        ArrayList<Integer> answers = new ArrayList<>();
-        for (String s : responses) {
-            answers.add(Integer.parseInt(s));
+        try {
+            ArrayList<Integer> answers = new ArrayList<>();
+            for (String s : responses) {
+                answers.add(Integer.parseInt(s));
+            }
+            int[] ans = new int[answers.size()];
+            for (int i = 0; i < ans.length; i++) {
+                ans[i] = answers.get(i);
+            }
+            Submission submission = new Submission(Account, ans);
+            submissions.add(submission);
+            System.out.println("Quiz has been taken");
+        } catch (Exception e) {
+            System.out.println("Your responses were invalid!");
         }
-        int[] ans = new int[answers.size()];
-        for (int i = 0; i < ans.length; i++) {
-            ans[i] = answers.get(i);
-        }
-        Submission submission = new Submission(Account, ans);
-        submissions.add(submission);
-        System.out.println("Quiz has been taken");
+
     }
     /**
      * Adds a submission of the person with the specified account from parsing through the file with the specific filename

@@ -145,22 +145,53 @@ public class Account {
         ArrayList<String> responses = new ArrayList<>();
 
         // Iterate through the questions arraylist
-        for(Question q : questions){
+        for (int i = 0; i < questions.size(); i++){
 
-            System.out.println(q.getPrompt());
+            System.out.println(questions.get(i).getPrompt());
 
 
             // The arraylist which contains the answer prompts.
-            ArrayList<String> answers = q.getAnswerChoices();
+            ArrayList<String> answers = questions.get(i).getAnswerChoices();
 
-            int i = 0;
+            int x = 0;
             for(String s : answers){
-                System.out.println((i+1) + ": " + s);
-                i++;
+                System.out.println((x+1) + ": " + s);
+                x++;
             }
-
             System.out.println("Please select your answer.");
-            responses.add(scan.nextLine());
+            int response;
+            String ans;
+            try {
+                ans = scan.nextLine();
+                if (ans.endsWith(".txt")) {
+                    try (BufferedReader br = new BufferedReader(new FileReader(ans))){
+                        int temp = Integer.parseInt(br.readLine());
+                        if (br.readLine() != null) {
+                            throw new Exception("Your file is formatted incorrectly!");
+                        } else {
+                            response = temp;
+                            if (response >= 1 && (response <= answers.size())) {
+                                responses.add(String.valueOf(response));
+                            } else {
+                                System.out.println("Please enter a valid answer!");
+                                i--;
+                            }
+                        }
+                    }
+
+                } else {
+                    response = Integer.parseInt(ans);
+                    if (response >= 1 && (response <= answers.size())) {
+                        responses.add(String.valueOf(response));
+                    } else {
+                        System.out.println("Please enter a valid answer!");
+                        i--;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid answer!");
+                i--;
+            }
 
         }
         return responses;

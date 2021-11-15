@@ -422,19 +422,13 @@ public class ManagementSystem {
                                         System.out.println("Select the Quiz you want to take.");
                                         System.out.println(m.listQuizzes(currentCourse.getName()));
                                         String quizzes = m.listQuizzes(currentCourse.getName());
-                                        System.out.println("-1. Take a quiz using a File:");
                                         System.out.println("0. Back");
                                         choice = s.nextLine();
                                         if (choice.equals("0")) {
                                             continue Student;
-                                        } else if (choice.equals("-1")) {
-                                            System.out.println("Enter the filepath(just the filename): ");
-                                            String filename = s.nextLine();
-                                            //currentQuiz.addSubmissionViaFile(currentAccount, filename);
-                                        } else {
+                                        }  else {
                                             currentQuiz = m.convertQuiz(currentCourse.getName(),
                                                     m.getQuizName(Integer.parseInt(choice), quizzes));
-                                            System.out.println("quiz: " + currentQuiz);
                                             System.out.println("1. View Gradings");
                                             System.out.println("2. Take the quiz");
                                             System.out.println("0. Back");
@@ -450,8 +444,12 @@ public class ManagementSystem {
                                             //System.out.println(currentQuiz.toStringWithoutAnswer());
                                             //System.out.println("Enter your answers as a comma separated list!");
                                             ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
-                                            System.out.println(Arrays.deepToString(answers.toArray()));
-                                            //currentQuiz.addSubmission(currentAccount, answers);
+                                            //System.out.println(Arrays.deepToString(answers.toArray()));
+                                            currentQuiz.addSubmission(currentAccount, answers);
+
+                                            System.out.println("Enter the filepath(just the filename): ");
+                                            String filename = s.nextLine();
+                                            //currentQuiz.addSubmissionViaFile(currentAccount, filename);
                                             break;
                                         case "0":
                                             continue Student;
@@ -461,12 +459,13 @@ public class ManagementSystem {
                                     }
                                 }
                             } else {
+                                System.out.println("There are currently no quizzes!");
                                 System.out.println("0. Back");
                                 if (!s.nextLine().equals("0")) {
                                     System.out.println("Invalid Input!");
                                     continue Student;
-                                } else if (s.nextLine().equals("0")) {
-                                    continue Student;
+                                } else {
+
                                 }
                             }
                         } else {
