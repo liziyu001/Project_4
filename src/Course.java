@@ -5,30 +5,64 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+/**
+ * The course made and provided by the teacher which is taken by the student
+ */
+
 public class Course {
+    //Name of the course
     private String name;
+     // List of quizzes in the course
     private ArrayList<Quiz> courseQuiz;
+     /**
+     * Constructs a newly allocated object with the specified name, and course quiz list
+     * @param name The specified name of the course to be used in construction
+     * @param courseQuiz The specified list of quizzes in the course to be used in construction
+     */
     public Course(String name, ArrayList<Quiz> courseQuiz) {
         this.name = name;
         this.courseQuiz = courseQuiz;
     }
+     /**
+     * Constructs a newly allocated object with the specified name and an empty list of quizzes in the course
+     * @param name The specified name of the course to be used in construction
+     */
     public Course(String name) {
         this.name = name;
         this.courseQuiz = new ArrayList<>();
     }
+     /**
+     * Returns the name of the course
+     * @return the name of the course
+     */
     public String getName() {
         return name;
     }
+     /**
+     * Updates the name of the course using the specified name
+     * @param name The specified name that is going to be used in the update
+     */
     public void setName(String name) {
         this.name = name;
     }
+     /**
+     * Returns the list of quizzes in the course 
+     * @return the list of quizzes in the course
+     */
     public ArrayList<Quiz> getCourseQuiz() {
         return courseQuiz;
     }
+    /**
+     * Updates the list of quizzes in the course using the specified course quiz list 
+     * @param courseQuiz The specified list of course quizzes that is going to be used in the update
+     */
     public void setCourseQuiz(ArrayList<Quiz> courseQuiz) {
         this.courseQuiz = courseQuiz;
     }
-    //deleting quiz based on the name (name must be unique)
+     /**
+     *Deleting quiz based on the name (name must be unique)
+     * @param name The name of the quiz to be deleted
+     */
     public void deleteQuiz(String name) {
         boolean found = false;
         for (int i = 0; i < courseQuiz.size(); i++) {
@@ -58,6 +92,12 @@ public class Course {
         }
          */
     }
+     /**
+     * Creates the question prompt and answer choices and determines if the quiz created is valid or not
+     * @param name The name of the quiz that is being found and added if it is found
+     * @param scanner The scanner object that allows the teacher to enter the question prompt, answer choices, and correct answer
+     * @return Returns if the quiz can be added or not
+     */
     public boolean addQuiz(String name, Scanner scanner) {
         boolean isFound = false;
         for(Quiz quiz : courseQuiz) {
@@ -138,6 +178,12 @@ public class Course {
             return false;
         }
     }
+     /** 
+     * Allows the teacher to edit the quiz based on the name of the quiz they want to edit
+     * @param name The name of the quiz that the teacher wants to edit
+     * @param scanner The Scanner object that allows the teacher to enter a new name for the quiz and redo the same process as the addQuiz(String name, Scanner scanner) method
+     * @return Returns if the new edited quiz is valid or not
+     */
     public boolean editQuiz(String name, Scanner scanner) {
         boolean isFound = false;
         for(Quiz quiz : courseQuiz) {
@@ -241,7 +287,10 @@ public class Course {
         }
     }
 
-
+     /**
+     * Creates and adds a quiz successfully based on the name of the file that it is parsing through
+     * @param filename The name of the file that is being parsed to help create and add quiz objects into an array list
+     */
     public boolean addQuizFromFile(Quiz q) {
         try {
             for (Quiz quiz : courseQuiz) {
@@ -264,7 +313,19 @@ public class Course {
 
     }
 
-
+     /**
+      * String representation of the course
+      * Example:
+      * CourseName: course 
+      * Name of Quiz: quiz 
+      * Prompt of Question: What's your name
+      * 1. Ram
+      * 2. Manas
+      * 3. Leo
+      * 4. William
+      * Correct Answer: Ram
+      *
+      */
     public String toString() {
         String finalToReturn = "CourseName: " + name + "\n";
         for (Quiz quiz : courseQuiz) {
