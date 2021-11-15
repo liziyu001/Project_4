@@ -45,6 +45,20 @@ public class Manager {
 
     }
 
+    public boolean checkDeletedAccounts(String username) {
+        try {
+            ArrayList<String> names = readFile("deleted_accounts.txt");
+            for (int i = 0; i < names.size(); i++) {
+                if (username.equals(names.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("There was a problem checking if the account name already existed!");
+            return false;
+        }
+    }
 
     public ArrayList<Submission> convertSubmissions(String coursename, String quizname) {
         try {
@@ -553,6 +567,7 @@ public class Manager {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
+            String username = null;
             for (String account : accounts) {
                 String[] info = account.split(",");
                 int id = Integer.parseInt(info[0]);
@@ -560,6 +575,7 @@ public class Manager {
                 //temp.setAccountId(a.getAccountId());
                 if (id == accountId) {
                     accounts.remove(account);
+                    username = info[1].trim();
                     found = true;
                     break;
                 }
@@ -574,6 +590,7 @@ public class Manager {
                     }
                 }
                 writeChangesToFile(finalString, "accounts.txt", false);
+                writeChangesToFile(username,"deleted_accounts.txt", true);
             } else {
                 System.out.println("The provided account was not found!");
             }
