@@ -151,28 +151,6 @@ public class Course {
                     isEnough = true;
                 }
             } while (!isEnough);
-            /*
-            System.out.println("Randomize Quiz");
-            while (true) {
-                //System.out.println("Enter the filename: ");
-                //String filename = s.nextLine();
-                //Teacher has the option to randomize the question order and answer choice order or not
-                System.out.println("Randomize Quiz? (Y/N)");
-                String randomize = s.nextLine();
-                if (randomize.equalsIgnoreCase("Y")) {
-                    (currentAccount).randomizeQuiz(filename);
-                    break;
-                }
-                else if (randomize.equalsIgnoreCase("N")) {
-                    //not implemented yet
-                    //currentCourse.addQuizFromFile(filename);
-                    break;
-                } else {
-                    System.out.println("Please enter a valid input!");
-                }
-            }
-
-             */
             while (true) {
                 System.out.println("Do you want to randomize this quiz?(Y/N)");
                 String randomize = scanner.nextLine();
@@ -326,8 +304,8 @@ public class Course {
     }
 
      /**
-     * Creates and adds a quiz successfully based on the name of the file that it is parsing through
-     * @param filename The name of the file that is being parsed to help create and add quiz objects into an array list
+     * Creates and adds a quiz successfully based on the quiz from the file that it is parsing through
+     * @param q The quiz object that is being parsed to help create and add quiz objects into an array list
      */
     public boolean addQuizFromFile(Quiz q) {
         try {
@@ -354,7 +332,8 @@ public class Course {
      /**
       * Returns the String representation of the course
       * Example:
-      * CourseName: course 
+      * CourseName: course
+      * IsRandom: false
       * Name of Quiz: quiz 
       * Prompt of Question: What's your name
       * 1. Ram

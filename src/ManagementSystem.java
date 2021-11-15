@@ -293,21 +293,11 @@ public class ManagementSystem {
                                         break;
                                     case "2" :
                                         ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.getName(), currentQuiz.getName());
-                                        //System.out.println("Before: " + submissions);
-                                        //submissions = m.checkIfSubmissionsAreGraded(currentCourse.getName(), currentQuiz.getName(), submissions);
-                                        //System.out.println("After: " + submissions);
                                         if (submissions == null || submissions.size() == 0) {
                                             System.out.println("There are no submissions for this quiz!");
                                             break;
                                         }
-                                        /*else {
-                                            for (int i = 0; i < submissions.size(); i++) {
-                                                System.out.println(submissions.get(i));
-                                            }
-                                        }
-                                         */
                                         currentQuiz.setSubmissions(submissions);
-                                        //ArrayList<Submission> graded = (currentAccount).gradeSubmission(s, currentQuiz.getSubmissions());
                                         int sub;
                                         while (true) {
                                             try {
@@ -325,11 +315,9 @@ public class ManagementSystem {
                                         }
                                         Submission tempSub = currentQuiz.getSubmissionById(sub - 1);
                                         ArrayList<Integer> answers = currentAccount.gradeSubmission(s, tempSub);
-                                        //System.out.println("answers: " + answers.toString());
                                         tempSub = currentQuiz.EditSubmission(answers, tempSub.getUsername(), tempSub.getTimestamp());
                                         String file = m.searchAccessibleQuizzes(currentCourse.getName(), currentQuiz.getName());
                                         m.updateGradedQuizzes(file, tempSub);
-                                        //m.addSubmissionToGraded(currentCourse.getName(), currentQuiz.getName(), tempSub);
                                         break;
 
                                     case "3":
