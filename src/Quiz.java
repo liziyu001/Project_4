@@ -176,6 +176,7 @@ public class Quiz {
     /** 
      * Shows the submissions that the teacher has not graded yet
      * Increments an int to determine how many submissions have not been graded yet
+     * @param coursename The name of the course that contains the quiz submissions
      */
     public void showAllSubmission(String coursename) {
         Manager m = new Manager();
