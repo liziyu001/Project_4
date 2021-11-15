@@ -173,44 +173,61 @@ public class ManagementSystem {
                             break;
                         }
                     case "1":
-
                         if (!m.listCourses().equals("There are currently no courses!")) {
-                            System.out.println("Select the course you want to view");
-                            System.out.println(m.listCourses());
-                            System.out.println("0. Back");
-                            String choice = s.nextLine();
-                            if (choice.equals("0")) {
-                                continue Teacher;
-                            }
-                            Course currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(choice) - 1)));
-                            if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
-                                System.out.println("Select the Quiz you want to proceed.");
-                                System.out.println("-1. Create a new Quiz");
-                                System.out.println(m.listQuizzes(currentCourse.getName()));
+                            Course currentCourse;
+                            String choice;
+                            while(true) {
+                                System.out.println("Select the course you want to view");
+                                System.out.println(m.listCourses());
                                 System.out.println("0. Back");
-                                //System.out.println(currentCourse.toString());
-                                String quizzes = m.listQuizzes(currentCourse.getName());
-                                choice = s.nextLine();
-                                if (choice.equals("0")) {
-                                    continue Teacher;
-                                } else if (choice.equals("-1")) {
-                                    System.out.println("Enter the name of the Quiz");
-                                    Course temp = currentCourse;
-                                    currentCourse.addQuiz(s.nextLine(), s);
-                                    m.editCourse(temp, currentCourse);
-                                    System.out.println("Quiz created");
-                                    continue Teacher;
+                                try {
+                                    choice = s.nextLine();
+                                    if (choice.equals("0")) {
+                                        continue Teacher;
+                                    }
+                                    currentCourse = m.convertCourse(m.getCourseName((Integer.parseInt(choice) - 1)));
+                                    break;
+                                } catch (Exception e) {
+                                    System.out.println("Please enter a valid index!");
                                 }
-                                Quiz currentQuiz = m.convertQuiz(currentCourse.getName(),
-                                        m.getQuizName(Integer.parseInt(choice), quizzes));
-                                System.out.println("1. Edit the Quiz");
-                                System.out.println("2. Grade Submissions");
-                                System.out.println("3. Delete this Quiz");
-                                System.out.println("4. Upload Quiz from file");
-                                System.out.println("5. View Quiz");
-                                System.out.println("0. Back");
-
-
+                            }
+                            if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
+                                Quiz currentQuiz;
+                                while (true) {
+                                    try {
+                                        System.out.println("Select the Quiz you want to proceed.");
+                                        System.out.println("-1. Create a new Quiz");
+                                        System.out.println(m.listQuizzes(currentCourse.getName()));
+                                        System.out.println("0. Back");
+                                        String quizzes = m.listQuizzes(currentCourse.getName());
+                                        choice = s.nextLine();
+                                        if (choice.equals("0")) {
+                                            continue Teacher;
+                                        } else if (choice.equals("-1")) {
+                                            System.out.println("Enter the name of the Quiz");
+                                            Course temp = currentCourse;
+                                            boolean create = currentCourse.addQuiz(s.nextLine(), s);
+                                            if (create) {
+                                                m.editCourse(temp, currentCourse);
+                                                System.out.println("Quiz created");
+                                            } else {
+                                                System.out.println("Quiz not created!");
+                                            }
+                                            continue Teacher;
+                                        }
+                                        currentQuiz = m.convertQuiz(currentCourse.getName(),
+                                                m.getQuizName(Integer.parseInt(choice), quizzes));
+                                        System.out.println("1. Edit the Quiz");
+                                        System.out.println("2. Grade Submissions");
+                                        System.out.println("3. Delete this Quiz");
+                                        System.out.println("4. Upload Quiz from file");
+                                        System.out.println("5. View Quiz");
+                                        System.out.println("0. Back");
+                                        break;
+                                    } catch (Exception e) {
+                                        System.out.println("Please enter a valid index!");
+                                    }
+                                }
 
                                 switch (s.nextLine()) {
                                     case "1":
@@ -218,8 +235,10 @@ public class ManagementSystem {
                                         System.out.println("Current course :" + currentCourse);
                                         System.out.println("Current Quiz: " + currentQuiz);
                                         System.out.println("Quiz name: " + currentQuiz.getName());
-                                        currentCourse.editQuiz(currentQuiz.getName(), s);
-                                        m.editCourse(temp, currentCourse);
+                                        boolean create = currentCourse.editQuiz(currentQuiz.getName(), s);
+                                        if (create) {
+                                            m.editCourse(temp, currentCourse);
+                                        }
                                         break;
                                     case "2" :
                                 /*
@@ -260,13 +279,18 @@ public class ManagementSystem {
                                 System.out.println("There are currently no quizzes!");
                                 System.out.println("0. Create a new Quiz");
                                 if (!s.nextLine().equals("0")) {
+                                    System.out.println("Invalid Input!");
                                     continue Teacher;
                                 }
                                 System.out.println("Enter the name of the Quiz");
                                 Course temp = currentCourse;
-                                currentCourse.addQuiz(s.nextLine(), s);
-                                m.editCourse(temp, currentCourse);
-                                System.out.println("Quiz created");
+                                boolean create = currentCourse.addQuiz(s.nextLine(), s);
+                                if (create) {
+                                    m.editCourse(temp, currentCourse);
+                                    System.out.println("Quiz created");
+                                } else {
+                                    System.out.println("Quiz not created!");
+                                }
                                 continue Teacher;
                             }
                         } else {

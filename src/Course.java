@@ -39,7 +39,7 @@ public class Course {
         }
 
     }
-    public void addQuiz(String name, Scanner scanner) {
+    public boolean addQuiz(String name, Scanner scanner) {
         boolean isFound = false;
         for(Quiz quiz : courseQuiz) {
             if (quiz.getName().equals(name)) {
@@ -51,7 +51,6 @@ public class Course {
 
             boolean isEnough;
             do {
-                //System.out.println("Initialization of questions");
                 System.out.println("Enter prompt of the question: ");
                 String prompt = scanner.nextLine();
                 System.out.println("How many choices will question include?");
@@ -83,7 +82,7 @@ public class Course {
                 while (true) {
                     try {
                         correctAnswer = Integer.parseInt(scanner.nextLine()) - 1;
-                        if (correctAnswer <= 0) {
+                        if (correctAnswer <= -1 || correctAnswer > options.size() - 1) {
                             System.out.println("Please enter a valid answer!");
                         } else {
                             break;
@@ -110,12 +109,14 @@ public class Course {
             Quiz quiz = new Quiz(name, questions);
             courseQuiz.add(quiz);
             System.out.println("Quiz has been successfully added!");
+            return true;
         }
         else {
             System.out.println("Quiz with such name already exist");
+            return false;
         }
     }
-    public void editQuiz(String name, Scanner scanner) {
+    public boolean editQuiz(String name, Scanner scanner) {
         boolean isFound = false;
         for(Quiz quiz : courseQuiz) {
             if (quiz.getName().equals(name)) {
@@ -123,8 +124,22 @@ public class Course {
             }
         }
         if (isFound) {
-            System.out.println("Enter the new name: ");
-            String newName = scanner.nextLine();
+            String newName;
+            boolean isValid = true;
+            while (true) {
+                System.out.println("Enter the new name: ");
+                newName = scanner.nextLine();
+                for (Quiz quiz : courseQuiz) {
+                    if (quiz.getName().equals(newName)) {
+                        isValid = false;
+                    }
+                }
+                if (isValid) {
+                    System.out.println("Quiz with this name already exists!");
+                } else {
+                    break;
+                }
+            }
             boolean isEnough;
             ArrayList<Question> questions = new ArrayList<>();
             do {
@@ -159,7 +174,7 @@ public class Course {
                 while (true) {
                     try {
                         correctAnswer = Integer.parseInt(scanner.nextLine()) - 1;
-                        if (correctAnswer <= 0) {
+                        if (correctAnswer <= -1 || correctAnswer > options.size() - 1) {
                             System.out.println("Please enter a valid answer!");
                         } else {
                             break;
@@ -186,15 +201,18 @@ public class Course {
             Optional<Quiz> quiz  = courseQuiz.stream().parallel().filter(val -> val.getName().equals(name)).findFirst();
             Quiz quizToAdd = new Quiz(newName, questions);
             if (quiz.isPresent()) {
-                courseQuiz.set(courseQuiz.indexOf(quiz) + 1, quizToAdd);
+                courseQuiz.set(courseQuiz.indexOf(quiz), quizToAdd);
                 System.out.println("Quiz has been successfully edited");
+                return true;
             }
             else {
                 System.out.println("There is no quiz with such name: " + name);
+                return false;
             }
         }
         else {
             System.out.println("There is no quiz with such name: " + name);
+            return false;
         }
     }
     public void AddQuizFromFile(String filename) {

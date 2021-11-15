@@ -188,13 +188,15 @@ public class Manager {
         }
     }
 
-
     public void editCourse(Course current, Course updated) {
         try {
             if (current.getName().equals(updated.getName())) {
                 String update = updated.toString();
                 writeChangesToFile(update, updated.getName() + ".txt", false);
             } else {
+                System.out.println("The course you provided was not found!");
+            }
+            /*else {
                 File tempFile = new File(current.getName() + ".txt");
                 //checks if the current course has a file
                 if (tempFile.exists()) {
@@ -214,6 +216,8 @@ public class Manager {
                     System.out.println("The course you provided was not found!");
                 }
             }
+
+             */
         } catch (Exception e) {
             System.out.println("There was a problem editing your course, try again!");
         }
