@@ -350,6 +350,7 @@ public class Account {
             Quiz quiz = new Quiz(nameOfQuiz, questions);
             courseQuiz.add(quiz);
             System.out.println("Randomized quiz has been successfully added");
+            System.out.println(courseQuiz);
 
         } catch (Exception e) {
             System.out.println("Quiz could not be added");
