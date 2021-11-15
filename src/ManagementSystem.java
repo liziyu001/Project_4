@@ -463,7 +463,8 @@ public class ManagementSystem {
                                             break;
                                         case "2":
                                             ArrayList<String> answers = (currentAccount.takeQuiz(s, currentQuiz));
-                                            currentQuiz.addSubmission(currentAccount, answers);
+                                            Submission sub = currentQuiz.addSubmission(currentAccount, answers);
+                                            m.submit(currentCourse.getName(), currentQuiz.getName(), sub);
                                             break;
                                         case "0":
                                             continue Student;

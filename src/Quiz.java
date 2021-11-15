@@ -155,7 +155,7 @@ public class Quiz {
      * @param Account The account of the person writing their responses and submitting
      * @param responses A list of the answers that the person with the specified account put
      */
-    public void addSubmission(Account Account, ArrayList<String> responses) {
+    public Submission addSubmission(Account Account, ArrayList<String> responses) {
         try {
             ArrayList<Integer> answers = new ArrayList<>();
             for (String s : responses) {
@@ -168,10 +168,11 @@ public class Quiz {
             Submission submission = new Submission(Account, ans);
             submissions.add(submission);
             System.out.println("Quiz has been taken");
+            return submission;
         } catch (Exception e) {
             System.out.println("Your responses were invalid!");
+            return null;
         }
-
     }
     /**
      * Adds a submission of the person with the specified account from parsing through the file with the specific filename

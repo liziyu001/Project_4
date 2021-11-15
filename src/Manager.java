@@ -68,6 +68,7 @@ public class Manager {
             System.out.println("There was a problem deleting the quiz from the accessible quizzes!");
         }
     }
+
     public void updateAccessibleQuizzes(String coursename, String quizname, String timestamp) {
         try {
             boolean found = false;
@@ -92,17 +93,25 @@ public class Manager {
         }
     }
 
-    /*
+
     public void submit(String coursename, String quizname, Submission submission) {
         try {
-            submission.
-            writeChangesToFile(submitString, coursename + "_" + quizname + ".txt", true);
+            String filename;
+            ArrayList<String> lines = readFile("accessible_quizzes.txt");
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).startsWith(coursename + "_" + quizname)) {
+                    filename = lines.get(i);
+                    writeChangesToFile(submission.toString(), filename, true);
+                    return;
+                }
+            }
+            System.out.println("The quiz you tried to submit to doesn't exist!");
         } catch (Exception e) {
             System.out.println("There was a problem creating this course, try again!");
         }
     }
 
-     */
+
 
     public  void createQuizFile(String coursename, Quiz q, String timestamp) {
         try {
@@ -112,6 +121,7 @@ public class Manager {
         }
 
     }
+
     public Quiz addQuizFromFile(String filename) {
         try {
             String prompt = "";

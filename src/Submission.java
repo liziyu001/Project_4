@@ -36,18 +36,19 @@ public class Submission {
     /**
      * Returns the String representation of Submission
      * Example:
+     * //CHANGE THIS -MANAS**************W
      *Submission{Account="1, username, password, false", graded=true, answers=["1","2","3","4"], subGrades=["2","2","1","1"], totalGrades=6};
      * @return Returns the String representation of Submission
      */
     @Override
     public String toString() {
-        return "Submission{" +
-                "Account=" + Account +
-                ", graded=" + graded +
-                ", answers=" + Arrays.toString(answers) +
-                ", subGrades=" + Arrays.toString(subGrades) +
-                ", totalGrades=" + totalGrades +
-                '}';
+        return "Submission: " + "\n" +
+                "Username: " + Account.getUsername() + "\n" +
+                "Graded: " + graded + "\n" +
+                "Answers: " + Arrays.toString(answers) + "\n" +
+                "Points: " + Arrays.toString(subGrades) + "\n" +
+                "Total Points: " + totalGrades + "\n" +
+                "Time Submitted: " + this.timestamp;
     }
     /**
      * Constructs a newly allocated Submission object with the specified account, graded status, list of answers and subgrades, and total grade
