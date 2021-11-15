@@ -314,7 +314,7 @@ public class Course {
     }
 
      /**
-      * String representation of the course
+      * Returns the String representation of the course
       * Example:
       * CourseName: course 
       * Name of Quiz: quiz 
@@ -324,7 +324,7 @@ public class Course {
       * 3. Leo
       * 4. William
       * Correct Answer: Ram
-      *
+      * @return the String representation of the course
       */
     public String toString() {
         String finalToReturn = "CourseName: " + name + "\n";
