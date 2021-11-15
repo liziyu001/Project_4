@@ -22,11 +22,11 @@ public class ManagementSystem {
             File a = new File("accounts.txt");
             File c = new File("courses.txt");
             File u = new File("accessible_quizzes.txt");
-            File d = new File("deleted_accounts.txt");
+            //File d = new File("deleted_accounts.txt");
             c.createNewFile();
             a.createNewFile();
             u.createNewFile();
-            d.createNewFile();
+            //d.createNewFile();
         } catch (Exception e) {
             System.out.println("There was a problem on startup");
         }
@@ -116,7 +116,11 @@ public class ManagementSystem {
                 System.out.println("1. View Courses");
                 System.out.println("2. Create a Course");
                 System.out.println("3. Account Setting");
+                System.out.println("0. Exit");
                 switch (s.nextLine()){
+                    case "0":
+                        System.out.println("Thanks for using our program!");
+                        break Teacher;
                     case "2":
                         try {
                             Course c = ( currentAccount).createCourse(s);
@@ -392,7 +396,11 @@ public class ManagementSystem {
             while (!quit) {
                 System.out.println("1. View Courses");
                 System.out.println("2. Account Setting");
+                System.out.println("0. Exit");
                 switch (s.nextLine()) {
+                    case "0":
+                        System.out.println("Thanks for using our program!");
+                        break Student;
                     case "2":
                         studentAccountChoice:
                         while (true) {
