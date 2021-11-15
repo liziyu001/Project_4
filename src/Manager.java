@@ -70,8 +70,8 @@ public class Manager {
                             intAns[0] = Integer.parseInt(ans[0].trim());
                             s.setAnswers(intAns);
                         }
-                        pointString = lines.get(i + 4).substring(8).replace("[", "").
-                                replace("]", "");
+                        pointString = lines.get(i + 4).substring(8).replace("[", "")
+                                .replace("]", "");
                         if (pointString.contains(",")) {
                             points = pointString.split(",");
                             int[] intPoints = new int[points.length];
@@ -105,7 +105,6 @@ public class Manager {
     //updates the file containing a list of quizzes that have been graded(not used)
     public void updateGradedQuizzes(String filename, Submission submission) {
         try {
-            ;
             ArrayList<String> lines = readFile(filename);
             String finalString = "";
             boolean done = false;

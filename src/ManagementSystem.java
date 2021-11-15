@@ -223,7 +223,8 @@ public class ManagementSystem {
                             if (!m.listQuizzes(currentCourse.getName()).equals("There are currently no quizzes!")) {
                                 Quiz currentQuiz;
                                 while (true) {
-                                    //Allows teacher to select a certain quiz, and create a new quiz either from a file
+                                    //Allows teacher to select a certain quiz, and create a new quiz either
+                                    // from a file
                                     // or not from a file
                                     try {
                                         System.out.println("Select the Quiz you want to proceed.");
@@ -257,7 +258,8 @@ public class ManagementSystem {
                                             Course temp = currentCourse;
                                             System.out.println("Enter the filepath(just the filename no .txt)");
                                             String filename = s.nextLine();
-                                            boolean create = currentCourse.addQuizFromFile(m.addQuizFromFile(filename));
+                                            boolean create = currentCourse.addQuizFromFile(m.
+                                                    addQuizFromFile(filename));
                                             if (create) {
                                                 String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").
                                                         format(new java.util.Date());
@@ -311,7 +313,8 @@ public class ManagementSystem {
                                         }
                                         break;
                                     case "2":
-                                        ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.getName()
+                                        ArrayList<Submission> submissions = m.convertSubmissions(currentCourse.
+                                                        getName()
                                                 , currentQuiz.getName());
                                         if (submissions == null || submissions.size() == 0) {
                                             System.out.println("There are no submissions for this quiz!");
@@ -498,7 +501,8 @@ public class ManagementSystem {
                                         case "1":
                                             ArrayList<Submission> submissions = m.convertSubmissions(
                                                     currentCourse.getName(), currentQuiz.getName());
-                                            currentQuiz.showResultsOfQuiz(currentAccount.getUsername(), submissions);
+                                            currentQuiz.showResultsOfQuiz(currentAccount.getUsername(),
+                                                    submissions);
                                             break;
 
                                         case "2":
