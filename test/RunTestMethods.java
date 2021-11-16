@@ -33,7 +33,7 @@ public class RunTestMethods {
     /**
      * Makes sure that the program can log into an account properly
      */
-    public void testExpectedOne() {
+    public void testAccountLogin() {
         // Set the input
         // Separate each input with a newline (\n).
         String input = "2\nLeo\nhi\n0";
@@ -69,7 +69,7 @@ public class RunTestMethods {
     /**
      * Makes sure that the program handles an incorrect password properly.
      */
-    public void testExpectedTwo() {
+    public void testWrongPasswordLogin() {
 
         String input = "2\nLeo\nhi2\nLeo\nhi\n0";
 
@@ -103,7 +103,7 @@ public class RunTestMethods {
     /**
      * Makes sure that the program shows courses and account actions properly.
      */
-    public void testExpectedThree() {
+    public void testCourseAndAccountDisplay() {
 
         String input = "2\nManas\nhi\n1\n0\n3\n0\n0";
 
@@ -152,7 +152,7 @@ public class RunTestMethods {
     /**
      * Makes sure that the program shows quizzes properly.
      */
-    public void testExpectedFour() {
+    public void testQuizDisplay() {
 
         String input = "2\nLeo\nhi\n1\n1\n0\n0";
 
@@ -195,7 +195,7 @@ public class RunTestMethods {
     /**
      * Makes sure that the program can create an account properly
      */
-    public void testExpectedFive() {
+    public void testAccountCreation() {
         // Set the input
         // Separate each input with a newline (\n).
         String input = "1\nTestAccount\nTestPassword\n1\n0";
