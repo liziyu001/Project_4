@@ -2,6 +2,8 @@
 You have to compile all the classes created (Account, Course, Manager, Question, Quiz, Submission, ManagementSystem), and you only have to run the ManagementSystem class because that is the only class that contains a main method. You have to compile all the classes though because methods in other classes are implemented in the ManagementSystem class.   
 
 File System + formats:
+Most files require spacing at the end, so don't mess with them manually
+(e.g accounts.txt automatically creates a newline at the end of the file)
 
 //When a course is created, a coursename.txt file is made with an empty course and its name is added to the courses.txt file
 sampleCourse.txt:
