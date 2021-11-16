@@ -404,6 +404,231 @@ public class RunTestMethods {
 
     }
 
+    @Test(timeout = 1000)
+    /**
+     * Makes sure that the program can edit an account username and password properly
+     */
+    public void testCreateQuiz() {
+        // Set the input
+        // Separate each input with a newline (\n).
+        String input = "2\nManas\nhi\n1\n2\n-1\nTestQuiz2\nQuestion1\n2\nAnswer1\nAnswer2\n1\nN\nN\n0";
+
+        // Pair the input with the expected result
+        String expected = "Welcome to the System\n" +
+                "1. Create account\n" +
+                "2. Login\n" +
+                "Enter your User ID:\n" +
+                "Enter your Password:\n" +
+                "Successfully logged in as Manas\n" +
+                "1. View Courses\n" +
+                "2. Create a Course\n" +
+                "3. Account Setting\n" +
+                "0. Exit\n" +
+                "Select the course you want to view\n" +
+                "Courses:\n" +
+                "1. CS180\n" +
+                "2. CS193\n" +
+                "0. Back\n" +
+                "Select the Quiz you want to proceed.\n" +
+                "-1. Create a new Quiz\n" +
+                "-2. Create a new Quiz from file\n" +
+                "Quizzes:\n" +
+                "0. Back\n" +
+                "Enter the name of the Quiz\n" +
+                "Enter prompt of the question: \n" +
+                "How many choices will question include?\n" +
+                "1: \n" +
+                "2: \n" +
+                "What is a correct answer?(Enter a value from 1- # of questions)\n" +
+                "Do you want to add another question? (Y/N)\n" +
+                "Do you want to randomize this quiz?(Y/N)\n" +
+                "Quiz has been successfully added!\n" +
+                "Quiz created\n" +
+                "1. View Courses\n" +
+                "2. Create a Course\n" +
+                "3. Account Setting\n" +
+                "0. Exit\n" +
+                "Thanks for using our program!";
+
+        // Runs the program with the input values
+        // Replace TestProgram with the name of the class with the main method
+        receiveInput(input);
+        ManagementSystem.main(new String[0]);
+
+        // Retrieves the output from the program
+        String stuOut = getOutput();
+
+        // Trims the output and verifies it is correct.
+        stuOut = stuOut.replace("\r\n", "\n");
+        assertEquals("The output was not as expected.",
+                expected.trim(), stuOut.trim());
+
+        try {
+            String readFile = "";
+            BufferedReader br = new BufferedReader(new FileReader("CS193.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                readFile += line + "\n";
+                line = br.readLine();
+            }
+            br.close();
+
+            String expectedFile = "CourseName: CS193\n" +
+                    "IsRandom: false\n" +
+                    "Name of Quiz: TestQuiz2\n" +
+                    "Prompt of Question: Question1\n" +
+                    "1. Answer1\n" +
+                    "2. Answer2\n" +
+                    "Correct Answer: 0\n\n";
+
+            assertEquals("The files were not equal", expectedFile, readFile);
+
+            readFile = "";
+            br = new BufferedReader(new FileReader("accessible_quizzes.txt"));
+            line = br.readLine();
+            while(line!=null){
+                readFile += line + "\n";
+                line = br.readLine();
+            }
+            br.close();
+
+            expectedFile = "CS180_TestQuiz_2021.11.15.17.30.33.txt\n" +
+                    "CS193_TestQuiz2_";
+
+
+            assertTrue("The files were not equal", readFile.contains(expectedFile));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        File directory = new File("");
+        File[] dir = directory.listFiles();
+        if(dir==null){
+            System.out.println("No directory was found");
+        }
+        else {
+            for(File child : dir){
+                if (child.getName().startsWith("CS193_TestQuiz2")){
+
+                    try {
+
+                        String readFile = "";
+                        BufferedReader br = new BufferedReader(new FileReader(child));
+                        String line = br.readLine();
+                        while(line!=null){
+                            readFile += line + "\n";
+                            line = br.readLine();
+                        }
+                        br.close();
+
+                        String expectedFile = "IsRandom: false\n" +
+                                "Name of Quiz: TestQuiz2\n" +
+                                "Prompt of Question: Question1\n" +
+                                "1. Answer1\n" +
+                                "2. Answer2\n" +
+                                "Correct Answer: 0\n" +
+                                "\n";
+
+                        assertEquals("The files were not equal", expectedFile, readFile);
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }
+
+
+
+    }
+
+    @Test(timeout = 1000)
+    /**
+     * Makes sure that the program can submit a quiz properly
+     */
+    public void testQuizSubmission() {
+        // Set the input
+        // Separate each input with a newline (\n).
+        String input = "2\nLeo\nhi\n1\n1\n1\n2\n1\n0\n0";
+
+        // Pair the input with the expected result
+        String expected = "Welcome to the System\n" +
+                "1. Create account\n" +
+                "2. Login\n" +
+                "Enter your User ID:\n" +
+                "Enter your Password:\n" +
+                "Successfully logged in as Leo\n" +
+                "1. View Courses\n" +
+                "2. Account Setting\n" +
+                "0. Exit\n" +
+                "Select the course you want to view\n" +
+                "Courses:\n" +
+                "1. CS180\n" +
+                "2. CS193\n" +
+                "0. Back\n" +
+                "Select the Quiz you want to view.\n" +
+                "Quizzes:\n" +
+                "1. Name of Quiz: TestQuiz\n" +
+                "0. Back\n" +
+                "1. View Gradings\n" +
+                "2. Take the quiz\n" +
+                "0. Back\n" +
+                "You are now taking Quiz: TestQuiz.\n" +
+                "TestQuestion\n";
+
+        // Runs the program with the input values
+        // Replace TestProgram with the name of the class with the main method
+        receiveInput(input);
+        ManagementSystem.main(new String[0]);
+
+        // Retrieves the output from the program
+        String stuOut = getOutput();
+
+        // Trims the output and verifies it is correct.
+        stuOut = stuOut.replace("\r\n", "\n");
+        assertTrue("The output was not as expected.", stuOut.trim().contains(expected.trim()));
+
+        try {
+            String readFile = "";
+            BufferedReader br = new BufferedReader(new FileReader("CS180_TestQuiz_2021.11.15.17.30.33.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                readFile += line + "\n";
+                line = br.readLine();
+            }
+
+            String expectedFile = "IsRandom: false\n" +
+                    "Name of Quiz: TestQuiz\n" +
+                    "Prompt of Question: TestQuestion\n" +
+                    "1. Answer1\n" +
+                    "2. Answer2\n" +
+                    "Correct Answer: 0\n" +
+                    "Submission: \n" +
+                    "Username: Leo\n" +
+                    "Graded: false\n" +
+                    "Answers: [1]\n" +
+                    "Points: [0]\n" +
+                    "Total Points: 0\n";
+
+            assertTrue("The files were not equal", readFile.contains(expectedFile));
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
 
 
@@ -584,6 +809,8 @@ public class RunTestMethods {
         System.setIn(originalSysin);
         System.setOut(originalOutput);
     }
+
+
 
     private String getOutput() {
         return testOut.toString();
