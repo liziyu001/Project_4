@@ -364,7 +364,7 @@ public class Manager {
             writeChangesToFile(c.toString(), filename, false);
             ArrayList<String> courses = readFile("courses.txt");
             for (int i = 0; i < courses.size(); i++) {
-                if (courses.get(i).isBlank()) {
+                if (courses.get(i).isEmpty()) {
                     courses.remove(i);
                 }
             }

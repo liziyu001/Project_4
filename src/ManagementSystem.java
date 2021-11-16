@@ -168,7 +168,8 @@ public class ManagementSystem {
                                         } else {
                                             Account temp = new Account(currentAccount);
                                             currentAccount.setUsername(tempUser);
-                                            m.editAccount(currentAccount, currentAccount.getAccountId(), temp.getUsername(), temp.getPassword());
+                                            m.editAccount(currentAccount, currentAccount.getAccountId(),
+                                                    temp.getUsername(), temp.getPassword());
                                             continue AccountSetting;
                                         }
                                     }
@@ -181,12 +182,14 @@ public class ManagementSystem {
                                         } else {
                                             Account temp = new Account(currentAccount);
                                             currentAccount.setPassword(tempPass);
-                                            m.editAccount(currentAccount, currentAccount.getAccountId(), temp.getUsername(), temp.getPassword());
+                                            m.editAccount(currentAccount, currentAccount.getAccountId(),
+                                                    temp.getUsername(), temp.getPassword());
                                             continue AccountSetting;
                                         }
                                     }
                                 case "3":
-                                    m.deleteAccount(currentAccount.getAccountId(), currentAccount.getUsername(), currentAccount.getPassword());
+                                    m.deleteAccount(currentAccount.getAccountId(), currentAccount.getUsername(),
+                                            currentAccount.getPassword());
                                     quit = true;
                                     break;
                                 case "0":
@@ -425,7 +428,8 @@ public class ManagementSystem {
                                         } else {
                                             Account temp = new Account(currentAccount);
                                             currentAccount.setUsername(tempUser);
-                                            m.editAccount(currentAccount, currentAccount.getAccountId(), temp.getUsername(), temp.getPassword());
+                                            m.editAccount(currentAccount, currentAccount.getAccountId(),
+                                                    temp.getUsername(), temp.getPassword());
                                             continue studentAccountChoice;
                                         }
                                     }
@@ -438,12 +442,14 @@ public class ManagementSystem {
                                         } else {
                                             Account temp = new Account(currentAccount);
                                             currentAccount.setPassword(tempPass);
-                                            m.editAccount(currentAccount, currentAccount.getAccountId(), temp.getUsername(), temp.getPassword());
+                                            m.editAccount(currentAccount, currentAccount.getAccountId(),
+                                                    temp.getUsername(), temp.getPassword());
                                             continue studentAccountChoice;
                                         }
                                     }
                                 case "3":
-                                    m.deleteAccount(currentAccount.getAccountId(), currentAccount.getUsername(), currentAccount.getPassword());
+                                    m.deleteAccount(currentAccount.getAccountId(), currentAccount.getUsername(),
+                                            currentAccount.getPassword());
                                     System.out.println(currentAccount.getAccountId());
 
                                     quit = true;
