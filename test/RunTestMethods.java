@@ -789,7 +789,7 @@ public class RunTestMethods {
             Files.write(Paths.get("accounts.txt"), accountsData.getBytes());
             Files.write(Paths.get("courses.txt"), coursesData.getBytes());
             Files.write(Paths.get("CS180.txt"), CS180Data.getBytes());
-            Files.write(Paths.get("CS180_TestQuiz_2021.11.15.17.30.33.txt.txt"), CS180QuizData.getBytes());
+            Files.write(Paths.get("CS180_TestQuiz_2021.11.15.17.30.33.txt"), CS180QuizData.getBytes());
             Files.write(Paths.get("CS193.txt"), CS193Data.getBytes());
             Files.write(Paths.get("deleted_accounts.txt"), deletedAccountsData.getBytes());
 
