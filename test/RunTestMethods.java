@@ -253,6 +253,80 @@ public class RunTestMethods {
 
     }
 
+    @Test(timeout = 1000)
+    /**
+     * Makes sure that the program can create an account properly
+     */
+    public void testAccountDeletion() {
+        // Set the input
+        // Separate each input with a newline (\n).
+        String input = "2\nLeo\nhi\n2\n3";
+
+        // Pair the input with the expected result
+        String expected = "Welcome to the System\n" +
+                "1. Create account\n" +
+                "2. Login\n" +
+                "Enter your User ID:\n" +
+                "Enter your Password:\n" +
+                "Successfully logged in as Leo\n" +
+                "1. View Courses\n" +
+                "2. Account Setting\n" +
+                "0. Exit\n" +
+                "1. Edit your username\n" +
+                "2. Edit your password\n" +
+                "3. Delete your account\n" +
+                "0. Back\n" +
+                "Your account has been deleted!\n";
+
+        // Runs the program with the input values
+        // Replace TestProgram with the name of the class with the main method
+        receiveInput(input);
+        ManagementSystem.main(new String[0]);
+
+        // Retrieves the output from the program
+        String stuOut = getOutput();
+
+        // Trims the output and verifies it is correct.
+        stuOut = stuOut.replace("\r\n", "\n");
+        assertEquals("The output was not as expected.",
+                expected.trim(), stuOut.trim());
+
+        try {
+            String readFile = "";
+            BufferedReader br = new BufferedReader(new FileReader("accounts.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                readFile += line + "\n";
+                line = br.readLine();
+            }
+
+            String expectedFile = "2, Manas, hi, false\n" +
+                    "3, William, test, false\n";
+
+            assertEquals("The files were not equal", expectedFile, readFile);
+
+            readFile = "";
+            br = new BufferedReader(new FileReader("deleted_accounts.txt"));
+            line = br.readLine();
+            while(line!=null){
+                readFile += line + "\n";
+                line = br.readLine();
+            }
+
+            expectedFile = "Leo\n";
+
+            assertEquals("The files were not equal", expectedFile, readFile);
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
 
 
