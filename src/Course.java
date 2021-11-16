@@ -39,6 +39,12 @@ public class Course {
         this.courseQuiz = new ArrayList<>();
     }
 
+    //Constructs a new course given another course as a parameter
+    public Course(Course course) {
+        this.name = course.getName();
+        this.courseQuiz = course.getCourseQuiz();
+    }
+
     /**
      * Returns the name of the course
      *

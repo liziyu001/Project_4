@@ -461,14 +461,17 @@ public class Manager {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
-                String[] info = accounts.get(i).split(",");
-                Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
-                if (temp.getUsername().equals(username)) {
-                    return false;
+                if (!accounts.get(i).isEmpty()) {
+                    String[] info = accounts.get(i).split(",");
+                    Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
+                    if (temp.getUsername().equals(username)) {
+                        return false;
+                    }
                 }
             }
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("There was a problem creating your account, try again!");
             return false;
         }
@@ -479,10 +482,12 @@ public class Manager {
         try {
             ArrayList<String> accounts = readFile("accounts.txt");
             for (int i = 0; i < accounts.size(); i++) {
-                String[] info = accounts.get(i).split(",");
-                Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
-                if (temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
-                    return temp;
+                if (!accounts.get(i).isBlank()) {
+                    String[] info = accounts.get(i).split(",");
+                    Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
+                    if (temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
+                        return temp;
+                    }
                 }
             }
         } catch (Exception e) {
@@ -502,22 +507,24 @@ public class Manager {
     }
 
     //deletes the account from the accounts.txt file and adds it to deleted_accounts.txt
-    public void deleteAccount(int accountId) {
+    public void deleteAccount(int accountId, String username, String password) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
-            String username = null;
             for (String account : accounts) {
-                String[] info = account.split(",");
-                int id = Integer.parseInt(info[0]);
-                //Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
-                //temp.setAccountId(a.getAccountId());
-                if (id == accountId) {
-                    accounts.remove(account);
-                    username = info[1].trim();
-                    found = true;
-                    break;
+                if (!account.isBlank()) {
+                    String[] info = account.split(",");
+                    //int id = Integer.parseInt(info[0]);
+                    Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
+                    //temp.setAccountId(id);
+                    if (username.equals(temp.getUsername()) && password.equals(temp.getPassword())) {
+                        accounts.remove(account);
+                        username = info[1].trim();
+                        found = true;
+                        break;
+                    }
                 }
+
             }
             if (found) {
                 String finalString = "";
@@ -530,6 +537,7 @@ public class Manager {
                 }
                 writeChangesToFile(finalString, "accounts.txt", false);
                 writeChangesToFile(username, "deleted_accounts.txt", true);
+                System.out.println("Your account has been deleted!");
             } else {
                 System.out.println("The provided account was not found!");
             }
@@ -540,18 +548,26 @@ public class Manager {
     }
 
     //writes the changed account to the accounts.txt file
-    public void editAccount(Account updated, int accountId) {
+    public void editAccount(Account updated, int accountId, String username, String password) {
         try {
             boolean found = false;
             ArrayList<String> accounts = readFile("accounts.txt");
+            System.out.println("username: " + username);
+            System.out.println("pass" + password);
+            System.out.println(updated);
             for (int i = 0; i < accounts.size(); i++) {
-                String[] info = accounts.get(i).split(",");
-                int id = Integer.valueOf(info[0].trim());
-                if (id == accountId) {
-                    updated.setAccountId(accountId);
-                    accounts.set(i, updated.toString());
-                    found = true;
-                    break;
+                if (!accounts.get(i).isBlank()) {
+                    String[] info = accounts.get(i).split(",");
+                    //int id = Integer.parseInt(info[0].trim());
+                    Account temp = new Account(info[1].trim(), info[2].trim(), Boolean.parseBoolean(info[3].trim()));
+                    //temp.setAccountId(id);
+                    System.out.println(temp);
+                    if (temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
+                        updated.setAccountId(accountId);
+                        accounts.set(i, updated.toString());
+                        found = true;
+                        break;
+                    }
                 }
             }
             if (found) {
@@ -564,11 +580,10 @@ public class Manager {
                     }
                 }
                 writeChangesToFile(finalString, "accounts.txt", false);
+                System.out.println("The account was found and edited!");
             } else {
                 System.out.println("The account was NOT found and edited!");
             }
-
-
         } catch (Exception e) {
             System.out.println("There was a problem editing this account, try again!");
         }

@@ -159,15 +159,16 @@ public class ManagementSystem {
                                     while (true) {
                                         System.out.println("Enter your new Username:");
                                         String tempUser = s.nextLine();
-                                        if (!m.checkAvailability(tempUser)) {
+                                        if (!m.checkAvailability(tempUser) || (!m.checkDeletedAccounts(tempUser))) {
                                             System.out.println("Username already exists!");
                                             continue AccountSetting;
                                         }
                                         if (tempUser.contains(",")) {
                                             System.out.println("Invalid Username, no commas allowed!");
                                         } else {
+                                            Account temp = new Account(currentAccount);
                                             currentAccount.setUsername(tempUser);
-                                            m.editAccount(currentAccount, currentAccount.getAccountId());
+                                            m.editAccount(currentAccount, currentAccount.getAccountId(), temp.getUsername(), temp.getPassword());
                                             continue AccountSetting;
                                         }
                                     }
@@ -178,14 +179,14 @@ public class ManagementSystem {
                                         if (tempPass.contains(",")) {
                                             System.out.println("Invalid Password, no commas allowed!");
                                         } else {
+                                            Account temp = new Account(currentAccount);
                                             currentAccount.setPassword(tempPass);
-                                            m.editAccount(currentAccount, currentAccount.getAccountId());
+                                            m.editAccount(currentAccount, currentAccount.getAccountId(), temp.getUsername(), temp.getPassword());
                                             continue AccountSetting;
                                         }
                                     }
                                 case "3":
-                                    m.deleteAccount(currentAccount.getAccountId());
-                                    System.out.println("Your account has been deleted!");
+                                    m.deleteAccount(currentAccount.getAccountId(), currentAccount.getUsername(), currentAccount.getPassword());
                                     quit = true;
                                     break;
                                 case "0":
@@ -238,7 +239,7 @@ public class ManagementSystem {
                                             continue Teacher;
                                         } else if (choice.equals("-1")) {
                                             System.out.println("Enter the name of the Quiz");
-                                            Course temp = currentCourse;
+                                            Course temp = new Course(currentCourse);
                                             boolean create = currentCourse.addQuiz(s.nextLine(), s);
                                             if (create) {
                                                 m.editCourse(temp, currentCourse);
@@ -255,7 +256,7 @@ public class ManagementSystem {
                                             }
                                             continue Teacher;
                                         } else if (choice.equals("-2")) {
-                                            Course temp = currentCourse;
+                                            Course temp = new Course(currentCourse);
                                             System.out.println("Enter the filepath(just the filename no .txt)");
                                             String filename = s.nextLine();
                                             boolean create = currentCourse.addQuizFromFile(m.
@@ -295,7 +296,7 @@ public class ManagementSystem {
 
                                 switch (s.nextLine()) {
                                     case "1":
-                                        Course temp = currentCourse;
+                                        Course temp = new Course(currentCourse);
                                         System.out.println("Current course: " + "\n" + currentCourse);
                                         System.out.println("Current Quiz: " + "\n" + currentQuiz);
                                         System.out.println("Quiz name: " + currentQuiz.getName());
@@ -366,7 +367,7 @@ public class ManagementSystem {
                                     continue Teacher;
                                 }
                                 System.out.println("Enter the name of the Quiz");
-                                Course temp = currentCourse;
+                                Course temp = new Course(currentCourse);
                                 boolean create = currentCourse.addQuiz(s.nextLine(), s);
                                 if (create) {
                                     m.editCourse(temp, currentCourse);
@@ -422,8 +423,9 @@ public class ManagementSystem {
                                         if (tempUser.contains(",")) {
                                             System.out.println("Invalid Username, no commas allowed!");
                                         } else {
+                                            Account temp = new Account(currentAccount);
                                             currentAccount.setUsername(tempUser);
-                                            m.editAccount(currentAccount, currentAccount.getAccountId());
+                                            m.editAccount(currentAccount, currentAccount.getAccountId(), temp.getUsername(), temp.getPassword());
                                             continue studentAccountChoice;
                                         }
                                     }
@@ -434,14 +436,16 @@ public class ManagementSystem {
                                         if (tempPass.contains(",")) {
                                             System.out.println("Invalid Password, no commas allowed!");
                                         } else {
+                                            Account temp = new Account(currentAccount);
                                             currentAccount.setPassword(tempPass);
-                                            m.editAccount(currentAccount, currentAccount.getAccountId());
+                                            m.editAccount(currentAccount, currentAccount.getAccountId(), temp.getUsername(), temp.getPassword());
                                             continue studentAccountChoice;
                                         }
                                     }
                                 case "3":
-                                    m.deleteAccount(currentAccount.getAccountId());
-                                    System.out.println("Your account has been deleted!");
+                                    m.deleteAccount(currentAccount.getAccountId(), currentAccount.getUsername(), currentAccount.getPassword());
+                                    System.out.println(currentAccount.getAccountId());
+
                                     quit = true;
                                     break;
                                 case "0":
