@@ -29,8 +29,6 @@ public class RunTestMethods {
     private String CS193Data = "";
     private String deletedAccountsData = "";
 
-    private String readFile = "";
-
     @Test(timeout = 1000)
     /**
      * Makes sure that the program can log into an account properly
@@ -230,13 +228,18 @@ public class RunTestMethods {
                 expected.trim(), stuOut.trim());
 
         try {
-            readFile = Files.readString(Path.of("accounts.txt"));
+            String readFile = "";
+            BufferedReader br = new BufferedReader(new FileReader("accounts.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                readFile += line + "\n";
+                line = br.readLine();
+            }
 
             String expectedFile = "1, Leo, hi, true\n" +
                     "2, Manas, hi, false\n" +
                     "3, William, test, false\n" +
                     "4, TestAccount, TestPassword, false\n";
-
 
             assertEquals("The files were not equal", expectedFile, readFile);
 
@@ -429,8 +432,6 @@ public class RunTestMethods {
     public void restoreInputAndOutput() {
         System.setIn(originalSysin);
         System.setOut(originalOutput);
-
-        System.out.println(readFile);
     }
 
     private String getOutput() {
