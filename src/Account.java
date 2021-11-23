@@ -37,6 +37,7 @@ public class Account {
         this.password = password;
         this.isStudent = isStudent;
         this.accountId = id;
+        System.out.println(id);
         id++;
     }
 
@@ -46,13 +47,13 @@ public class Account {
      *
      * @param a The specified account to be used in construction
      */
-
+    //might have solved the acc id issue - manas 11/21/21
     public Account(Account a) {
         this.username = a.getUsername();
         this.password = a.getPassword();
         this.isStudent = a.isStudent();
-        this.accountId = id;
-        id++;
+        this.accountId = a.getAccountId();
+        id = this.accountId + 1;
     }
 
     /**
